@@ -2,6 +2,10 @@ NAME = minishell
 
 FLAGS = -Wall -Wextra -Werror -g -lreadline
 
+MAKELIBFT = make -C ./libft
+
+LIBFT = ./libft/libft.a
+
 CC = cc
 
 SRC_DIR = ./src/
@@ -14,9 +18,12 @@ RM = rm -rf
 
 all:		$(NAME)
 
-$(NAME):	$(FUNCS)
-			@$(CC) $(FLAGS) $(FUNCS) -o $(NAME)
+$(NAME):	$(FUNCS) $(LIBFT)
+			@$(CC) $(FLAGS) $(LIBFT) $(FUNCS) -o $(NAME)
 			@echo "\033[32m 💯 | minishell created."
+
+$(LIBFT): 
+			$(MAKELIBFT)
 
 clean: 
 			@${RM} ${NAME}.dSYM
