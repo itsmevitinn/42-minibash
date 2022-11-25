@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/11/24 13:27:18 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/11/24 22:50:52 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ void	get_prompt_msg(t_prompt *prompt_msg)
 	waitpid(child_hostname, NULL, 0);
 	//Read the hostname from pipe and send to variable "hostname"
 	read(pipe_hostname[0], prompt_msg->hostname, 6);
-	get_current_dir(prompt_msg);
+	get_prompt_dir(prompt_msg);
 }
 
-void	get_current_dir(t_prompt *prompt_msg)
+void	get_prompt_dir(t_prompt *prompt_msg)
 {
 	char	*home;
 	char	*current_dir;

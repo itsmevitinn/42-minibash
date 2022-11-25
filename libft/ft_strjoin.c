@@ -6,36 +6,59 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 17:08:57 by vsergio           #+#    #+#             */
-/*   Updated: 2022/05/21 05:02:51 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/11/24 22:27:59 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	free_strings(char *s1, char *s2, int frees);
+char	*ft_strjoin(char *s1, char *s2, int frees)
 {
-	char	*str1;
-	char	*total;
-	int		i;
-	int		j;
+	char	*full_string;
+	int		index_full;
+	int		index_s2;
 
 	if (!s1 || !s2)
 		return (NULL);
-	str1 = (char *)s1;
-	i = 0;
-	total = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (total == NULL)
+	index_full = 0;
+	index_s2 = 0;
+	full_string = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (full_string == NULL)
 		return (NULL);
-	while (str1[i] != '\0')
+	while (s1[index_full] != '\0')
 	{
-		total[i] = str1[i];
-		i++;
+		full_string[index_full] = s1[index_full];
+		index_full++;
 	}
-	j = 0;
-	while (s2[j] != '\0')
+	while (s2[index_s2] != '\0')
 	{
-		total[i++] = s2[j++];
+		full_string[index_full++] = s2[index_s2++];
 	}
-	total[i] = '\0';
-	return (total);
+	full_string[index_full] = '\0';
+	if (frees)
+		free_strings(s1, s2, frees);
+	return (full_string);
+}
+
+void	free_strings(char *s1, char *s2, int frees)
+{
+	if (frees == 1)
+	{
+		if (s1)
+			free(s1);
+	}
+	else if (frees == 2)
+	{
+		if (s2)
+			free(s2);
+	}
+	else if (frees == 'a')
+	{
+		if (s1 && s2)
+		{
+			free(s1);
+			free(s2);
+		}
+	}
 }
