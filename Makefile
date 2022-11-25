@@ -1,10 +1,14 @@
 NAME = minishell
 
+MAKE_IN_DIRECTORY = make -C
+
 FLAGS = -Wall -Wextra -Werror -g -lreadline
 
-MAKELIBFT = make -C ./libft
+MAKELIBFT = ${MAKE_IN_DIRECTORY} ./libft
 
-LIBFT = ./libft/libft.a
+LIBFT_PATH = ./libft
+
+LIBFT = ${LIBFT_PATH}/libft.a
 
 CC = cc
 
@@ -30,6 +34,7 @@ clean:
 			@echo "\033[33m 🧹 | minishell cleaned."
 
 fclean: 	clean
+			@${MAKE_IN_DIRECTORY} ${LIBFT_PATH} fclean
 			@$(RM) $(NAME)
 			@echo "\033[33m 🌪️  | minishell all cleaned."
 

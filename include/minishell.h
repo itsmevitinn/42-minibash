@@ -13,12 +13,12 @@ typedef struct	s_prompt
 {
 	char *logname;
 	char *hostname;
-	char *pwd;
-	char *final_msg;
+	char *current_dir;
+	char *display;
 }				t_prompt;
 
-void	get_prompt_dir(t_prompt *prompt_msg);
 void	get_prompt_msg(t_prompt *prompt_msg);
-void	get_hostname(int *cmd_output);
+void	get_hostname(t_prompt *prompt_msg);
+void	get_current_dir(t_prompt *prompt_msg);
 
 #endif
