@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:26:12 by vsergio           #+#    #+#             */
-/*   Updated: 2022/11/24 22:16:57 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/11/25 19:01:24 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char		*ft_itoa(int n);
 void		ft_striteri(char *s, void (*f)(unsigned int, char*));
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char		**ft_split(char const *s, char c);
+char		**ft_split_quotes(char const *s, char c);
 void		ft_putnbr_fd(int n, int fd);
 t_list		*ft_lstnew(void *content);
 void		ft_lstadd_front(t_list **lst, t_list *new_node);
@@ -101,4 +102,5 @@ int			ft_putstr_int(char *s);
 int			size_and_print_uint(va_list list_arg, char check);
 int			size_and_print_int(va_list list_arg);
 int			size_and_print_hex(va_list list_arg, char *basehex, char check);
+char		*ft_strtrim_edges(char const *s1, char const *set);
 #endif
