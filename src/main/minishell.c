@@ -6,28 +6,25 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/11/24 23:23:32 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/11/25 23:13:32 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 int main(void)
 {
-	t_prompt prompt_msg;
-	char *user_input;
+	t_prompt	prompt_msg;
+	char		*user_input;
 
 	get_prompt_msg(&prompt_msg);
-	//logname hasnt malloc
-	prompt_msg.display = ft_strjoin(prompt_msg.logname, "@", 0);
-	prompt_msg.display = ft_strjoin(prompt_msg.display, prompt_msg.hostname, 'a');
-	prompt_msg.display = ft_strjoin(prompt_msg.display, ":", 1);
-	prompt_msg.display = ft_strjoin(prompt_msg.display, prompt_msg.current_dir, 'a');
-	prompt_msg.display = ft_strjoin(prompt_msg.display, "$ ", 1);
-	
-	//print a prompt message and waits for user input from terminal
-	user_input = readline(prompt_msg.display);
-	printf("Input from user: %s\n", user_input);
+	build_prompt_msg(&prompt_msg);
+	//in each loop, user_input will receive an command line form terminal, and we need to parse it
+	while(42)
+	{
+		user_input = readline(prompt_msg.display);
+		add_history("teste");
+		run_bin_cmd(user_input);
+	}
 	free(prompt_msg.display);
 }
 
@@ -83,4 +80,14 @@ void	get_current_dir(t_prompt *prompt_msg)
 	}
 	else
 		prompt_msg->current_dir = pwd;
+}
+
+void	build_prompt_msg(t_prompt *prompt_msg)
+{
+	//logname hasnt malloc
+	prompt_msg->display = ft_strjoin(prompt_msg->logname, "@", 0);
+	prompt_msg->display = ft_strjoin(prompt_msg->display, prompt_msg->hostname, 'a');
+	prompt_msg->display = ft_strjoin(prompt_msg->display, ":", 1);
+	prompt_msg->display = ft_strjoin(prompt_msg->display, prompt_msg->current_dir, 'a');
+	prompt_msg->display = ft_strjoin(prompt_msg->display, "$ ", 1);
 }

@@ -12,11 +12,12 @@ LIBFT = ${LIBFT_PATH}/libft.a
 
 CC = cc
 
-SRC_DIR = ./src/
+EXEC = bin_cmd.c
 
-SRCS = minishell.c
+MAIN = minishell.c
 
-FUNCS = $(addprefix $(SRC_DIR), $(SRCS))
+FUNCS = $(addprefix ./src/exec/, $(EXEC)) \
+		$(addprefix ./src/main/, $(MAIN))
 
 RM = rm -rf
 

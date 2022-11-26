@@ -20,5 +20,8 @@ typedef struct	s_prompt
 void	get_prompt_msg(t_prompt *prompt_msg);
 void	get_hostname(t_prompt *prompt_msg);
 void	get_current_dir(t_prompt *prompt_msg);
+void	build_prompt_msg(t_prompt *prompt_msg);
+void	run_bin_cmd(char *command);
+void	exec_bin_cmd(char **paths, char **arguments);
 
 #endif
