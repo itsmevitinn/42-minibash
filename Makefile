@@ -18,7 +18,7 @@ MAIN = minishell.c
 
 PROMPT = prompt.c
 
-SIGNAL = setup.c
+SIGNAL = signal.c
 
 FUNCS = $(addprefix ./src/exec/, $(EXEC))		\
 		$(addprefix ./src/main/, $(MAIN))	\

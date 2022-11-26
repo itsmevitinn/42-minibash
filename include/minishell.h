@@ -28,6 +28,6 @@ void	run_bin_cmd(char *command);
 void	exec_bin_cmd(char **paths, char **arguments);
 
 //SIGNAL_FUNCTIONS
-void	setup_signals(struct sigaction *sa);
+void	setup_signals(void);
 
 #endif
