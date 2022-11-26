@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 10:02:41 by vsergio           #+#    #+#             */
-/*   Updated: 2022/07/28 22:54:46 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/11/26 11:40:47 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,6 @@ char	*ft_utoa(unsigned int n)
 	str[i--] = '\0';
 	if (nbr == 0)
 		if_zero(str);
-	if (nbr < 0)
-	{
-		str[0] = '-';
-		nbr = nbr * -1;
-	}
 	while (nbr > 0)
 	{
 		str[i--] = 48 + (nbr % 10);
