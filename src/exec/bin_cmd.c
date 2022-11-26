@@ -6,7 +6,7 @@
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2022/11/25 23:16:04 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/11/26 16:20:39 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
@@ -23,6 +23,7 @@ void	run_bin_cmd(char *command)
 		arguments[countargs] = ft_strtrim_edges(arguments[countargs], "'\"");
 	splitted_paths = ft_split(getenv("PATH"), ':');
 	exec_bin_cmd(splitted_paths, arguments);
+	free(command);
 }
 
 void	exec_bin_cmd(char **paths, char **arguments)

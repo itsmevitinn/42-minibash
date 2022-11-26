@@ -6,12 +6,30 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/11/26 13:54:43 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/11/26 16:24:52 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
 
-void	get_prompt_msg(t_prompt *prompt_msg)
+static void	build_prompt_msg(t_prompt *prompt_msg);
+static void	get_current_dir(t_prompt *prompt_msg);
+static void	get_hostname(t_prompt *prompt_msg);
+static void	get_prompt_msg(t_prompt *prompt_msg);
+
+char	*display_prompt(void)
+{
+	char		*user_input;
+	t_prompt	prompt_msg;
+
+	user_input = NULL;
+	get_prompt_msg(&prompt_msg);
+	build_prompt_msg(&prompt_msg);
+	user_input = readline(prompt_msg.display);
+	free(prompt_msg.display);
+	return (user_input);
+}
+
+static void	get_prompt_msg(t_prompt *prompt_msg)
 {
 	
 	//Receive the value of a environment variable (without malloc)
@@ -20,7 +38,7 @@ void	get_prompt_msg(t_prompt *prompt_msg)
 	get_current_dir(prompt_msg);
 }
 
-void	get_hostname(t_prompt *prompt_msg)
+static void	get_hostname(t_prompt *prompt_msg)
 {
 	int pipe_hostname[2];
 	int process_pid;
@@ -42,7 +60,7 @@ void	get_hostname(t_prompt *prompt_msg)
 	read(pipe_hostname[0], prompt_msg->hostname, 6);
 }
 
-void	get_current_dir(t_prompt *prompt_msg)
+static void	get_current_dir(t_prompt *prompt_msg)
 {
 	char	*home;
 	char	*pwd;
@@ -66,7 +84,7 @@ void	get_current_dir(t_prompt *prompt_msg)
 		prompt_msg->current_dir = pwd;
 }
 
-void	build_prompt_msg(t_prompt *prompt_msg)
+static void	build_prompt_msg(t_prompt *prompt_msg)
 {
 	//logname hasnt malloc
 	prompt_msg->display = ft_strjoin(prompt_msg->logname, "@", 0);
