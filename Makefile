@@ -2,7 +2,7 @@ NAME = minishell
 
 MAKE_IN_DIRECTORY = make -C
 
-FLAGS = -Wall -Wextra -Werror -g -lreadline
+FLAGS = -Wall -Wextra -g -lreadline #-Werror
 
 MAKELIBFT = ${MAKE_IN_DIRECTORY} ./libft
 
