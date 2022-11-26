@@ -16,8 +16,11 @@ EXEC = bin_cmd.c
 
 MAIN = minishell.c
 
-FUNCS = $(addprefix ./src/exec/, $(EXEC)) \
-		$(addprefix ./src/main/, $(MAIN))
+PROMPT = prompt.c
+
+FUNCS = $(addprefix ./src/exec/, $(EXEC))		\
+		$(addprefix ./src/main/, $(MAIN))	\
+		$(addprefix ./src/prompt/, $(PROMPT))
 
 RM = rm -rf
 
