@@ -24,7 +24,7 @@ RM = rm -rf
 all:		$(NAME)
 
 $(NAME):	$(FUNCS) $(LIBFT)
-			@$(CC) $(FLAGS) $(LIBFT) $(FUNCS) -o $(NAME)
+			@$(CC) $(FLAGS) $(FUNCS) $(LIBFT) -o $(NAME)
 			@echo "\033[32m 💯 | minishell created."
 
 $(LIBFT): 
