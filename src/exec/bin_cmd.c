@@ -6,7 +6,7 @@
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2022/11/25 23:16:04 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/11/26 16:37:38 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
@@ -29,6 +29,7 @@ void	exec_bin_cmd(char **paths, char **arguments)
 {
 	char	*path_completed;
 	int		i;
+	int		process_pid;
 
 	i = 0;
 	if (ft_strncmp(arguments[0], "history", 7) == 0)
@@ -41,10 +42,14 @@ void	exec_bin_cmd(char **paths, char **arguments)
 		path_completed = ft_strjoin(paths[i], "/", 1);
 		path_completed = ft_strjoin(path_completed, arguments[0], 1);
 		if (!access(path_completed, F_OK | X_OK))
-			execve(path_completed, arguments, NULL);
+		{
+			process_pid = fork();
+			if (!process_pid)
+				execve(path_completed, arguments, NULL);
+			waitpid(process_pid, NULL, 0);
+		}
 		free(path_completed);
 	}
 	free(paths);
-	printf("zsh: command not found (fake)\n");
 	// error_msg("zsh: command not found", 127);
 }

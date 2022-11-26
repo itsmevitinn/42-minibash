@@ -2,7 +2,7 @@ NAME = minishell
 
 MAKE_IN_DIRECTORY = make -C
 
-FLAGS = -Wall -Wextra -Werror -g -lreadline
+FLAGS = -Wall -Wextra -g -lreadline #-Werror
 
 MAKELIBFT = ${MAKE_IN_DIRECTORY} ./libft
 
@@ -16,15 +16,22 @@ EXEC = bin_cmd.c
 
 MAIN = minishell.c
 
-FUNCS = $(addprefix ./src/exec/, $(EXEC)) \
-		$(addprefix ./src/main/, $(MAIN))
+PROMPT = prompt.c
+
+SIGNAL = signal.c
+
+FUNCS = $(addprefix ./src/exec/, $(EXEC))		\
+		$(addprefix ./src/main/, $(MAIN))	\
+		$(addprefix ./src/prompt/, $(PROMPT))	\
+		$(addprefix ./src/signals/, $(SIGNAL))	
+
 
 RM = rm -rf
 
 all:		$(NAME)
 
 $(NAME):	$(FUNCS) $(LIBFT)
-			@$(CC) $(FLAGS) $(LIBFT) $(FUNCS) -o $(NAME)
+			@$(CC) $(FLAGS) $(FUNCS) $(LIBFT) -o $(NAME)
 			@echo "\033[32m 💯 | minishell created."
 
 $(LIBFT): 

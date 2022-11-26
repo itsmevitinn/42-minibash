@@ -7,6 +7,9 @@
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include "../libft/libft.h"
 
 typedef struct	s_prompt
@@ -17,11 +20,11 @@ typedef struct	s_prompt
 	char *display;
 }				t_prompt;
 
-void	get_prompt_msg(t_prompt *prompt_msg);
-void	get_hostname(t_prompt *prompt_msg);
-void	get_current_dir(t_prompt *prompt_msg);
-void	build_prompt_msg(t_prompt *prompt_msg);
 void	run_bin_cmd(char *command);
 void	exec_bin_cmd(char **paths, char **arguments);
+char	*display_prompt(void);
+
+//SIGNAL_FUNCTIONS
+void	setup_signals(void);
 
 #endif
