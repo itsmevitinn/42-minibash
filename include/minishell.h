@@ -8,6 +8,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include "../libft/libft.h"
 
 typedef struct	s_prompt
