@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/11/26 11:52:52 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/11/26 13:54:43 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
@@ -24,6 +24,7 @@ void	get_hostname(t_prompt *prompt_msg)
 {
 	int pipe_hostname[2];
 	int process_pid;
+	char	*args[] = {NULL};
 
 	//malloc len accordingly to 42 hostname's
 	prompt_msg->hostname = malloc(6);
@@ -33,7 +34,7 @@ void	get_hostname(t_prompt *prompt_msg)
 	if (process_pid == 0)
 	{
 		dup2(pipe_hostname[1], 1);
-		execve("/bin/hostname", NULL, NULL);
+		execve("/bin/hostname", args, NULL);
 	}
 	//Wait untill child processs end
 	waitpid(process_pid, NULL, 0);
