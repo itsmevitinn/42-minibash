@@ -6,7 +6,7 @@
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2022/11/28 10:19:51 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/11/28 10:31:39 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
@@ -49,7 +49,7 @@ void	exec_bin_cmd(char **paths, char **arguments)
 		free(path_completed);
 		i++;
 	}
-	free(paths);
+	free_paths(i, paths);
 	// error_msg("zsh: command not found", 127);
 }
 
