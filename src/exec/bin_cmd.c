@@ -6,11 +6,12 @@
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2022/11/26 16:37:38 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/11/28 10:19:51 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
 
+static void free_paths (int i, char **paths);
 void	run_bin_cmd(char *command)
 {
 	char		**splitted_paths;
@@ -28,16 +29,11 @@ void	run_bin_cmd(char *command)
 void	exec_bin_cmd(char **paths, char **arguments)
 {
 	char	*path_completed;
-	int		i;
 	int		process_pid;
+	int		i;
 
 	i = 0;
-	if (ft_strncmp(arguments[0], "history", 7) == 0)
-	{
-		printf("encontrou\n");
-		execve(arguments[0], arguments, NULL);
-	}
-	while (paths[i++])
+	while (paths[i])
 	{
 		path_completed = ft_strjoin(paths[i], "/", 1);
 		path_completed = ft_strjoin(path_completed, arguments[0], 1);
@@ -47,9 +43,20 @@ void	exec_bin_cmd(char **paths, char **arguments)
 			if (!process_pid)
 				execve(path_completed, arguments, NULL);
 			waitpid(process_pid, NULL, 0);
+			free(path_completed);
+			break;
 		}
 		free(path_completed);
+		i++;
 	}
 	free(paths);
 	// error_msg("zsh: command not found", 127);
+}
+
+static void free_paths (int i, char **paths)
+{
+	//we iterate here because the current "i" was already freed by strjoin
+	while (paths[i++])
+		free(paths[i]);
+	free(paths);
 }
