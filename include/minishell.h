@@ -24,6 +24,9 @@ void	run_bin_cmd(char *command);
 void	exec_bin_cmd(char **paths, char **arguments);
 char	*display_prompt(void);
 
+//BULT-IN FUNCTIONS
+void	isbuiltin(char *command);
+
 //SIGNAL_FUNCTIONS
 void	setup_signals(void);
 

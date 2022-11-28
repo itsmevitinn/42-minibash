@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:57:27 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/11/26 13:01:55 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/11/28 11:19:39 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@ static void	handle_signal(int sig);
 
 void	setup_signals(void)
 {
-	struct sigaction	sa_sigint;
-	struct sigaction	sa_sigquit;
+	struct sigaction	sa_signal;
 
-	sigemptyset(&(sa_sigint.sa_mask));
-	sigemptyset(&(sa_sigquit.sa_mask));
-	sa_sigint.sa_handler = &handle_signal;
-	sa_sigquit.sa_handler = SIG_IGN;
-	sigaction(SIGINT, &sa_sigint, NULL);
-	sigaction(SIGQUIT, &sa_sigquit, NULL);
+	sigemptyset(&(sa_signal.sa_mask));
+	sa_signal.sa_handler = &handle_signal;
+	sigaction(SIGINT, &sa_signal, NULL);
+	sigaction(SIGQUIT, &sa_signal, NULL);
 }
 
 static void	handle_signal(int sig)
 {
-	printf("\tctrl-C intercepted, press ctrl-Z instead\n");
+	if (sig == SIGINT)
+		printf("\tctrl-C intercepted, press ctrl-Z instead\n");
+	else if (sig == SIGQUIT)
+		printf("\tctrl-\\ does nothing\n");
 	//end_current_process();
 	//display_prompt();
 	(void)sig;
