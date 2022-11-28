@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/11/26 16:24:52 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/11/28 10:49:41 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
@@ -14,6 +14,7 @@
 static void	build_prompt_msg(t_prompt *prompt_msg);
 static void	get_current_dir(t_prompt *prompt_msg);
 static void	get_hostname(t_prompt *prompt_msg);
+static void	populate_hostname(t_prompt *prompt_msg, char *buffer, int readed);
 static void	get_prompt_msg(t_prompt *prompt_msg);
 
 char	*display_prompt(void)
@@ -42,10 +43,12 @@ static void	get_hostname(t_prompt *prompt_msg)
 {
 	int pipe_hostname[2];
 	int process_pid;
+	char *buffer;
+	int readed;
 	char	*args[] = {NULL};
 
 	//malloc len accordingly to 42 hostname's
-	prompt_msg->hostname = malloc(6);
+	buffer = malloc(1000);
 	pipe(pipe_hostname);
 	//Process that will run execve and write the hostname in pipe
 	process_pid = fork();
@@ -56,8 +59,25 @@ static void	get_hostname(t_prompt *prompt_msg)
 	}
 	//Wait untill child processs end
 	waitpid(process_pid, NULL, 0);
-	//Read the hostname from pipe and send to variable "prompt_msg->hostname"
-	read(pipe_hostname[0], prompt_msg->hostname, 6);
+	//Read the hostname from pipe and send to the buffer
+	readed = read(pipe_hostname[0], buffer, 1000);
+	//Populate prompt_msg->hostname with the content readed from hostname command
+	populate_hostname(prompt_msg, buffer, readed);
+	free(buffer);
+}
+
+static void	populate_hostname(t_prompt *prompt_msg, char *buffer, int readed)
+{
+	int i;
+
+	i = 0;
+	prompt_msg->hostname = malloc(sizeof(char) * (readed + 1));
+	while(buffer[i] && buffer[i] != '\n')
+	{
+		prompt_msg->hostname[i] = buffer[i];
+		i++;
+	}
+	prompt_msg->hostname[i] = '\0';
 }
 
 static void	get_current_dir(t_prompt *prompt_msg)
