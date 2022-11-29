@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:57:27 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/11/26 13:01:55 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/11/29 11:49:53 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ void	setup_signals(void)
 
 static void	handle_signal(int sig)
 {
-	printf("\tctrl-C intercepted, press ctrl-Z instead\n");
 	//end_current_process();
-	//display_prompt();
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 	(void)sig;
 }
