@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:57:27 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/11/28 11:19:39 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/11/29 13:41:52 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,10 @@ void	setup_signals(void)
 
 static void	handle_signal(int sig)
 {
-	if (sig == SIGINT)
-		printf("\tctrl-C intercepted, press ctrl-Z instead\n");
-	else if (sig == SIGQUIT)
-		printf("\tctrl-\\ does nothing\n");
 	//end_current_process();
-	//display_prompt();
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 	(void)sig;
 }
