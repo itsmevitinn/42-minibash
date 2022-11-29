@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:57:27 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/11/29 13:41:52 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/11/29 14:41:47 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,14 @@ void	setup_signals(void)
 
 static void	handle_signal(int sig)
 {
-	//end_current_process();
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	write(1, "\n", 1);
+	if (g_running_process)
+		g_running_process = 0;
+	else //reinitialize readline manually bc user_inouyt is not returned
+	{
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 	(void)sig;
 }

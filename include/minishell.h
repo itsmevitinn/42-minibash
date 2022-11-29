@@ -35,4 +35,6 @@ void	isbuiltin(char *command);
 //SIGNAL_FUNCTIONS
 void	setup_signals(void);
 
+extern int g_running_process;
+
 #endif
