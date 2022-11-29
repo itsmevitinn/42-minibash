@@ -1,4 +1,7 @@
 .gitignore
+minishell
 *.txt
 *.out
 *.dSYM
+*.o
+*.swp
