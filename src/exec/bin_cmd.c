@@ -6,7 +6,7 @@
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2022/11/28 10:31:39 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/11/29 14:32:15 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
@@ -40,10 +40,12 @@ void	exec_bin_cmd(char **paths, char **arguments)
 		if (!access(path_completed, F_OK | X_OK))
 		{
 			process_pid = fork();
+			g_running_process = 1;
 			if (!process_pid)
 				execve(path_completed, arguments, NULL);
 			waitpid(process_pid, NULL, 0);
 			free(path_completed);
+			g_running_process = 0;
 			break;
 		}
 		free(path_completed);
