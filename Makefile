@@ -14,7 +14,7 @@ CC = cc
 
 EXEC = bin_cmd.c
 
-BUILT-IN = pwd.c
+BUILT-IN = isbuiltin.c
 
 MAIN = minishell.c
 
@@ -26,7 +26,7 @@ FUNCS = $(addprefix ./src/exec/, $(EXEC))		\
 		$(addprefix ./src/main/, $(MAIN))	\
 		$(addprefix ./src/prompt/, $(PROMPT))	\
 		$(addprefix ./src/signals/, $(SIGNAL))	\
-		$(addprefix ./src/built-in/, $(BUILT-IN))	
+		$(addprefix ./src/builtin/, $(BUILT-IN))	
 
 
 RM = rm -rf
