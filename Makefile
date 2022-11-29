@@ -12,11 +12,13 @@ LIBFT = ${LIBFT_PATH}/libft.a
 
 CC = cc
 
+PARSER = parser.c
+
 EXEC = bin_cmd.c
 
 BUILT-IN = isbuiltin.c
 
-MAIN = minishell.c
+MAIN = minishell.c prompt.c
 
 PROMPT = prompt.c
 
@@ -24,8 +26,8 @@ SIGNAL = signal.c
 
 FUNCS = $(addprefix ./src/exec/, $(EXEC))		\
 		$(addprefix ./src/main/, $(MAIN))	\
-		$(addprefix ./src/prompt/, $(PROMPT))	\
 		$(addprefix ./src/signals/, $(SIGNAL))	\
+		$(addprefix ./src/parser/, $(PARSER))	\
 		$(addprefix ./src/builtin/, $(BUILT-IN))	
 
 

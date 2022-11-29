@@ -20,9 +20,14 @@ typedef struct	s_prompt
 	char *display;
 }				t_prompt;
 
-void	run_bin_cmd(char *command);
-void	exec_bin_cmd(char **paths, char **arguments);
+//PROMPT FUNCTIONS
 char	*display_prompt(void);
+
+//PARSER FUNCTIONS
+void	parse_cmd(char *command);
+
+//EXEC FUNCTIONS
+void	exec_bin_cmd(char *right_path, char **splitted_cmd);
 
 //BULT-IN FUNCTIONS
 void	isbuiltin(char *command);
