@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/11/28 10:49:41 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/11/30 15:08:53 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
@@ -97,11 +97,11 @@ static void	get_current_dir(t_prompt *prompt_msg)
 	{
 		//Replace "/Users/username" to "~" and copy the rest
 		prompt_msg->current_dir = ft_strjoin("~", &pwd[home_len], 0);
-		free(home);
 		free(pwd);
 	}
 	else
 		prompt_msg->current_dir = pwd;
+	free(home);
 }
 
 static void	build_prompt_msg(t_prompt *prompt_msg)

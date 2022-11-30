@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:57:27 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/11/29 14:41:47 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/11/30 13:01:01 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@ static void	handle_signal(int sig);
 
 void	setup_signals(void)
 {
-	struct sigaction	sa_signal;
+	struct sigaction	sa_sig_int;
+	struct sigaction	sa_sig_quit;
 
-	sigemptyset(&(sa_signal.sa_mask));
-	sa_signal.sa_handler = &handle_signal;
-	sigaction(SIGINT, &sa_signal, NULL);
-	sigaction(SIGQUIT, &sa_signal, NULL);
+	sigemptyset(&(sa_sig_int.sa_mask));
+	sigemptyset(&(sa_sig_quit.sa_mask));
+	sa_sig_int.sa_handler = &handle_signal;
+	sa_sig_quit.sa_handler = SIG_IGN;
+	sigaction(SIGINT, &sa_sig_int, NULL);
+	sigaction(SIGQUIT, &sa_sig_quit, NULL);
 }
 
 static void	handle_signal(int sig)
@@ -29,7 +32,7 @@ static void	handle_signal(int sig)
 	write(1, "\n", 1);
 	if (g_running_process)
 		g_running_process = 0;
-	else //reinitialize readline manually bc user_inouyt is not returned
+	else //reinitialize readline manually bc user_input is not returned
 	{
 		rl_on_new_line();
 		rl_replace_line("", 0);
