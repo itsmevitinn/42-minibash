@@ -30,7 +30,9 @@ void	parse_cmd(char *command);
 void	exec_bin_cmd(char *right_path, char **splitted_cmd);
 
 //BULT-IN FUNCTIONS
-void	isbuiltin(char *command);
+void	run_builtin(char **command);
+void	cd(char *new_dir);
+int		isbuiltin(char *command);
 
 //SIGNAL_FUNCTIONS
 void	setup_signals(void);

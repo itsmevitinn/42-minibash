@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/11/29 11:06:04 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/11/30 01:25:00 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
@@ -26,7 +26,16 @@ void	parse_cmd(char *command)
 	//Cut the quotes at the edges of each arguments
 		splitted_cmd[args] = ft_strtrim_edges(splitted_cmd[args], "'\"");
 	print_cmd(splitted_cmd);
-	// find_right_path(splitted_cmd);
+	if (isbuiltin(splitted_cmd[0]))
+	{
+		printf("Running builtin\n");
+		run_builtin(splitted_cmd);
+	}
+	else
+	{
+		printf("Running execve command\n");
+		find_right_path(splitted_cmd);
+	}
 }
 
 void	find_right_path(char **splitted_cmd)
