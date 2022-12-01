@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
+/*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/11/30 22:29:04 by Vitor            ###   ########.fr       */
+/*   Created: 2022/11/30 22:49:00 by Vitor             #+#    #+#             */
+/*   Updated: 2022/11/30 22:50:06 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
 
-int	g_running_process;
-
-int main(void)
+void	pwd(int fd)
 {
-	char		*user_input;
+	char *pwd;
+	int i;
 
-	setup_signals();
-	while(42)
-	{
-		user_input = display_prompt();
-		add_history("teste");
-		if (user_input && ft_strlen(user_input))
-			parse_cmd(user_input);
-		free(user_input);
-	}
+	i = 0;
+	pwd = getcwd(NULL, 0);
+	while(pwd[i])
+		write(fd, &pwd[i++], 1);
+	write(fd, "\n", 1);
+	free(pwd);
 }

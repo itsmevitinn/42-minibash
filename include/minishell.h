@@ -2,6 +2,7 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+# include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -30,9 +31,11 @@ void	parse_cmd(char *command);
 void	exec_bin_cmd(char *right_path, char **splitted_cmd);
 
 //BULT-IN FUNCTIONS
+int		isbuiltin(char *command);
 void	run_builtin(char **command);
 void	cd(char *new_dir);
-int		isbuiltin(char *command);
+void	echo(char *string, int fd, char param);
+void	pwd(int fd);
 
 //SIGNAL_FUNCTIONS
 void	setup_signals(void);

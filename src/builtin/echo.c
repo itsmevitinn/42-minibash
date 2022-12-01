@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
+/*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/11/30 22:29:04 by Vitor            ###   ########.fr       */
+/*   Created: 2022/11/30 22:49:26 by Vitor             #+#    #+#             */
+/*   Updated: 2022/11/30 22:50:17 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
 
-int	g_running_process;
-
-int main(void)
+void	echo(char *string, int fd, char param)
 {
-	char		*user_input;
+	int i;
 
-	setup_signals();
-	while(42)
-	{
-		user_input = display_prompt();
-		add_history("teste");
-		if (user_input && ft_strlen(user_input))
-			parse_cmd(user_input);
-		free(user_input);
-	}
+	i = 0;
+	while(string[i])
+		write(fd, &string[i++], 1);
+	if (!param)
+		write(fd, "\n", 1);
+	// if (!ft_strncmp(command[1], "-n", 2))
+	// 	write(fd, "\n", 1);
+	return ;
 }

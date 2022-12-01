@@ -6,14 +6,11 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 11:59:16 by vsergio           #+#    #+#             */
-/*   Updated: 2022/11/30 01:22:58 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/11/30 22:50:55 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../../include/minishell.h"
 
-static void	pwd(int fd);
-static void	echo(char *string, int fd, char param);
 void	run_builtin(char **command)
 {
 	if (!ft_strncmp(command[0], "echo", 4))
@@ -49,31 +46,4 @@ int	isbuiltin(char *command)
 	else if (!ft_strncmp(command, "exit", 3))
 		return(1);
 	return (0);
-}
-
-static void	pwd(int fd)
-{
-	char *pwd;
-	int i;
-
-	i = 0;
-	pwd = getcwd(NULL, 0);
-	while(pwd[i])
-		write(fd, &pwd[i++], 1);
-	write(fd, "\n", 1);
-	free(pwd);
-}
-
-static void	echo(char *string, int fd, char param)
-{
-	int i;
-
-	i = 0;
-	while(string[i])
-		write(fd, &string[i++], 1);
-	if (!param)
-		write(fd, "\n", 1);
-	// if (!ft_strncmp(command[1], "-n", 2))
-	// 	write(fd, "\n", 1);
-	return ;
 }
