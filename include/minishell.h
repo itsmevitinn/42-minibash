@@ -2,6 +2,7 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+# include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -20,17 +21,23 @@ typedef struct	s_prompt
 	char *display;
 }				t_prompt;
 
+//UTILS FUNCTIONS
+void	free_matrix(char **splitted_cmd);
+
 //PROMPT FUNCTIONS
 char	*display_prompt(void);
 
 //PARSER FUNCTIONS
-void	parse_cmd(char *command);
+void	parse_input(char *user_input);
 
 //EXEC FUNCTIONS
 void	exec_bin_cmd(char *right_path, char **splitted_cmd);
 
 //BULT-IN FUNCTIONS
-void	isbuiltin(char *command);
+int		isbuiltin(char **splitted_cmd);
+void	cd(char **splitted_cmd);
+void	echo(char **splitted_cmd, int fd);
+void	pwd(int fd);
 
 //SIGNAL_FUNCTIONS
 void	setup_signals(void);

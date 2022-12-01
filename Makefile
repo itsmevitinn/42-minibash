@@ -3,7 +3,7 @@ NAME = minishell
 MAKE_IN_DIRECTORY = make -C
 
 # !!! need to run brew install radline  !!! #
-FLAGS = -Wall -Wextra -g -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include #-Werror
+FLAGS = -Wall -Wextra -g -lreadline -L ~.brew/opt/readline/lib -I ~.brew/opt/readline/include #-Werror
 
 MAKELIBFT = ${MAKE_IN_DIRECTORY} ./libft
 
@@ -17,11 +17,9 @@ PARSER = parser.c
 
 EXEC = bin_cmd.c
 
-BUILT-IN = isbuiltin.c
+BUILT-IN = isbuiltin.c cd.c pwd.c echo.c
 
 MAIN = minishell.c prompt.c
-
-PROMPT = prompt.c
 
 SIGNAL = signal.c
 

@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/11/29 11:06:04 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/11/30 23:42:57 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
@@ -14,19 +14,20 @@
 static void	find_right_path(char **splitted_cmd);
 static void	print_cmd(char **splitted_cmd);
 static void free_paths (char **paths, int i);
-void	parse_cmd(char *command)
+void	parse_input(char *user_input)
 {
 	char	**splitted_cmd;
 	int		args;
 
 	args = 0;
 	//Split all the spaces and preserve whats is inside quotes
-	splitted_cmd = ft_split_quotes(command, ' ');
+	splitted_cmd = ft_split_quotes(user_input, ' ');
 	while (splitted_cmd[args++])
 	//Cut the quotes at the edges of each arguments
 		splitted_cmd[args] = ft_strtrim_edges(splitted_cmd[args], "'\"");
 	print_cmd(splitted_cmd);
-	// find_right_path(splitted_cmd);
+	if (!isbuiltin(splitted_cmd))
+		find_right_path(splitted_cmd);
 }
 
 void	find_right_path(char **splitted_cmd)

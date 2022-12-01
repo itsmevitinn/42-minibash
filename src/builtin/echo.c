@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bin_cmd.c                                          :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2022/11/30 23:22:44 by Vitor            ###   ########.fr       */
+/*   Created: 2022/11/30 22:49:26 by Vitor             #+#    #+#             */
+/*   Updated: 2022/11/30 23:37:50 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
 
-void	exec_bin_cmd(char *full_path, char **splitted_cmd)
+void	echo(char **splitted_cmd, int fd)
 {
-	int	process_pid;
-
-	process_pid = fork();
-	g_running_process = 1;
-	if (!process_pid)
-		execve(full_path, splitted_cmd, NULL);
-	waitpid(process_pid, NULL, 0);
-	//free right path after execution
-	free(full_path);
-	free_matrix(splitted_cmd);
-	g_running_process = 0;
-}
-
-void	free_matrix(char **splitted_cmd)
-{
+	char *content;
 	int i;
 
+	content = splitted_cmd[1];
 	i = 0;
-	while(splitted_cmd[i])
-		free(splitted_cmd[i++]);
-	free(splitted_cmd);
+	while(content[i])
+		write(fd, &content[i++], 1);
+	if (!ft_strncmp(splitted_cmd[1], "-n", 2))
+		write(fd, "\n", 1);
+	// free_matrix(splitted_cmd);
+	return ;
 }
