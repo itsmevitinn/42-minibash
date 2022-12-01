@@ -21,8 +21,6 @@ BUILT-IN = isbuiltin.c cd.c pwd.c echo.c
 
 MAIN = minishell.c prompt.c
 
-PROMPT = prompt.c
-
 SIGNAL = signal.c
 
 FUNCS = $(addprefix ./src/exec/, $(EXEC))		\
