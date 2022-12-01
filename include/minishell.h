@@ -21,20 +21,22 @@ typedef struct	s_prompt
 	char *display;
 }				t_prompt;
 
+//UTILS FUNCTIONS
+void	free_matrix(char **splitted_cmd);
+
 //PROMPT FUNCTIONS
 char	*display_prompt(void);
 
 //PARSER FUNCTIONS
-void	parse_cmd(char *command);
+void	parse_input(char *user_input);
 
 //EXEC FUNCTIONS
 void	exec_bin_cmd(char *right_path, char **splitted_cmd);
 
 //BULT-IN FUNCTIONS
-int		isbuiltin(char *command);
-void	run_builtin(char **command);
-void	cd(char *new_dir);
-void	echo(char *string, int fd, char param);
+int		isbuiltin(char **splitted_cmd);
+void	cd(char **splitted_cmd);
+void	echo(char **splitted_cmd, int fd);
 void	pwd(int fd);
 
 //SIGNAL_FUNCTIONS
