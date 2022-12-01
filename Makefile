@@ -17,7 +17,7 @@ PARSER = parser.c
 
 EXEC = bin_cmd.c
 
-BUILT-IN = isbuiltin.c cd.c pwd.c echo.c
+BUILT-IN = isbuiltin.c cd.c pwd.c echo.c environment.c
 
 MAIN = minishell.c prompt.c
 

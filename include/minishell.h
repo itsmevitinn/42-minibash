@@ -38,6 +38,7 @@ int		isbuiltin(char **splitted_cmd);
 void	cd(char **splitted_cmd);
 void	echo(char **splitted_cmd, int fd);
 void	pwd(int fd);
+void	env(int fd);
 
 //SIGNAL_FUNCTIONS
 void	setup_signals(void);
