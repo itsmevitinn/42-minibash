@@ -6,14 +6,13 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/01 15:38:17 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/04 20:13:36 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
 
-int	g_running_process;
-
 static int	whitespace_checker(char *input);
+
 int main(void)
 {
 	char		*user_input;
