@@ -43,6 +43,4 @@ void	env(int fd);
 //SIGNAL_FUNCTIONS
 void	setup_signals(void);
 
-extern int g_running_process;
-
 #endif

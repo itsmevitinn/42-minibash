@@ -6,12 +6,10 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/01 00:09:08 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/04 20:10:54 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
-
-int	g_running_process;
 
 int main(void)
 {

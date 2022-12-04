@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:57:27 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/01 00:11:30 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/04 20:10:24 by gcorreia         ###   ########.fr       */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
@@ -29,9 +29,7 @@ void	setup_signals(void)
 static void	handle_signal(int sig)
 {
 	write(1, "\n", 1);
-	if (g_running_process)
-		g_running_process = 0;
-	else //reinitialize readline manually bc user_input is not returned
+	if (RL_ISSTATE(RL_STATE_READCMD))
 	{
 		rl_on_new_line();
 		rl_replace_line("", 0);
