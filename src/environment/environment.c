@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 15:02:16 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/01 18:01:24 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/05 11:51:12 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 
 extern char **environ;
 
-void	env(int	fd)
+void	initialize_env(void)
 {
 	int	i;
 
 	i = 0;
 	while (environ[i])
 	{
-		ft_putstr_fd(environ[i], fd);
-		write(fd, "\n", 1);
+		ft_lstadd_back(&g_env, ft_lstnew(ft_strdup(environ[i])));
 		i++;
 	}
 }

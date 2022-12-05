@@ -17,17 +17,20 @@ PARSER = parser.c
 
 EXEC = bin_cmd.c
 
-BUILT-IN = isbuiltin.c cd.c pwd.c echo.c environment.c
+BUILT-IN = isbuiltin.c cd.c pwd.c echo.c
 
 MAIN = minishell.c prompt.c
 
 SIGNAL = signal.c
 
-FUNCS = $(addprefix ./src/exec/, $(EXEC))		\
-		$(addprefix ./src/main/, $(MAIN))	\
-		$(addprefix ./src/signals/, $(SIGNAL))	\
-		$(addprefix ./src/parser/, $(PARSER))	\
-		$(addprefix ./src/builtin/, $(BUILT-IN))	
+ENVIRONMENT = environment.c
+
+FUNCS = $(addprefix ./src/exec/, $(EXEC))			\
+		$(addprefix ./src/main/, $(MAIN))		\
+		$(addprefix ./src/signals/, $(SIGNAL))		\
+		$(addprefix ./src/parser/, $(PARSER))		\
+		$(addprefix ./src/builtin/, $(BUILT-IN))	\
+		$(addprefix ./src/environment/, $(ENVIRONMENT))	
 
 
 RM = rm -rf
