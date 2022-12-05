@@ -38,9 +38,14 @@ int		isbuiltin(char **splitted_cmd);
 void	cd(char **splitted_cmd);
 void	echo(char **splitted_cmd, int fd);
 void	pwd(int fd);
-void	env(int fd);
 
 //SIGNAL_FUNCTIONS
 void	setup_signals(void);
+
+//ENVIRONMENT FUNCTIONS
+void	initialize_env(void);
+void	free_env(void);
+
+extern t_list *g_env;
 
 #endif

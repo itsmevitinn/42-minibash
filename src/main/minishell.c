@@ -6,16 +6,19 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/04 20:10:54 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/05 11:50:17 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
+
+t_list	*g_env;
 
 int main(void)
 {
 	char		*user_input;
 
 	setup_signals();
+	initialize_env();
 	while(42)
 	{
 		user_input = display_prompt();
@@ -25,9 +28,9 @@ int main(void)
 		else if (!user_input)
 		{
 			rl_clear_history();
+			ft_lstclear(&g_env, free);
 			return (0);
 		}
 		free(user_input);
 	}
-	rl_clear_history();
 }
