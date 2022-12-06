@@ -39,6 +39,7 @@ void	cd(char **splitted_cmd);
 void	echo(char **splitted_cmd, int fd);
 void	pwd(int fd);
 void	env(int fd);
+void	ft_exit(int status);
 
 //SIGNAL_FUNCTIONS
 void	setup_signals(void);
