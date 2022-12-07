@@ -6,34 +6,39 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/05 11:55:59 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/07 18:25:51 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
 
 static int	whitespace_checker(char *input);
-t_list	*g_env;
+int	exit_status;
 
 int main(void)
 {
+	t_var_list	*var_lst;
+	t_list		*env_lst;
 	char		*user_input;
-
+	var_lst = NULL;
+	env_lst = NULL;
+	initialize_var(var_lst);
+	initialize_env(env_lst);
 	setup_signals();
-	initialize_env();
 	while(42)
 	{
+		printf("last exit status: %i\n", exit_status);
 		user_input = display_prompt();
 		if (!user_input)
 		{
 			//when ctrl + d is pressed
 			rl_clear_history();
-			ft_lstclear(&g_env, free);
+			ft_lstclear(&env_lst, free);
 			return (0);
 		}
 		else if (!whitespace_checker(user_input))
 		{
 			add_history(user_input);
-			parse_input(user_input);
+			parse_input(user_input, env_lst);
 		}
 		free(user_input);
 	}
