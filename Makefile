@@ -17,13 +17,13 @@ PARSER = parser.c
 
 EXEC = bin_cmd.c
 
-BUILT-IN = exit.c isbuiltin.c cd.c pwd.c echo.c env.c
+BUILT-IN = exit.c isbuiltin.c cd.c pwd.c echo.c env.c export.c
 
 MAIN = minishell.c prompt.c
 
 SIGNAL = signal.c
 
-VARIABLES = environment.c shell.c var_lst.c
+VARIABLES = environment.c shell.c var_lst.c split_env.c
 
 FUNCS = $(addprefix ./src/exec/, $(EXEC))			\
 		$(addprefix ./src/main/, $(MAIN))			\

@@ -46,6 +46,7 @@ void	cd(char **splitted_cmd);
 void	echo(char **splitted_cmd, int fd);
 void	pwd(int fd);
 void	env(t_var_lst *env_lst, int fd);
+void	export(char **cmd, t_var_lst *env_lst, int fd);
 void	ft_exit(char **splitted_cmd);
 
 //SIGNAL_FUNCTIONS
@@ -53,6 +54,7 @@ void	setup_signals(void);
 
 //VARIABlES FUNCTIONS
 void	initialize_env(t_var_lst **lst);
+char	**split_env(char *str);
 
 //ENVIRONMENT FUNCTIONS
 void	free_env(void);
