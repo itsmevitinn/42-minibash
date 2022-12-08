@@ -52,8 +52,7 @@ void	ft_exit(char **splitted_cmd);
 void	setup_signals(void);
 
 //VARIABlES FUNCTIONS
-void	initialize_var(t_var_list *lst);
-void	initialize_env(t_list *lst);
+void	initialize_env(t_list **lst);
 
 //ENVIRONMENT FUNCTIONS
 void	free_env(void);

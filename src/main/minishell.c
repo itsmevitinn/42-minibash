@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/08 00:06:55 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/08 14:02:28 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,10 @@ int	exit_status;
 
 int main(void)
 {
-	t_var_list	*var_lst;
 	t_list		*env_lst;
 	char		*user_input;
-	var_lst = NULL;
-	env_lst = NULL;
-	initialize_var(var_lst);
-	initialize_env(env_lst);
+
+	initialize_env(&env_lst);
 	setup_signals();
 	while(42)
 	{
