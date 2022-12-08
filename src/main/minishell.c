@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/08 14:02:28 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/08 15:25:58 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	exit_status;
 
 int main(void)
 {
-	t_list		*env_lst;
+	t_var_lst		*env_lst;
 	char		*user_input;
 
 	initialize_env(&env_lst);
@@ -30,7 +30,7 @@ int main(void)
 		{
 			//when ctrl + d is pressed
 			rl_clear_history();
-			ft_lstclear(&env_lst, free);
+			ft_varclear(&env_lst);
 			return (0);
 		}
 		else if (!whitespace_checker(user_input))

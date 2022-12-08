@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/08 00:06:09 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/08 15:20:54 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	print_cmd(char **splitted_cmd);
 static void	cmd_notfound(char *cmd_name);
 static void free_paths (char **paths, int i);
 
-void	parse_input(char *user_input, t_list *env_lst)
+void	parse_input(char *user_input, t_var_lst *env_lst)
 {
 	char	**splitted_cmd;
 	int		args;

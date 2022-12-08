@@ -6,12 +6,12 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 11:59:16 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/07 23:49:31 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/08 15:22:08 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-int	isbuiltin(char **splitted_cmd, t_list *env_lst)
+int	isbuiltin(char **splitted_cmd, t_var_lst *env_lst)
 {
 	if (!ft_strncmp(splitted_cmd[0], "echo", 4))
 		echo(splitted_cmd, 1);

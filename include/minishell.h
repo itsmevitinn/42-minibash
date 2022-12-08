@@ -24,9 +24,9 @@ typedef struct	s_prompt
 typedef struct	s_var_list
 {
 	char *name;
-	char *content;
+	void *content;
 	struct s_var_list *next;
-}				t_var_list;
+}				t_var_lst;
 
 //UTILS FUNCTIONS
 void	free_matrix(char **splitted_cmd);
@@ -35,27 +35,32 @@ void	free_matrix(char **splitted_cmd);
 char	*display_prompt(void);
 
 //PARSER FUNCTIONS
-void	parse_input(char *user_input, t_list *env_lst);
+void	parse_input(char *user_input, t_var_lst *env_lst);
 
 //EXEC FUNCTIONS
 void	exec_bin_cmd(char *right_path, char **splitted_cmd);
 
 //BULT-IN FUNCTIONS
-int		isbuiltin(char **splitted_cmd, t_list *env_lst);
+int		isbuiltin(char **splitted_cmd, t_var_lst *env_lst);
 void	cd(char **splitted_cmd);
 void	echo(char **splitted_cmd, int fd);
 void	pwd(int fd);
-void	env(t_list *env_lst, int fd);
+void	env(t_var_lst *env_lst, int fd);
 void	ft_exit(char **splitted_cmd);
 
 //SIGNAL_FUNCTIONS
 void	setup_signals(void);
 
 //VARIABlES FUNCTIONS
-void	initialize_env(t_list **lst);
+void	initialize_env(t_var_lst **lst);
 
 //ENVIRONMENT FUNCTIONS
 void	free_env(void);
+
+//VAR_LST FUNCTIONS
+t_var_lst	*ft_var_new(char *name, void *content);
+void		ft_varadd_back(t_var_lst **head, t_var_lst *new);
+void		ft_varclear(t_var_lst **head);
 
 extern int exit_status;
 
