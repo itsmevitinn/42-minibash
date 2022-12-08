@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
+/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2022/11/30 23:37:45 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/07 23:40:27 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,15 @@ void	cd(char **splitted_cmd)
 	//after "export" done, update oldpwd and handle CDPATH env variables
 	if (path == NULL)
 	{
-		if (chdir(getenv("HOME")) == -1)
-		{
-			perror("Wrong home value!");
-			exit(1);
-		}
+		chdir(getenv("HOME"));
+		exit_status = 0;
 	}
 	else
 		if (chdir(path) == -1)
 		{
 			error_msg = strerror(2);
 			printf("bash: cd: %s: %s\n", splitted_cmd[1], error_msg);
-			exit(1);
+			exit_status = 1;
 		}
 	// free_matrix(splitted_cmd);
 }

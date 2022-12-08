@@ -3,24 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
+/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:00:18 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/05 12:05:47 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/08 00:11:07 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	env(int fd)
+void	env(t_list *env_lst, int fd)
 {
-	t_list	*i;
-
-	i = g_env;
-	while (i)
+	while (env_lst)
 	{
-		ft_putstr_fd((char *)i->content, fd);
+		ft_putstr_fd((char *)env_lst->content, fd);
 		write(fd, "\n", 1);
-		i = i->next;
+		env_lst = env_lst->next;
 	}
 }

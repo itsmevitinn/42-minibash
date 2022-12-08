@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
+/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/01 15:02:16 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/05 11:51:12 by gcorreia         ###   ########.fr       */
+/*   Created: 2022/12/07 23:20:58 by Vitor             #+#    #+#             */
+/*   Updated: 2022/12/07 23:21:43 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
-
 extern char **environ;
 
-void	initialize_env(void)
+#include "../../include/minishell.h"
+
+void	initialize_env(t_list *env_lst)
 {
 	int	i;
 
 	i = 0;
 	while (environ[i])
 	{
-		ft_lstadd_back(&g_env, ft_lstnew(ft_strdup(environ[i])));
+		ft_lstadd_back(&env_lst, ft_lstnew(ft_strdup(environ[i])));
 		i++;
 	}
 }

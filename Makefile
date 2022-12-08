@@ -23,14 +23,14 @@ MAIN = minishell.c prompt.c
 
 SIGNAL = signal.c
 
-ENVIRONMENT = environment.c
+VARIABLES = environment.c shell.c
 
 FUNCS = $(addprefix ./src/exec/, $(EXEC))			\
 		$(addprefix ./src/main/, $(MAIN))		\
 		$(addprefix ./src/signals/, $(SIGNAL))		\
 		$(addprefix ./src/parser/, $(PARSER))		\
 		$(addprefix ./src/builtin/, $(BUILT-IN))	\
-		$(addprefix ./src/environment/, $(ENVIRONMENT))	
+		$(addprefix ./src/variables/, $(VARIABLES))	
 
 
 RM = rm -rf
