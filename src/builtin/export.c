@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
+/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:08:25 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/08 18:50:25 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/09 18:51:46 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	export(char **cmd, t_var_lst *env_lst, int fd)
 		if (ft_strchr(*cmd, '='))
 		{
 			temp = split_env(*cmd);
+			temp = ft_split_quotes(*cmd, '=');
+			*(temp + 1) = ft_strtrim_edges(*(temp + 1), "\"");
 			if (!temp)
 				print_error(*cmd, fd);
 			else if (is_env(*temp, env_lst))
@@ -43,8 +45,8 @@ void	export(char **cmd, t_var_lst *env_lst, int fd)
 static void	parse_cmd(char *cmd)
 {
 	char	*aux;
-
-	while (*cmd)
+	
+	while (*cmd && *cmd != '=')
 	{
 		if (*cmd == '\'' || *cmd == '\"')
 		{
@@ -84,7 +86,7 @@ static void	change_content(char *name, char *content, t_var_lst *variables)
 	int	name_len;
 
 	name_len = ft_strlen(name);
-	while (variables && !ft_strncmp(name, variables->name, name_len))
+	while (variables && ft_strncmp(name, variables->name, name_len))
 		variables = variables->next;
 	free(variables->content);
 	variables->content = content;

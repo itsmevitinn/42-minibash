@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 11:59:16 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/08 15:22:08 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/09 18:58:45 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	isbuiltin(char **splitted_cmd, t_var_lst *env_lst)
 	else if (!ft_strncmp(splitted_cmd[0], "pwd", 3))
 		pwd(1);
 	else if (!ft_strncmp(splitted_cmd[0], "export", 6))
-		pwd(1);
+		export(splitted_cmd, env_lst, 1);
 	else if (!ft_strncmp(splitted_cmd[0], "unset", 5))
 		pwd(1);
 	else if (!ft_strncmp(splitted_cmd[0], "env", 3))
