@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:08:25 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/09 18:51:46 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/09 19:43:14 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	export(char **cmd, t_var_lst *env_lst, int fd)
 		if (ft_strchr(*cmd, '='))
 		{
 			temp = split_env(*cmd);
-			temp = ft_split_quotes(*cmd, '=');
 			*(temp + 1) = ft_strtrim_edges(*(temp + 1), "\"");
 			if (!temp)
 				print_error(*cmd, fd);
