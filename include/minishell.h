@@ -49,6 +49,9 @@ void	env(t_var_lst *env_lst, int fd);
 void	export(char **cmd, t_var_lst *env_lst, int fd);
 void	ft_exit(char **splitted_cmd);
 
+//BULT-IN UTILS
+int	parse_cmd(char *cmd);
+
 //SIGNAL_FUNCTIONS
 void	setup_signals(void);
 

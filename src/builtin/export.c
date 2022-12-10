@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:08:25 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/09 19:43:14 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/09 21:25:06 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static int	is_env(char *name, t_var_lst *variables);
 static void	change_content(char *name, char *content, t_var_lst *variables);
 static void	print_error(char *cmd, int fd);
-static void	parse_cmd(char *cmd);
 
 void	export(char **cmd, t_var_lst *env_lst, int fd)
 {
@@ -24,11 +23,11 @@ void	export(char **cmd, t_var_lst *env_lst, int fd)
 	cmd++;
 	while (*cmd)
 	{
-		parse_cmd(*cmd);
+		if (!parse_cmd(*cmd))
+			print_error(*cmd, fd);
 		if (ft_strchr(*cmd, '='))
 		{
 			temp = split_env(*cmd);
-			*(temp + 1) = ft_strtrim_edges(*(temp + 1), "\"");
 			if (!temp)
 				print_error(*cmd, fd);
 			else if (is_env(*temp, env_lst))
@@ -41,26 +40,26 @@ void	export(char **cmd, t_var_lst *env_lst, int fd)
 	}
 }
 
-static void	parse_cmd(char *cmd)
-{
-	char	*aux;
-	
-	while (*cmd && *cmd != '=')
-	{
-		if (*cmd == '\'' || *cmd == '\"')
-		{
-			aux = cmd;
-			while (*(aux + 1))
-			{
-				*aux = *(aux + 1);
-				aux++;
-			}
-			*aux = '\0';
-		}
-		else
-			cmd++;
-	}
-}
+//static void	parse_cmd(char *cmd)
+//{
+//	char	*aux;
+//	
+//	while (*cmd && *cmd != '=')
+//	{
+//		if (*cmd == '\'' || *cmd == '\"')
+//		{
+//			aux = cmd;
+//			while (*(aux + 1))
+//			{
+//				*aux = *(aux + 1);
+//				aux++;
+//			}
+//			*aux = '\0';
+//		}
+//		else
+//			cmd++;
+//	}
+//}
 
 static void	print_error(char *cmd, int fd)
 {
