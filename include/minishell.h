@@ -42,7 +42,7 @@ void	exec_bin_cmd(char *right_path, char **splitted_cmd);
 
 //BULT-IN FUNCTIONS
 int		isbuiltin(char **splitted_cmd, t_var_lst *env_lst);
-void	cd(char **splitted_cmd);
+void	cd(char **splitted_cmd, t_var_lst *env);
 void	echo(char **splitted_cmd, int fd);
 void	pwd(int fd);
 void	env(t_var_lst *env_lst, int fd);
@@ -58,11 +58,13 @@ char	**split_env(char *str);
 
 //ENVIRONMENT FUNCTIONS
 void	free_env(void);
+int	is_env(char *name, t_var_lst *variables);
 
 //VAR_LST FUNCTIONS
 t_var_lst	*ft_var_new(char *name, void *content);
 void		ft_varadd_back(t_var_lst **head, t_var_lst *new);
 void		ft_varclear(t_var_lst **head);
+void		change_content(char *name, char *content, t_var_lst *variables);
 
 extern int exit_status;
 

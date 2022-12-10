@@ -6,14 +6,12 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:08:25 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/09 19:43:14 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/09 23:23:13 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	is_env(char *name, t_var_lst *variables);
-static void	change_content(char *name, char *content, t_var_lst *variables);
 static void	print_error(char *cmd, int fd);
 static void	parse_cmd(char *cmd);
 
@@ -68,25 +66,38 @@ static void	print_error(char *cmd, int fd)
 	ft_putstr_fd(cmd, fd);
 	ft_putstr_fd("': not a valid identifier\n", fd);
 }
-static int	is_env(char *name, t_var_lst *variables)
+int	is_env(char *name, t_var_lst *variables)
 {
 	int	name_len;
 
 	name_len = ft_strlen(name);
-	while (variables && ft_strncmp(name, variables->name, name_len))
-		variables = variables->next;
-	if (!variables)
-		return (0);
-	return (1);
+	while (variables)
+	{
+		if (!ft_strncmp(name, variables->name, name_len + 1))
+		{
+			printf("retorno env: %s\n", variables->name);
+			return (1);
+		}
+		else
+			variables = variables->next;
+	}
+	printf("exit is_env\n");
+	return (0);
 }
 
-static void	change_content(char *name, char *content, t_var_lst *variables)
+void	change_content(char *name, char *content, t_var_lst *variables)
 {
 	int	name_len;
 
 	name_len = ft_strlen(name);
-	while (variables && ft_strncmp(name, variables->name, name_len))
-		variables = variables->next;
-	free(variables->content);
-	variables->content = content;
+	while (variables)
+	{
+		if (!ft_strncmp(name, variables->name, name_len + 1))
+		{
+			free(variables->content);
+			variables->content = content;
+		}
+		else
+			variables = variables->next;
+	}
 }
