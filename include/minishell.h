@@ -28,6 +28,17 @@ typedef struct	s_var_list
 	struct s_var_list *next;
 }				t_var_lst;
 
+typedef struct	s_cmd
+{
+	char *env_name;
+	char *infile;
+	char *heredoc_delimiter;
+	char *outfile;
+	int	append;
+	char **args;
+	struct s_cmd *next;
+}				t_cmd;
+
 //UTILS FUNCTIONS
 void	free_matrix(char **splitted_cmd);
 
