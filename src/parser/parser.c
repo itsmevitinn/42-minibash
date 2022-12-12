@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/11 20:36:23 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/12 18:45:57 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,29 @@ static void	find_right_path(char **splitted_cmd);
 static void	print_cmd(char **splitted_cmd);
 static void	cmd_notfound(char *cmd_name);
 static void free_paths (char **paths, int i);
+static char **split_cmd(char *line);
 
 void	parse_input(char *user_input, t_var_lst *env_lst)
 {
 	char	**splitted_cmd;
-	int		args;
 
-	args = 0;
-	//Split all the spaces and preserve whats is inside quotes
-	splitted_cmd = ft_split_quotes(user_input, ' ');
-	while (splitted_cmd[args++])
-	//Cut the quotes at the edges of each arguments
-		splitted_cmd[args] = ft_strtrim_edges(splitted_cmd[args], "'\"");
+	splitted_cmd = split_cmd(user_input);
 	print_cmd(splitted_cmd);
 	if (!is_builtin(splitted_cmd, env_lst))
 		find_right_path(splitted_cmd);
+}
+
+static char **split_cmd(char *line)
+{
+	char	**splitted_cmd;
+	int	args;
+
+	args = 0;
+	splitted_cmd = ft_split_quotes(line, '|');
+	while (splitted_cmd[args++])
+	//Cut the quotes at the edges of each arguments
+		splitted_cmd[args] = ft_strtrim_edges(splitted_cmd[args], "'\"");
+	return (splitted_cmd);
 }
 
 void	find_right_path(char **splitted_cmd)
