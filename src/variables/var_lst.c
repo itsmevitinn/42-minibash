@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 14:44:40 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/11 22:51:43 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/12 20:52:33 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,12 @@ void change_content(char *name, char *content, t_var_lst *variables)
 	}
 }
 
-int is_env(char *name, t_var_lst *variables)
+t_var_lst	*get_env(char *name, t_var_lst *variables)
 {
 	int name_len;
 
 	name_len = ft_strlen(name);
 	while (variables && ft_strncmp(name, variables->name, name_len + 1))
 		variables = variables->next;
-	if (variables)
-		return (1);
-	return (0);
+	return (variables);
 }

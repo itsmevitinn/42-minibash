@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 23:11:22 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/08 00:06:38 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/12 16:51:00 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void ft_exit(char **splitted_cmd)
 	else
 	{
 		//If n is omitted, the exit status is that of the last command executed.
-		printf("last status: %i\n", exit_status);
-		exit(exit_status);
+		printf("last status: %i\n", g_exit_status);
+		exit(g_exit_status);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/07 23:36:38 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/12 16:57:13 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	exec_bin_cmd(char *full_path, char **splitted_cmd)
 	if (!pid)
 		execve(full_path, splitted_cmd, NULL);
 	wait(&status);
-	exit_status = WEXITSTATUS(status);
+	g_exit_status = WEXITSTATUS(status);
 	//free right path after execution
 	free(full_path);
 	free_matrix(splitted_cmd);

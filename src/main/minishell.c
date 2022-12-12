@@ -6,14 +6,14 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/09 21:31:16 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/12 20:56:11 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 static int	whitespace_checker(char *input);
-int	exit_status;
+int	g_exit_status;
 
 int main(void)
 {
@@ -21,6 +21,12 @@ int main(void)
 	char		*user_input;
 
 	initialize_env(&env_lst);
+	user_input = ft_strdup("$?1 $SHELL$BANANA $?1");
+	printf("before = %s\n", user_input);
+	interpret_vars(&user_input, env_lst);
+	printf("after = %s\n", user_input);
+	ft_varclear(&env_lst);
+	free(user_input);
 //	setup_signals();
 //	while(42)
 //	{
