@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/11 23:40:17 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/12 18:41:55 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int relative_or_absolute(char *path);
 static void update_oldpwd(char *current_dir, t_var_lst *env);
 static char *get_content(char *name, t_var_lst *env);
 
-void cd(char **splitted_cmd, t_var_lst *env)
+void cd(char **splitted_cmd, t_var_lst *env_lst)
 {
 	char *current_dir;
 	char *path;
@@ -25,15 +25,15 @@ void cd(char **splitted_cmd, t_var_lst *env)
 	path = splitted_cmd[1];
 
 	if (!path)
-		chdir(get_content("HOME", env));
+		chdir(get_content("HOME", env_lst));
 	else if (*path == '-' && ft_strlen(path) == 1)
 	{
-		if (!oldpwd(env))
+		if (!oldpwd(env_lst))
 			return ;
 	}
 	else if (!relative_or_absolute(path))
 		return ;
-	update_oldpwd(current_dir, env);
+	update_oldpwd(current_dir, env_lst);
 	exit_status = 0;
 }
 

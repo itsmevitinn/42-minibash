@@ -53,7 +53,7 @@ void	exec_bin_cmd(char *right_path, char **splitted_cmd);
 
 //BULT-IN FUNCTIONS
 int		is_builtin(char **splitted_cmd, t_var_lst *env_lst);
-void	cd(char **splitted_cmd, t_var_lst *env);
+void	cd(char **splitted_cmd, t_var_lst *env_lst);
 void	echo(char **splitted_cmd, int fd);
 void	pwd(int fd);
 void	env(t_var_lst *env_lst, int fd);
