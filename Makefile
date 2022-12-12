@@ -23,7 +23,7 @@ MAIN = minishell.c prompt.c
 
 SIGNAL = signal.c
 
-VARIABLES = environment.c shell.c var_lst.c split_env.c
+VARIABLES = environment.c var_lst.c split_env.c
 
 FUNCS = $(addprefix ./src/exec/, $(EXEC))			\
 		$(addprefix ./src/main/, $(MAIN))			\

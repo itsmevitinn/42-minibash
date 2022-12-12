@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   var_lst.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
+/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 14:44:40 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/08 15:59:32 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/11 22:51:43 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_var_lst	*ft_var_new(char *name, void *content)
+t_var_lst *ft_var_new(char *name, void *content)
 {
-	t_var_lst	*lst;
+	t_var_lst *lst;
 
 	lst = malloc(sizeof(t_var_lst));
 	if (!lst)
@@ -25,14 +25,14 @@ t_var_lst	*ft_var_new(char *name, void *content)
 	return (lst);
 }
 
-void	ft_varadd_back(t_var_lst **head, t_var_lst *new)
+void ft_varadd_back(t_var_lst **head, t_var_lst *new)
 {
-	t_var_lst	*temp;
+	t_var_lst *temp;
 
 	if (!*head || !head)
 	{
 		*head = new;
-		return ;
+		return;
 	}
 	temp = *head;
 	while (temp->next)
@@ -40,9 +40,9 @@ void	ft_varadd_back(t_var_lst **head, t_var_lst *new)
 	temp->next = new;
 }
 
-void	ft_varclear(t_var_lst **head)
+void ft_varclear(t_var_lst **head)
 {
-	t_var_lst	*ptr;
+	t_var_lst *ptr;
 
 	ptr = *head;
 	while (ptr)
@@ -53,4 +53,30 @@ void	ft_varclear(t_var_lst **head)
 		free(*head);
 		*head = ptr;
 	}
+}
+
+void change_content(char *name, char *content, t_var_lst *variables)
+{
+	int name_len;
+
+	name_len = ft_strlen(name);
+	while (variables && ft_strncmp(name, variables->name, name_len + 1))
+		variables = variables->next;
+	if (variables)
+	{
+		free(variables->content);
+		variables->content = content;
+	}
+}
+
+int is_env(char *name, t_var_lst *variables)
+{
+	int name_len;
+
+	name_len = ft_strlen(name);
+	while (variables && ft_strncmp(name, variables->name, name_len + 1))
+		variables = variables->next;
+	if (variables)
+		return (1);
+	return (0);
 }

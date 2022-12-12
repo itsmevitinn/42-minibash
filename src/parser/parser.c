@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/08 15:20:54 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/11 20:36:23 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	parse_input(char *user_input, t_var_lst *env_lst)
 	//Cut the quotes at the edges of each arguments
 		splitted_cmd[args] = ft_strtrim_edges(splitted_cmd[args], "'\"");
 	print_cmd(splitted_cmd);
-	if (!isbuiltin(splitted_cmd, env_lst))
+	if (!is_builtin(splitted_cmd, env_lst))
 		find_right_path(splitted_cmd);
 }
 

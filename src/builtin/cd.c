@@ -6,102 +6,83 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/09 23:23:44 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/11 23:40:17 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+static int oldpwd(t_var_lst *env);
+static int relative_or_absolute(char *path);
+static void update_oldpwd(char *current_dir, t_var_lst *env);
 static char *get_content(char *name, t_var_lst *env);
-static int is_minus(char *path);
-static void update_oldpwd(char *path, char *current_dir, t_var_lst *env);
-static int is_updatable(char *path);
 
-void	cd(char **splitted_cmd, t_var_lst *env)
+void cd(char **splitted_cmd, t_var_lst *env)
 {
 	char *current_dir;
-	char *error_msg;
 	char *path;
-	
+
 	current_dir = getcwd(NULL, 0);
 	path = splitted_cmd[1];
 
-	if (path == NULL)
-	{
+	if (!path)
 		chdir(get_content("HOME", env));
-		exit_status = 0;
-	}
-	else if (is_minus(path))
+	else if (*path == '-' && ft_strlen(path) == 1)
 	{
-		printf("minus ok\n");
-		if (is_env("OLDPWD", env))
-		{
-			chdir(get_content("OLDPWD", env));
-			printf("%s\n", get_content("OLDPWD", env));
-		}
-		else
-			ft_putstr_fd("bash: cd: OLDPWD not set\n", 2);
-		exit_status = 0;
+		if (!oldpwd(env))
+			return ;
 	}
-	else
-		if (chdir(path) == -1)
-		{
-			error_msg = strerror(2);
-			printf("bash: cd: %s: %s\n", splitted_cmd[1], error_msg);
-			exit_status = 1;
-		}
-	update_oldpwd(path, current_dir, env);
+	else if (!relative_or_absolute(path))
+		return ;
+	update_oldpwd(current_dir, env);
+	exit_status = 0;
 }
 
-static void update_oldpwd(char *path, char *current_dir, t_var_lst *env)
+static int oldpwd(t_var_lst *env)
 {
-	if (is_env("OLDPWD", env) && is_updatable(path))
+	if (is_env("OLDPWD", env))
 	{
-		printf("updating oldpwd\n");
+		chdir(get_content("OLDPWD", env));
+		printf("%s\n", get_content("OLDPWD", env));
+	}
+	else if (!is_env("OLDPWD", env))
+	{
+		ft_putstr_fd("bash: cd: OLDPWD not set\n", 2);
+		exit_status = 1;
+		return (0);
+	}
+	return (1);
+}
+
+static int relative_or_absolute(char *path)
+{
+	char *error_msg;
+
+	if (chdir(path) == -1)
+	{
+		error_msg = strerror(2);
+		printf("bash: cd: %s: %s\n", path, error_msg);
+		exit_status = 1;
+		return (0);
+	}
+	return (1);
+}
+
+static void update_oldpwd(char *current_dir, t_var_lst *env)
+{
+	if (is_env("OLDPWD", env))
 		change_content("OLDPWD", current_dir, env);
-	}
-	else if (is_updatable(path))
-	{
-		printf("creating oldpwd");
+	else
 		ft_varadd_back(&env, ft_var_new("OLDPWD", current_dir));
-	}
-	printf("none\n");
-}
-
-static int is_updatable(char *path)
-{
-	if (!is_minus(path) || path == NULL)
-		return (1);
-	return (0);
-}
-
-static int is_minus(char *path)
-{
-	char first;
-	int len;
-
-	first = *path;
-	len = 0;
-	while(*path)
-	{
-		path++;
-		len++;
-	}
-	if (first == '-' && len == 1)
-		return (1);
-	return (0);
 }
 
 static char *get_content(char *name, t_var_lst *env)
 {
-	int	name_len;
+	int name_len;
 
 	name_len = ft_strlen(name);
-	while (env)
-	{
-		if (!ft_strncmp(name, env->name, name_len + 1))
-			return(env->content);
-		else
-			env = env->next;
-	}
+	while (env && ft_strncmp(name, env->name, name_len + 1))
+		env = env->next;
+	if (env)
+		return (env->content);
 	return (NULL);
 }
