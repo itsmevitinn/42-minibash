@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/12 18:41:55 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/12 21:01:33 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,21 @@ void cd(char **splitted_cmd, t_var_lst *env_lst)
 	}
 	else if (!relative_or_absolute(path))
 		return ;
-	update_oldpwd(current_dir, env_lst);
-	exit_status = 0;
+	update_oldpwd(current_dir, env);
+	g_exit_status = 0;
 }
 
 static int oldpwd(t_var_lst *env)
 {
-	if (is_env("OLDPWD", env))
+	if (get_env("OLDPWD", env))
 	{
 		chdir(get_content("OLDPWD", env));
 		printf("%s\n", get_content("OLDPWD", env));
 	}
-	else if (!is_env("OLDPWD", env))
+	else 
 	{
 		ft_putstr_fd("bash: cd: OLDPWD not set\n", 2);
-		exit_status = 1;
+		g_exit_status = 1;
 		return (0);
 	}
 	return (1);
@@ -61,7 +61,7 @@ static int relative_or_absolute(char *path)
 	{
 		error_msg = strerror(2);
 		printf("bash: cd: %s: %s\n", path, error_msg);
-		exit_status = 1;
+		g_exit_status = 1;
 		return (0);
 	}
 	return (1);
@@ -69,7 +69,7 @@ static int relative_or_absolute(char *path)
 
 static void update_oldpwd(char *current_dir, t_var_lst *env)
 {
-	if (is_env("OLDPWD", env))
+	if (get_env("OLDPWD", env))
 		change_content("OLDPWD", current_dir, env);
 	else
 		ft_varadd_back(&env, ft_var_new("OLDPWD", current_dir));

@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:09:07 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/08 17:57:51 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/09 21:55:31 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char **split_env(char *str)
 	if (!*array || !*(array + 1))
 	{
 		free(*array);
-		free(*array + 1);
+		free(*(array + 1));
 		return (NULL);
 	}
 	fill_array(array, str);

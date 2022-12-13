@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/11 20:36:23 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/12 16:56:44 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	cmd_notfound(char *cmd_name)
 	ft_putstr_fd("bash: ", 2);
 	ft_putstr_fd(cmd_name, 2);
 	ft_putstr_fd(": command not found\n", 2);
-	exit_status = 127;
+	g_exit_status = 127;
 }
 
 static void free_paths (char **paths, int i)

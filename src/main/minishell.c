@@ -6,14 +6,14 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/08 15:25:58 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/12 21:02:05 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 static int	whitespace_checker(char *input);
-int	exit_status;
+int	g_exit_status;
 
 int main(void)
 {
@@ -24,7 +24,7 @@ int main(void)
 	setup_signals();
 	while(42)
 	{
-		printf("last exit status: %i\n", exit_status);
+		printf("last exit status: %i\n", g_exit_status);
 		user_input = display_prompt();
 		if (!user_input)
 		{

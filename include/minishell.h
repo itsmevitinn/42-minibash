@@ -47,6 +47,8 @@ char	*display_prompt(void);
 
 //PARSER FUNCTIONS
 void	parse_input(char *user_input, t_var_lst *env_lst);
+void	interpret_vars(char **cmd, t_var_lst *env_lst);
+char	*sub_var_in_cmd(char **cmd, char *i, t_var_lst *env_lst);
 
 //EXEC FUNCTIONS
 void	exec_bin_cmd(char *right_path, char **splitted_cmd);
@@ -60,6 +62,9 @@ void	env(t_var_lst *env_lst, int fd);
 void	export(char **cmd, t_var_lst *env_lst, int fd);
 void	ft_exit(char **splitted_cmd);
 
+//BULT-IN UTILS
+int	parse_cmd(char *cmd);
+
 //SIGNAL_FUNCTIONS
 void	setup_signals(void);
 
@@ -72,11 +77,11 @@ void	free_env(void);
 
 //VAR_LST FUNCTIONS
 t_var_lst	*ft_var_new(char *name, void *content);
+t_var_lst	*get_env(char *name, t_var_lst *variables);
 void		ft_varadd_back(t_var_lst **head, t_var_lst *new);
 void		ft_varclear(t_var_lst **head);
 void		change_content(char *name, char *content, t_var_lst *variables);
-int	is_env(char *name, t_var_lst *variables);
 
-extern int exit_status;
+extern int g_exit_status;
 
 #endif
