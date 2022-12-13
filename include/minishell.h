@@ -28,16 +28,17 @@ typedef struct	s_var_list
 	struct s_var_list *next;
 }				t_var_lst;
 
-typedef struct	s_cmd
+typedef struct	s_cmd_lst
 {
 	char *env_name;
 	char *infile;
 	char *heredoc_delimiter;
 	char *outfile;
 	int	append;
+	char *cmd_line;
 	char **args;
-	struct s_cmd *next;
-}				t_cmd;
+	struct s_cmd_lst *next;
+}				t_cmd_lst;
 
 //UTILS FUNCTIONS
 void	free_matrix(char **splitted_cmd);
@@ -79,4 +80,6 @@ int	is_env(char *name, t_var_lst *variables);
 
 extern int exit_status;
 
+t_cmd_lst *ft_cmd_new(char *cmd_line);
+void ft_cmdadd_back(t_cmd_lst **head, t_cmd_lst *new);
 #endif
