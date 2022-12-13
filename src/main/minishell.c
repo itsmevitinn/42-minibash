@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/12 20:56:11 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/13 17:33:52 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ int main(void)
 	char		*user_input;
 
 	initialize_env(&env_lst);
-	user_input = ft_strdup("$?1 $SHELL$BANANA $?1");
+	user_input = ft_strdup("\"$?1 \'$SHELL\' \"-$BANANA-\" $?1\"");
 	printf("before = %s\n", user_input);
 	interpret_vars(&user_input, env_lst);
+	for (int i = 0; user_input[i]; i++)
+		printf("%d- ", user_input[i]);
 	printf("after = %s\n", user_input);
 	ft_varclear(&env_lst);
 	free(user_input);
