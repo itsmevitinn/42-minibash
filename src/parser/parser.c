@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/14 00:31:20 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/14 12:01:31 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ static void cmd_notfound(char *cmd_name);
 static void free_paths(char **paths, int i);
 static char **split_pipes(char *user_input);
 static void build_lst_cmd(char **all_cmds);
+void	initialize_data(t_cmd_lst *lst_cmd);
 void get_filename(t_cmd_lst *cmd, int offset, char type);
 void redirect_checker(t_cmd_lst *lst_cmd);
+int	get_filename_fd(char *buffer);
 
 void parse_input(char *user_input, t_var_lst *env_lst)
 {
@@ -38,15 +40,25 @@ static void build_lst_cmd(char **all_cmds)
 	offset = 0;
 	while (all_cmds[offset])
 		ft_cmdadd_back(&lst_cmd, ft_cmd_new(all_cmds[offset++]));
+	initialize_data(lst_cmd);
 	while (lst_cmd)
 	{
-		printf("line before: %s\n", lst_cmd->line);
+		printf("line before:%s\n", lst_cmd->line);
 		redirect_checker(lst_cmd);
 		printf("infile: %s\n", lst_cmd->infile);
 		printf("outfile: %s\n", lst_cmd->outfile);
-		printf("line after:%s\n", lst_cmd->line);
 		lst_cmd->args = ft_split_quotes(lst_cmd->line, ' ');
 		print_cmd(lst_cmd->args);
+		lst_cmd = lst_cmd->next;
+	}
+}
+
+void	initialize_data(t_cmd_lst *lst_cmd)
+{
+	while(lst_cmd)
+	{
+		lst_cmd->infile = NULL;
+		lst_cmd->outfile = NULL;
 		lst_cmd = lst_cmd->next;
 	}
 }
@@ -88,11 +100,24 @@ void get_filename(t_cmd_lst *cmd, int offset, char type)
 	while (cmd->line[filename] && !ft_isspace(cmd->line[filename]))
 		buffer[buffer_offset++] = cmd->line[filename++];
 	buffer[buffer_offset] = '\0';
+	get_filename_fd(buffer);
 	if (type == '<')
 		cmd->infile = buffer;
 	else if (type == '>')
 		cmd->outfile = buffer;
-	remove_chunk(&cmd->line[start_chunk], offset - 1);
+	if (get_filename_fd(buffer))
+		remove_chunk(&cmd->line[start_chunk], offset - 1);
+}
+
+int	get_filename_fd(char *buffer)
+{
+	int fdfile;
+
+	fdfile = open(buffer, O_RDONLY, 0666);
+	if (fdfile == -1)
+		return (0);
+	else
+		return (1);
 }
 
 void remove_chunk(char *line, int len)
