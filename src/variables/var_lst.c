@@ -6,20 +6,20 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 14:44:40 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/13 17:27:52 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/13 23:57:20 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_cmd_lst *ft_cmd_new(char *cmd_line)
+t_cmd_lst *ft_cmd_new(char *line)
 {
 	t_cmd_lst *lst;
 
 	lst = malloc(sizeof(t_cmd_lst));
 	if (!lst)
 		return (NULL);
-	lst->cmd_line = cmd_line;
+	lst->line = line;
 	lst->next = NULL;
 	return (lst);
 }

@@ -35,7 +35,7 @@ typedef struct	s_cmd_lst
 	char *heredoc_delimiter;
 	char *outfile;
 	int	append;
-	char *cmd_line;
+	char *line;
 	char **args;
 	struct s_cmd_lst *next;
 }				t_cmd_lst;
