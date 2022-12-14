@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/14 13:34:11 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/14 20:30:00 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,19 @@ int main(void)
 {
 	t_var_lst		*env_lst;
 	char		*user_input;
+	char	**print;
+	char	**cmd;
+	char	*str;
 
+	str = ft_strdup("NOME_COM_ESPACO=teste");
 	initialize_env(&env_lst);
-	user_input = ft_strdup("\"$?1 \'$SHELL\' \"-$BANANA-\" $?1\"");
-	printf("before = %s\n", user_input);
-	interpret_vars(&user_input, env_lst);
-	for (int i = 0; user_input[i]; i++)
-		printf("%d- ", user_input[i]);
-	printf("\n");
-	cleanup(user_input);
-	for (int i = 0; user_input[i]; i++)
-		printf("%d- ", user_input[i]);
-	printf("\n");
-	printf("after = %s\n", user_input);
+	print = ft_split("", ' ');
+	cmd = ft_split("export foo = bar", ' ');
+//	cmd[2] = str;
+	export(cmd, env_lst, 1);
+	export(print, env_lst, 1);
+
 	ft_varclear(&env_lst);
-	free(user_input);
 //	setup_signals();
 //	while(42)
 //	{
