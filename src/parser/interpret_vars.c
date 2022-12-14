@@ -6,14 +6,15 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 20:37:37 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/13 18:58:34 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/14 10:34:53 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static char	*skip_quote(char *cmd);
+static void	alter_state(int *state);
 static char	*handle_dollar_sign(char **cmd, char *i, t_var_lst *env_lst);
+static char	*get_var_name(char *cmd);
 
 void	interpret_vars(char **cmd, t_var_lst *env_lst)
 {
@@ -25,12 +26,7 @@ void	interpret_vars(char **cmd, t_var_lst *env_lst)
 	while (*i)
 	{
 		if (*i == '\"')
-		{
-			if (!inside_double_quotes)
-				inside_double_quotes = 1;
-			else
-				inside_double_quotes = 0;
-		}
+			alter_state(&inside_double_quotes);
 		if (*i == '\'' && !inside_double_quotes)
 			i = skip_quote(i);
 		else if (*i == '$')
@@ -40,14 +36,12 @@ void	interpret_vars(char **cmd, t_var_lst *env_lst)
 	}
 }
 
-static char	*skip_quote(char *cmd)
+static void	alter_state(int *state)
 {
-	cmd++;
-	while (*cmd != '\'' && *cmd)
-		cmd++;
-	if (*cmd == '\'')
-		cmd++;
-	return (cmd);
+	if (*state)
+		*state = 0;
+	else
+		*state = 1;
 }
 
 static char	*handle_dollar_sign(char **cmd, char *i, t_var_lst *env_lst)
@@ -59,7 +53,7 @@ static char	*handle_dollar_sign(char **cmd, char *i, t_var_lst *env_lst)
 	if (i[1] == '?')
 	{
 		exit_status = ft_itoa(g_exit_status);
-		i = insert_var(cmd, i, "?", exit_status);
+		i = sub_cmd(cmd, i, "?", exit_status);
 		free(exit_status);
 	}
 	else
@@ -67,10 +61,29 @@ static char	*handle_dollar_sign(char **cmd, char *i, t_var_lst *env_lst)
 		var_name = get_var_name(i);
 		var = get_env(var_name, env_lst);
 		if (!var || !var->content)
-			remove_var(i, ft_strlen(var_name));
+			remove_chunk(i, ft_strlen(var_name));
 		else
-			i = insert_var(cmd, i, var->name, var->content);
+			i = sub_cmd(cmd, i, var->name, var->content);
 		free(var_name);
 	}
 	return (i);
+}
+
+static char	*get_var_name(char *cmd)
+{
+	char	*aux;
+	char	*name;
+
+	aux = cmd;
+	while (*aux && ft_isalpha(*aux))
+		aux++;
+	name = malloc(aux - cmd);
+	if (!name)
+		return (NULL);
+	aux = name;
+	cmd++;
+	while (*cmd && ft_isalpha(*cmd))
+		*aux++ = *cmd++;
+	*aux = '\0';
+	return (name);
 }

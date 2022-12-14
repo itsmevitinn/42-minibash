@@ -40,13 +40,13 @@ char	*display_prompt(void);
 //PARSER FUNCTIONS
 void	parse_input(char *user_input, t_var_lst *env_lst);
 void	interpret_vars(char **cmd, t_var_lst *env_lst);
-void	remove_var(char *cmd, int len);
+char	*sub_cmd(char **cmd, char *i, char *name, char *content);
+/*--Utils--*/
+void	remove_chunk(char *str, int len);
+char	*skip_quote(char *cmd);
+
 
 //INTERPRET_VARS_UTILS
-char	*get_var_name(char *cmd);
-char	*insert_var(char **cmd, char *i, char *name, char *content);
-char	*insert_content(char *dst, char *content);
-void	copy_rest(char *dst, char *src);
 
 //EXEC FUNCTIONS
 void	exec_bin_cmd(char *right_path, char **splitted_cmd);
