@@ -51,8 +51,9 @@ char	*display_prompt(void);
 //PARSER FUNCTIONS
 void	parse_input(char *user_input, t_var_lst *env_lst);
 void	interpret_vars(char **cmd, t_var_lst *env_lst);
-char	*sub_cmd(char **cmd, char *i, char *name, char *content);
+void	cleanup(char *cmd);
 /*--Utils--*/
+char	*sub_cmd(char **cmd, char *i, char *name, char *content);
 void	remove_chunk(char *str, int len);
 char	*skip_quote(char *cmd);
 
