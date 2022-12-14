@@ -13,6 +13,9 @@
 # include <sys/wait.h>
 # include "../libft/libft.h"
 
+# define START 2
+# define END 3
+
 typedef struct	s_prompt
 {
 	char *logname;
@@ -48,7 +51,13 @@ char	*display_prompt(void);
 //PARSER FUNCTIONS
 void	parse_input(char *user_input, t_var_lst *env_lst);
 void	interpret_vars(char **cmd, t_var_lst *env_lst);
-char	*sub_var_in_cmd(char **cmd, char *i, t_var_lst *env_lst);
+char	*sub_cmd(char **cmd, char *i, char *name, char *content);
+/*--Utils--*/
+void	remove_chunk(char *str, int len);
+char	*skip_quote(char *cmd);
+
+
+//INTERPRET_VARS_UTILS
 
 //EXEC FUNCTIONS
 void	exec_bin_cmd(char *right_path, char **splitted_cmd);
