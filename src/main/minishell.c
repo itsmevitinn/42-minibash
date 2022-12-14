@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/13 17:33:52 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/14 13:34:11 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ int main(void)
 	interpret_vars(&user_input, env_lst);
 	for (int i = 0; user_input[i]; i++)
 		printf("%d- ", user_input[i]);
+	printf("\n");
+	cleanup(user_input);
+	for (int i = 0; user_input[i]; i++)
+		printf("%d- ", user_input[i]);
+	printf("\n");
 	printf("after = %s\n", user_input);
 	ft_varclear(&env_lst);
 	free(user_input);
