@@ -30,11 +30,10 @@ typedef struct	s_var_list
 
 typedef struct	s_cmd_lst
 {
-	char *env_name;
-	char *infile;
+	int input;
+	int output;
+	int	is_append;
 	char *heredoc_delimiter;
-	char *outfile;
-	int	append;
 	char *line;
 	char **args;
 	struct s_cmd_lst *next;
@@ -53,9 +52,9 @@ void	parse_input(char *user_input, t_var_lst *env_lst);
 void	exec_bin_cmd(char *right_path, char **splitted_cmd);
 
 //BULT-IN FUNCTIONS
-int		is_builtin(char **splitted_cmd, t_var_lst *env_lst);
+int		is_builtin(t_cmd_lst *cmd, t_var_lst *env_lst);
 void	cd(char **splitted_cmd, t_var_lst *env_lst);
-void	echo(char **splitted_cmd, int fd);
+void	echo(t_cmd_lst *cmd);
 void	pwd(int fd);
 void	env(t_var_lst *env_lst, int fd);
 void	export(char **cmd, t_var_lst *env_lst, int fd);

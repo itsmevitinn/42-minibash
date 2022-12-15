@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/14 12:01:31 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/15 18:00:28 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,49 +16,53 @@ static void print_cmd(char **splitted_cmd);
 void remove_chunk(char *cmd_line, int len);
 static void cmd_notfound(char *cmd_name);
 static void free_paths(char **paths, int i);
-static char **split_pipes(char *user_input);
-static void build_lst_cmd(char **all_cmds);
-void	initialize_data(t_cmd_lst *lst_cmd);
+static void build_lst_cmd(t_cmd_lst *lst_cmd, char *line);
+void	initialize_std_fd(t_cmd_lst *lst_cmd);
 void get_filename(t_cmd_lst *cmd, int offset, char type);
 void redirect_checker(t_cmd_lst *lst_cmd);
-int	get_filename_fd(char *buffer);
+int	check_file(t_cmd_lst *cmd, char *buffer, char type);
+int	check_infile(t_cmd_lst *cmd, char *buffer);
+int	check_outfile(t_cmd_lst *cmd, char *buffer);
 
-void parse_input(char *user_input, t_var_lst *env_lst)
+void parse_input(char *line, t_var_lst *env_lst)
 {
 	env_lst++;
-	split_pipes(user_input);
-	// if (!is_builtin(all_cmds, env_lst))
-	// find_right_path(splitted_cmd);
+	t_cmd_lst *lst_cmd;
+
+	lst_cmd = NULL;
+	build_lst_cmd(lst_cmd, line);
+		// find_right_path(splitted_cmd);
 }
 
-static void build_lst_cmd(char **all_cmds)
+static void build_lst_cmd(t_cmd_lst *lst_cmd, char *line)
 {
-	t_cmd_lst *lst_cmd;
+	char **all_cmds;
 	int offset;
 
 	lst_cmd = NULL;
+	all_cmds = ft_split_quotes(line, '|');
 	offset = 0;
 	while (all_cmds[offset])
 		ft_cmdadd_back(&lst_cmd, ft_cmd_new(all_cmds[offset++]));
-	initialize_data(lst_cmd);
+	initialize_std_fd(lst_cmd);
 	while (lst_cmd)
 	{
 		printf("line before:%s\n", lst_cmd->line);
 		redirect_checker(lst_cmd);
-		printf("infile: %s\n", lst_cmd->infile);
-		printf("outfile: %s\n", lst_cmd->outfile);
+		printf("line after: %s\n", lst_cmd->line);
 		lst_cmd->args = ft_split_quotes(lst_cmd->line, ' ');
 		print_cmd(lst_cmd->args);
+		is_builtin(lst_cmd, NULL);
 		lst_cmd = lst_cmd->next;
 	}
 }
 
-void	initialize_data(t_cmd_lst *lst_cmd)
+void	initialize_std_fd(t_cmd_lst *lst_cmd)
 {
 	while(lst_cmd)
 	{
-		lst_cmd->infile = NULL;
-		lst_cmd->outfile = NULL;
+		lst_cmd->input = 0;
+		lst_cmd->output = 1;
 		lst_cmd = lst_cmd->next;
 	}
 }
@@ -100,28 +104,54 @@ void get_filename(t_cmd_lst *cmd, int offset, char type)
 	while (cmd->line[filename] && !ft_isspace(cmd->line[filename]))
 		buffer[buffer_offset++] = cmd->line[filename++];
 	buffer[buffer_offset] = '\0';
-	get_filename_fd(buffer);
-	if (type == '<')
-		cmd->infile = buffer;
-	else if (type == '>')
-		cmd->outfile = buffer;
-	if (get_filename_fd(buffer))
+	if (check_file(cmd, buffer, type))
 		remove_chunk(&cmd->line[start_chunk], offset - 1);
 }
 
-int	get_filename_fd(char *buffer)
+int	check_file(t_cmd_lst *cmd, char *buffer, char type)
 {
-	int fdfile;
+	if (type == '<' && check_infile(cmd, buffer))
+		return (1);
+	else if (type == '>' && check_outfile(cmd, buffer))
+		return (1);
+	return (0);
+}
 
-	fdfile = open(buffer, O_RDONLY, 0666);
-	if (fdfile == -1)
+int	check_infile(t_cmd_lst *cmd, char *buffer)
+{
+	int infile;
+	
+	infile = open(buffer, O_RDONLY, 0666);
+	if (infile == -1)
 		return (0);
 	else
-		return (1);
+	{
+		printf("new input fd from: %s\n", buffer);
+		cmd->input = infile;
+		printf("input fd: %d\n", cmd->input);
+	}
+	return (1);
+}
+
+int	check_outfile(t_cmd_lst *cmd, char *buffer)
+{
+	int outfile;
+
+	outfile = open(buffer, O_CREAT | O_RDWR | O_TRUNC, 0666);
+	if (outfile == -1)
+		return (0);
+	else
+	{
+		printf("new output fd from: %s\n", buffer);
+		cmd->output = outfile;
+		printf("output fd: %d\n", cmd->output);
+	}
+	return (1);
 }
 
 void remove_chunk(char *line, int len)
 {
+	printf("size: %i\n", len);
 	char *aux;
 
 	while (len >= 0)
@@ -136,19 +166,19 @@ void remove_chunk(char *line, int len)
 	}
 }
 
-static char **split_pipes(char *user_input)
-{
-	char **all_cmds;
+// static char **split_pipes(char *user_input)
+// {
+// 	char **all_cmds;
 
-	all_cmds = ft_split_quotes(user_input, '|');
-	build_lst_cmd(all_cmds);
-	return (NULL);
+// 	all_cmds = ft_split_quotes(user_input, '|');
+// 	build_lst_cmd(all_cmds);
+// 	return (NULL);
 	// cmd = ft_split_quotes(cmd[0], ' ');
 	// while (cmd[args++])
 	// Cut the quotes at the edges of each arguments
 	// cmd[args] = ft_strtrim_edges(cmd[args], "'\"");
 	// return (cmd);
-}
+// }
 
 void find_right_path(char **splitted_cmd)
 {
@@ -203,7 +233,8 @@ static void print_cmd(char **splitted_cmd)
 	i = 0;
 	while (splitted_cmd[i])
 	{
-		printf("[%i] %s\n", i, splitted_cmd[i]);
+		printf("[%i] %s ", i, splitted_cmd[i]);
 		i++;
 	}
+	printf("\n");
 }
