@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:08:25 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/14 20:31:20 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/15 15:05:41 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,7 @@ static void	export_var(t_var_lst *env_lst, char *cmd)
 		name = malloc (content - cmd + 1);
 		aux = name;
 		while (cmd != content)
-		{
 			*aux++ = *cmd++;
-		}
 		*aux = '\0';
 		content = ft_strdup(content + 1);
 	}
