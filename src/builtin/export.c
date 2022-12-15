@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:08:25 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/15 15:05:41 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/15 16:53:36 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void print_error(char *cmd, int fd);
 static void	print_vars(t_var_lst *env_lst, int fd);
 static void	export_var(t_var_lst *env_lst, char *cmd);
-static int	cmd_is_invalid(char *cmd);
+static int	name_is_invalid(char *cmd);
 
 
 void export(char **cmd, t_var_lst *env_lst, int fd)
@@ -31,7 +31,7 @@ void export(char **cmd, t_var_lst *env_lst, int fd)
 	}
 	while (*cmd)
 	{
-		if (cmd_is_invalid(*cmd))
+		if (name_is_invalid(*cmd))
 		{
 			print_error(*cmd, fd);
 			exit_status = 1;
@@ -66,7 +66,7 @@ static void	print_vars(t_var_lst *env_lst, int fd)
 	}
 }
 
-static int	cmd_is_invalid(char *cmd)
+static int	name_is_invalid(char *cmd) //CHECK VALID CHARACTERS DIFFERENT FOR 1ST CHARACTER
 {
 	if (*cmd == '=')
 		return (1);

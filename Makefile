@@ -17,7 +17,7 @@ PARSER = parser.c interpret_vars.c sub_cmd.c cleanup.c utils.c
 
 EXEC = bin_cmd.c
 
-BUILT-IN = exit.c isbuiltin.c cd.c pwd.c echo.c env.c export.c
+BUILT-IN = exit.c isbuiltin.c cd.c pwd.c echo.c env.c export.c unset.c
 
 MAIN = minishell.c prompt.c
 
