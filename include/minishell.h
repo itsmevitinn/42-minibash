@@ -70,6 +70,7 @@ void	echo(char **splitted_cmd, int fd);
 void	pwd(int fd);
 void	env(t_var_lst *env_lst, int fd);
 void	export(char **cmd, t_var_lst *env_lst, int fd);
+void	unset(char **cmd, t_var_lst **env_lst, int fd);
 void	ft_exit(char **splitted_cmd);
 
 //BULT-IN UTILS
