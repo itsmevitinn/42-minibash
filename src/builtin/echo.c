@@ -6,33 +6,33 @@
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 22:49:26 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/01 18:26:49 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/15 17:36:30 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
 
-void	echo(char **splitted_cmd, int fd)
+void	echo(t_cmd_lst *cmd)
 {
-	int word_index;
+	printf("entrou echo\n");
+	int content_index;
 	int trailing_newline;
 
 	trailing_newline = 1;
-	if (!ft_strncmp(splitted_cmd[1], "-n", 2) && ft_strlen(splitted_cmd[1]) == 2)
+	if (!ft_strncmp(cmd->args[1], "-n", 2) && ft_strlen(cmd->args[1]) == 2)
 	{
-		word_index = 2;
+		content_index = 2;
 		trailing_newline = 0;
 	}
 	else
-		word_index = 1;
-	while(splitted_cmd[word_index])
+		content_index = 1;
+	while(cmd->args[content_index])
 	{
-		ft_putstr_fd(splitted_cmd[word_index], fd);
-		if (splitted_cmd[word_index + 1])
-			write(fd, " ", 1);
-		word_index++;
+		ft_putstr_fd(cmd->args[content_index], cmd->output);
+		if (cmd->args[content_index + 1])
+			write(cmd->output, " ", 1);
+		content_index++;
 	}
 	if (trailing_newline)
-		write(fd, "\n", 1);
-	// free_matrix(splitted_cmd);
+		write(cmd->output, "\n", 1);
 	return ;
 }

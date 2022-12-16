@@ -31,16 +31,16 @@ typedef struct	s_var_list
 	struct s_var_list *next;
 }				t_var_lst;
 
-typedef struct	s_cmd
+typedef struct	s_cmd_lst
 {
-	char *env_name;
-	char *infile;
+	int input;
+	int output;
+	int	is_append;
 	char *heredoc_delimiter;
-	char *outfile;
-	int	append;
+	char *line;
 	char **args;
-	struct s_cmd *next;
-}				t_cmd;
+	struct s_cmd_lst *next;
+}				t_cmd_lst;
 
 //UTILS FUNCTIONS
 void	free_matrix(char **splitted_cmd);
@@ -64,9 +64,9 @@ char	*skip_quote(char *cmd);
 void	exec_bin_cmd(char *right_path, char **splitted_cmd);
 
 //BULT-IN FUNCTIONS
-int		is_builtin(char **splitted_cmd, t_var_lst *env_lst);
+int		is_builtin(t_cmd_lst *cmd, t_var_lst *env_lst);
 void	cd(char **splitted_cmd, t_var_lst *env_lst);
-void	echo(char **splitted_cmd, int fd);
+void	echo(t_cmd_lst *cmd);
 void	pwd(int fd);
 void	env(t_var_lst *env_lst, int fd);
 void	export(char **cmd, t_var_lst *env_lst, int fd);
@@ -95,4 +95,6 @@ void		change_content(char *name, char *content, t_var_lst *variables);
 
 extern int g_exit_status;
 
+t_cmd_lst *ft_cmd_new(char *cmd_line);
+void ft_cmdadd_back(t_cmd_lst **head, t_cmd_lst *new);
 #endif

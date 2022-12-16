@@ -3,7 +3,14 @@ NAME = minishell
 MAKE_IN_DIRECTORY = make -C
 
 # !!! need to run brew install radline  !!! #
-FLAGS = -Wall -Wextra -g -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include #-Werror
+uname_p := $(shell uname -p)
+
+# !!! need to run brew install radline  !!! #
+ifeq ($(uname_p), arm)
+	FLAGS = -Wall -Wextra -g -lreadline -L /opt/homebrew/opt/readline/lib -I /opt/homebrew/opt/readline/include #-Werror
+else
+	FLAGS = -Wall -Wextra -g -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include #-Werror
+endif
 
 MAKELIBFT = ${MAKE_IN_DIRECTORY} ./libft
 

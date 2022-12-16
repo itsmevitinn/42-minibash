@@ -6,11 +6,23 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 14:44:40 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/12 20:52:33 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/16 19:28:10 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+t_cmd_lst *ft_cmd_new(char *line)
+{
+	t_cmd_lst *lst;
+
+	lst = malloc(sizeof(t_cmd_lst));
+	if (!lst)
+		return (NULL);
+	lst->line = line;
+	lst->next = NULL;
+	return (lst);
+}
 
 t_var_lst *ft_var_new(char *name, void *content)
 {
@@ -23,6 +35,21 @@ t_var_lst *ft_var_new(char *name, void *content)
 	lst->content = content;
 	lst->next = NULL;
 	return (lst);
+}
+
+void ft_cmdadd_back(t_cmd_lst **head, t_cmd_lst *new)
+{
+	t_cmd_lst *temp;
+
+	if (!*head || !head)
+	{
+		*head = new;
+		return;
+	}
+	temp = *head;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = new;
 }
 
 void ft_varadd_back(t_var_lst **head, t_var_lst *new)
