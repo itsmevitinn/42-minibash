@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:10:07 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/15 17:00:06 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/16 10:01:35 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	name_is_invalid(char *cmd);
 static void	remove_var(t_var_lst **var_lst, char *name);
 static t_var_lst	*get_previous(char *name, t_var_lst *lst);
+static void	print_error(char *cmd, int fd);
 
 void	unset(char **cmd, t_var_lst **env_lst, int fd)
 {
@@ -29,8 +30,8 @@ void	unset(char **cmd, t_var_lst **env_lst, int fd)
 			print_error(*cmd, fd);
 			exit_status = 1;
 		}
-		else if (get_env(name, var_lst))
-			remove_var(var_lst, name);
+		else if (get_env(*cmd, *env_lst))
+			remove_var(env_lst, *cmd);
 		cmd++;
 	}
 	g_exit_status = exit_status;
@@ -47,7 +48,7 @@ static int	name_is_invalid(char *cmd)
 	return (0);
 }
 
-static void	print_error(char *cmd, fd)
+static void	print_error(char *cmd, int fd)
 {
 	ft_putstr_fd("bash: unset `", fd);
 	ft_putstr_fd(cmd ,fd);
@@ -59,6 +60,8 @@ static void	remove_var(t_var_lst **var_lst, char *name)
 	t_var_lst	*previous;
 	t_var_lst	*temp;
 
+	if (!ft_strncmp(name, "_", 2))
+		return ;
 	previous  = get_previous(name, *var_lst);
 	if (!previous)
 	{
@@ -82,7 +85,7 @@ static t_var_lst	*get_previous(char *name, t_var_lst *lst)
 	name_len = ft_strlen(name);
 	if (!ft_strncmp(name, lst->name, name_len + 1))
 		return (NULL);
-	while (!ft_strncmp(name, lst->next->name, name_len + 1))
+	while (ft_strncmp(name, lst->next->name, name_len + 1))
 		lst = lst->next;
 	return (lst);
 }

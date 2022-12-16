@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/15 15:51:43 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/16 10:04:02 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,23 @@ int main(void)
 	char		*user_input;
 	char	**print;
 	char	**cmd;
-	char	*str;
 
-	str = ft_strdup("NOME_COM_ESPACO=teste");
 	initialize_env(&env_lst);
-	print = ft_split("", ' ');
-	cmd = ft_split("export foo = bar", ' ');
+//	print = ft_split("", ' ');
+	cmd = ft_split("export foo bar=com_valor", ' ');
 //	cmd[2] = str;
 	export(cmd, env_lst, 1);
-	export(print, env_lst, 1);
-
+	env(env_lst, 1);
+	for (char **i = cmd; *i; i++)
+		free(*i);
+	free(cmd);
+	cmd = ft_split("unset _ bar", ' ');
+	unset(cmd, &env_lst, 1);
+	printf("\n---------------------------\n\n");
+	env(env_lst, 1);
+	for (char **i = cmd; *i; i++)
+		free(*i);
+	free(cmd);
 	ft_varclear(&env_lst);
 //	setup_signals();
 //	while(42)
