@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/12 21:01:33 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/16 19:40:40 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void cd(char **splitted_cmd, t_var_lst *env_lst)
 	}
 	else if (!relative_or_absolute(path))
 		return ;
-	update_oldpwd(current_dir, env);
+	update_oldpwd(current_dir, env_lst);
 	g_exit_status = 0;
 }
 

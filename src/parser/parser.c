@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/16 19:28:02 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/16 19:38:48 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,13 @@ void parse_input(char *line, t_var_lst *env_lst)
 static void build_lst_cmd(t_cmd_lst *lst_cmd, char *line)
 {
 	char **all_cmds;
-	int offset;
-
-	lst_cmd = NULL;
 	all_cmds = ft_split_quotes(line, '|');
-	offset = 0;
-	while (all_cmds[offset])
-		ft_cmdadd_back(&lst_cmd, ft_cmd_new(all_cmds[offset++]));
+
+	while (*all_cmds)
+		ft_cmdadd_back(&lst_cmd, ft_cmd_new(*all_cmds++));
 	initialize_std_fd(lst_cmd);
 	while (lst_cmd)
 	{
-		printf("command: %s\n", lst_cmd->line);
 		redirect_checker(lst_cmd, lst_cmd->line);
 		lst_cmd->args = ft_split_quotes(lst_cmd->line, ' ');
 		print_cmd(lst_cmd->args);
@@ -159,22 +155,6 @@ void change_fd(t_cmd_lst *cmd, int file_fd, char type)
 		if (cmd->output != 1)
 			close(cmd->input);
 		cmd->output = file_fd;
-	}
-}
-
-void remove_chunk(char *line, int len)
-{
-	char *aux;
-
-	while (len >= 0)
-	{
-		aux = line;
-		while (*aux)
-		{
-			*aux = aux[1];
-			aux++;
-		}
-		len--;
 	}
 }
 

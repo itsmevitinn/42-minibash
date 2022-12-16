@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:20:58 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/12 20:58:38 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/16 19:43:21 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	initialize_env(t_var_lst **env_lst)
 	{
 		temp = ft_split(environ[i], '=');
 		ft_varadd_back(env_lst, ft_var_new(*temp, *(temp + 1)));
-		free(temp[2]);
 		free(temp);
 		i++;
 	}
