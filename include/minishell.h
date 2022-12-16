@@ -33,6 +33,7 @@ typedef struct	s_var_list
 
 typedef struct	s_cmd_lst
 {
+	char *filename;
 	int input;
 	int output;
 	int	is_append;
@@ -44,14 +45,15 @@ typedef struct	s_cmd_lst
 
 //UTILS FUNCTIONS
 void	free_matrix(char **splitted_cmd);
+void 	print_matrix(char **splitted_cmd);
 
 //PROMPT FUNCTIONS
 char	*display_prompt(void);
 
 //PARSER FUNCTIONS
-void	parse_input(char *user_input, t_var_lst *env_lst);
+t_cmd_lst	*parse_input(char *user_input, t_var_lst *env_lst);
 void	interpret_vars(char **cmd, t_var_lst *env_lst);
-void	cleanup(char *cmd);
+void	cleanup(char **args);
 /*--Utils--*/
 char	*sub_cmd(char **cmd, char *i, char *name, char *content);
 void	remove_chunk(char *str, int len);

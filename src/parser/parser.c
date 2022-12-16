@@ -6,37 +6,34 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/16 19:38:48 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/16 20:16:37 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void print_cmd(char **splitted_cmd);
 void remove_chunk(char *cmd_line, int len);
-static void cmd_notfound(char *cmd_name);
 static void free_paths(char **paths, int i);
-static void build_lst_cmd(t_cmd_lst *lst_cmd, char *line);
+static void build_lst_cmd(t_cmd_lst *lst_cmd, char *line, t_var_lst *env_lst);
 void initialize_std_fd(t_cmd_lst *lst_cmd);
 void get_filename(t_cmd_lst *cmd, char *line, char type);
 void redirect_checker(t_cmd_lst *cmd, char *line);
 int file_exists(t_cmd_lst *cmd, char *filename, int type);
 void get_sizes(char *line, int *chunk_size, int *file_size);
 void fill_filename(char *filename, char *start_file);
-void file_notfound(char *filename);
 void change_fd(t_cmd_lst *cmd, int file_fd, char type);
 
-void parse_input(char *line, t_var_lst *env_lst)
+t_cmd_lst *parse_input(char *line, t_var_lst *env_lst)
 {
 	env_lst++;
 	t_cmd_lst *lst_cmd;
 
 	lst_cmd = NULL;
-	build_lst_cmd(lst_cmd, line);
-	// find_right_path(splitted_cmd);
+	build_lst_cmd(lst_cmd, line, env_lst);
+	return (lst_cmd);
 }
 
-static void build_lst_cmd(t_cmd_lst *lst_cmd, char *line)
+static void build_lst_cmd(t_cmd_lst *lst_cmd, char *line, t_var_lst *env_lst)
 {
 	char **all_cmds;
 	all_cmds = ft_split_quotes(line, '|');
@@ -48,8 +45,8 @@ static void build_lst_cmd(t_cmd_lst *lst_cmd, char *line)
 	{
 		redirect_checker(lst_cmd, lst_cmd->line);
 		lst_cmd->args = ft_split_quotes(lst_cmd->line, ' ');
-		print_cmd(lst_cmd->args);
-		// is_builtin(lst_cmd, NULL);
+		interpret_vars(lst_cmd->args, env_lst);
+		cleanup(lst_cmd->args);
 		lst_cmd = lst_cmd->next;
 	}
 }
@@ -86,16 +83,9 @@ void get_filename(t_cmd_lst *cmd, char *line, char type)
 	get_sizes(line, &chunk_size, &file_size);
 	filename = malloc(sizeof(char) * (file_size + 1));
 	fill_filename(filename, line);
+	cmd->filename = filename;
 	if (file_exists(cmd, filename, type))
 		remove_chunk(line, chunk_size);
-}
-
-void file_notfound(char *filename)
-{
-	ft_putstr_fd("bash: ", 2);
-	ft_putstr_fd(filename, 2);
-	ft_putstr_fd(": No such file or directory\n", 2);
-	exit(1);
 }
 
 void fill_filename(char *filename, char *line)
@@ -136,8 +126,6 @@ int file_exists(t_cmd_lst *cmd, char *filename, int type)
 		file_fd = open(filename, O_RDONLY, 0666);
 	else if (type == '>')
 		file_fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0666);
-	if (file_fd == -1)
-		file_notfound(filename);
 	change_fd(cmd, file_fd, type);
 	return (1);
 }
@@ -158,29 +146,13 @@ void change_fd(t_cmd_lst *cmd, int file_fd, char type)
 	}
 }
 
-// static char **split_pipes(char *user_input)
-// {
-// 	char **all_cmds;
-
-// 	all_cmds = ft_split_quotes(user_input, '|');
-// 	build_lst_cmd(all_cmds);
-// 	return (NULL);
-// cmd = ft_split_quotes(cmd[0], ' ');
-// while (cmd[args++])
-// Cut the quotes at the edges of each arguments
-// cmd[args] = ft_strtrim_edges(cmd[args], "'\"");
-// return (cmd);
-// }
-
 void find_right_path(char **splitted_cmd)
 {
 	char **paths;
 	char *full_path;
 	int i;
-	int success;
 
 	i = 0;
-	success = 0;
 	paths = ft_split(getenv("PATH"), ':');
 	while (paths[i])
 	{
@@ -190,24 +162,13 @@ void find_right_path(char **splitted_cmd)
 		// right path found
 		{
 			exec_bin_cmd(full_path, splitted_cmd);
-			success = 1;
 			break;
 		}
 		// free wrong path
 		free(full_path);
 		i++;
 	}
-	if (!success)
-		cmd_notfound(splitted_cmd[0]);
 	free_paths(paths, i);
-}
-
-static void cmd_notfound(char *cmd_name)
-{
-	ft_putstr_fd("bash: ", 2);
-	ft_putstr_fd(cmd_name, 2);
-	ft_putstr_fd(": command not found\n", 2);
-	g_exit_status = 127;
 }
 
 static void free_paths(char **paths, int i)
@@ -218,7 +179,7 @@ static void free_paths(char **paths, int i)
 	free(paths);
 }
 
-static void print_cmd(char **splitted_cmd)
+void print_matrix(char **splitted_cmd)
 {
 	int i;
 

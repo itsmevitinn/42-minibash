@@ -3,27 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
+/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 13:12:19 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/14 13:33:44 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/16 20:09:46 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	remove_quotes(char *cmd);
-static void	remove_ctrl_chars(char *cmd);
-static char	*clean_quote(char *cmd);
-static char	*skip_variable(char *cmd);
+static void remove_quotes(char *cmd);
+static void remove_ctrl_chars(char *cmd);
+static char *clean_quote(char *cmd);
+static char *skip_variable(char *cmd);
 
-void	cleanup(char *cmd)
+void cleanup(char **args)
 {
-	remove_quotes(cmd);
-	remove_ctrl_chars(cmd);
+	while (*args)
+	{
+		remove_quotes(*args);
+		remove_ctrl_chars(*args++);
+	}
 }
 
-static void	remove_quotes(char *cmd)
+static void remove_quotes(char *cmd)
 {
 	while (*cmd)
 	{
@@ -36,7 +39,7 @@ static void	remove_quotes(char *cmd)
 	}
 }
 
-static char	*skip_variable(char *cmd)
+static char *skip_variable(char *cmd)
 {
 	while (*cmd && *cmd != END)
 		cmd++;
@@ -45,9 +48,9 @@ static char	*skip_variable(char *cmd)
 	return (cmd);
 }
 
-static char	*clean_quote(char *cmd)
+static char *clean_quote(char *cmd)
 {
-	char	quote;
+	char quote;
 
 	quote = *cmd;
 	remove_chunk(cmd, 0);
@@ -58,7 +61,7 @@ static char	*clean_quote(char *cmd)
 	return (cmd);
 }
 
-static void	remove_ctrl_chars(char *cmd)
+static void remove_ctrl_chars(char *cmd)
 {
 	while (*cmd)
 	{
