@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/16 21:45:57 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/16 23:38:47 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ t_cmd_lst *parse_input(char *line, t_var_lst *env_lst)
 
 static void build_lst_cmd(t_cmd_lst *lst_cmd, char *line, t_var_lst *env_lst)
 {
-	char	**all_cmds;
-	char	**temp;
+	char **all_cmds;
+	char **temp;
 
 	all_cmds = ft_split_quotes(line, '|');
 
@@ -54,6 +54,8 @@ static void build_lst_cmd(t_cmd_lst *lst_cmd, char *line, t_var_lst *env_lst)
 			temp++;
 		}
 		print_matrix(lst_cmd->args);
+		printf("fd input from %s: %i\n", lst_cmd->args[0], lst_cmd->input);
+		printf("fd output from %s: %i\n", lst_cmd->args[0], lst_cmd->output);
 		lst_cmd = lst_cmd->next;
 	}
 }
@@ -148,7 +150,7 @@ void change_fd(t_cmd_lst *cmd, int file_fd, char type)
 	else if (type == '>')
 	{
 		if (cmd->output != 1)
-			close(cmd->input);
+			close(cmd->output);
 		cmd->output = file_fd;
 	}
 }
