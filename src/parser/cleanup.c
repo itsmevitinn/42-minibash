@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 13:12:19 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/16 20:09:46 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/16 20:45:44 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,10 @@ static void remove_ctrl_chars(char *cmd);
 static char *clean_quote(char *cmd);
 static char *skip_variable(char *cmd);
 
-void cleanup(char **args)
+void cleanup(char *arg)
 {
-	while (*args)
-	{
-		remove_quotes(*args);
-		remove_ctrl_chars(*args++);
-	}
+	remove_quotes(arg);
+	remove_ctrl_chars(arg);
 }
 
 static void remove_quotes(char *cmd)

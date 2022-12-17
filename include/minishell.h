@@ -53,7 +53,7 @@ char	*display_prompt(void);
 //PARSER FUNCTIONS
 t_cmd_lst	*parse_input(char *user_input, t_var_lst *env_lst);
 void	interpret_vars(char **cmd, t_var_lst *env_lst);
-void	cleanup(char **args);
+void	cleanup(char *args);
 /*--Utils--*/
 char	*sub_cmd(char **cmd, char *i, char *name, char *content);
 void	remove_chunk(char *str, int len);

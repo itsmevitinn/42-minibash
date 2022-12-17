@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 20:37:37 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/16 20:20:12 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/16 21:44:35 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,21 @@ static char *get_var_name(char *cmd);
 
 void interpret_vars(char **cmd, t_var_lst *env_lst)
 {
-	print_matrix(cmd);
 	char *letter;
 	int inside_double_quotes;
 
 	inside_double_quotes = 0;
-	while (cmd)
+	letter = *cmd;
+	while (*letter)
 	{
-		letter = *cmd;
-		while (*letter)
-		{
-			printf("Looping\n");
-			if (*letter == '\"')
-				alter_state(&inside_double_quotes);
-			if (*letter == '\'' && !inside_double_quotes)
-				letter = skip_quote(letter);
-			else if (*letter == '$')
-				letter = handle_dollar_sign(cmd, letter, env_lst);
-			else
-				letter++;
-		}
-		cmd++;
+		if (*letter == '\"')
+			alter_state(&inside_double_quotes);
+		if (*letter == '\'' && !inside_double_quotes)
+			letter = skip_quote(letter);
+		else if (*letter == '$')
+			letter = handle_dollar_sign(cmd, letter, env_lst);
+		else
+			letter++;
 	}
 }
 

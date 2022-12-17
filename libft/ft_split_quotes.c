@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:35:39 by vsergio           #+#    #+#             */
-/*   Updated: 2022/07/20 23:37:21 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/16 21:03:10 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ char	**ft_split_quotes(char const *s, char c)
 	final = malloc(sizeof(char *) * (splits + 1));
 	if (final == NULL)
 		return (NULL);
-	final[splits] = NULL;
 	while (offset < splits)
 	{
 		while (*(char *)s != '\0' && *(char *)s == c)
@@ -42,6 +41,7 @@ char	**ft_split_quotes(char const *s, char c)
 		}
 		s += substring;
 	}
+	final[splits] = NULL;
 	return (final);
 }
 
