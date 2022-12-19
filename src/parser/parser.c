@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/19 13:13:17 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/19 17:46:16 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void remove_chunk(char *cmd_line, int len);
 static void free_paths(char **paths, int i);
-static void build_lst_cmd(t_cmd_lst *lst_cmd, char *line, t_var_lst *env_lst);
+static void build_lst_cmd(t_cmd_lst **lst_cmd, char *line, t_var_lst *env_lst);
 void initialize_std_fd(t_cmd_lst *lst_cmd);
 void get_filename(t_cmd_lst *cmd, char *line, char type);
 void redirect_checker(t_cmd_lst *cmd, char *line);
@@ -29,44 +29,50 @@ t_cmd_lst *parse_input(char *line, t_var_lst *env_lst)
 	t_cmd_lst *lst_cmd;
 
 	lst_cmd = NULL;
-	build_lst_cmd(lst_cmd, line, env_lst);
+	build_lst_cmd(&lst_cmd, line, env_lst);
 	return (lst_cmd);
 }
 
-static void build_lst_cmd(t_cmd_lst *lst_cmd, char *line, t_var_lst *env_lst)
+static void build_lst_cmd(t_cmd_lst **lst_cmd, char *line, t_var_lst *env_lst)
 {
 	char **all_cmds;
 	char **temp;
+	t_cmd_lst *head;
 
 	all_cmds = ft_split_quotes(line, '|');
 
 	while (*all_cmds)
-		ft_cmdadd_back(&lst_cmd, ft_cmd_new(*all_cmds++));
-	initialize_std_fd(lst_cmd);
-	while (lst_cmd)
+		ft_cmdadd_back(lst_cmd, ft_cmd_new(*all_cmds++));
+	initialize_std_fd(*lst_cmd);
+	head = *lst_cmd;
+	while (head)
 	{
-		redirect_checker(lst_cmd, lst_cmd->line);
-		lst_cmd->args = ft_split_quotes(lst_cmd->line, ' ');
-		temp = lst_cmd->args;
+		redirect_checker(head, head->line);
+		head->args = ft_split_quotes(head->line, ' ');
+		temp = head->args;
 		while (*temp)
 		{
 			interpret_vars(temp, env_lst);
 			cleanup(*temp);
 			temp++;
 		}
-		print_matrix(lst_cmd->args);
-		printf("fd input from %s: %i\n", lst_cmd->args[0], lst_cmd->input);
-		printf("fd output from %s: %i\n", lst_cmd->args[0], lst_cmd->output);
-		lst_cmd = lst_cmd->next;
+		print_matrix(head->args);
+		printf("fd input from %s: %i\n", head->args[0], head->input);
+		printf("fd output from %s: %i\n", head->args[0], head->output);
+		head = head->next;
 	}
 }
 
 void initialize_std_fd(t_cmd_lst *lst_cmd)
 {
+	int counter;
+
+	counter = 0;
 	while (lst_cmd)
 	{
 		lst_cmd->input = 0;
 		lst_cmd->output = 1;
+		lst_cmd->id = counter++;
 		lst_cmd = lst_cmd->next;
 	}
 }
