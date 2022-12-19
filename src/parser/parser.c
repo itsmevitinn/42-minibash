@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/16 23:38:47 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/19 13:13:17 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ static void build_lst_cmd(t_cmd_lst *lst_cmd, char *line, t_var_lst *env_lst);
 void initialize_std_fd(t_cmd_lst *lst_cmd);
 void get_filename(t_cmd_lst *cmd, char *line, char type);
 void redirect_checker(t_cmd_lst *cmd, char *line);
-int file_exists(t_cmd_lst *cmd, char *filename, int type);
+void open_file(t_cmd_lst *cmd, char *filename, int type);
 void get_sizes(char *line, int *chunk_size, int *file_size);
 void fill_filename(char *filename, char *start_file);
 void change_fd(t_cmd_lst *cmd, int file_fd, char type);
+int syntax_checker(char *filename);
 
 t_cmd_lst *parse_input(char *line, t_var_lst *env_lst)
 {
@@ -93,8 +94,9 @@ void get_filename(t_cmd_lst *cmd, char *line, char type)
 	filename = malloc(sizeof(char) * (file_size + 1));
 	fill_filename(filename, line);
 	cmd->filename = filename;
-	if (file_exists(cmd, filename, type))
-		remove_chunk(line, chunk_size);
+	printf("filename value: %s\n", cmd->filename);
+	open_file(cmd, filename, type);
+	remove_chunk(line, chunk_size);
 }
 
 void fill_filename(char *filename, char *line)
@@ -126,7 +128,7 @@ void get_sizes(char *line, int *chunk_size, int *file_size)
 	}
 }
 
-int file_exists(t_cmd_lst *cmd, char *filename, int type)
+void open_file(t_cmd_lst *cmd, char *filename, int type)
 {
 	int file_fd;
 
@@ -136,7 +138,6 @@ int file_exists(t_cmd_lst *cmd, char *filename, int type)
 	else if (type == '>')
 		file_fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0666);
 	change_fd(cmd, file_fd, type);
-	return (1);
 }
 
 void change_fd(t_cmd_lst *cmd, int file_fd, char type)
