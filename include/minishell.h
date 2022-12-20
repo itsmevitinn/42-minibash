@@ -62,6 +62,7 @@ char	*display_prompt(void);
 
 //PARSER FUNCTIONS
 t_cmd_lst	*parse_input(char *user_input, t_var_lst *env_lst);
+void	interpret_redirects(t_cmd_lst *lst_cmd, char *line);
 void	interpret_vars(char **cmd, t_var_lst *env_lst);
 void	cleanup(char *args);
 /*--Utils--*/
