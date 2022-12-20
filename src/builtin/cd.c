@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/16 19:40:40 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/19 11:07:09 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static int oldpwd(t_var_lst *env)
 {
 	if (get_env("OLDPWD", env))
 	{
-		chdir(get_content("OLDPWD", env));
 		printf("%s\n", get_content("OLDPWD", env));
+		chdir(get_content("OLDPWD", env));
 	}
 	else 
 	{

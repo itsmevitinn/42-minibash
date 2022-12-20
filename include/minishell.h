@@ -40,12 +40,22 @@ typedef struct	s_cmd_lst
 	char *heredoc_delimiter;
 	char *line;
 	char **args;
+	int id;
 	struct s_cmd_lst *next;
 }				t_cmd_lst;
+
+typedef struct	s_cmd_info
+{
+	int qty;
+	int *pid;
+	int **pipes;
+	t_cmd_lst *lst_cmd;
+}				t_cmd_info;
 
 //UTILS FUNCTIONS
 void	free_matrix(char **splitted_cmd);
 void 	print_matrix(char **splitted_cmd);
+int		whitespace_checker(char *input);
 
 //PROMPT FUNCTIONS
 char	*display_prompt(void);
@@ -77,6 +87,9 @@ void	ft_exit(char **splitted_cmd);
 
 //BULT-IN UTILS
 int	parse_cmd(char *cmd);
+
+//DATA FUNCTIONS
+
 
 //SIGNAL_FUNCTIONS
 void	setup_signals(void);
