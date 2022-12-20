@@ -6,10 +6,9 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:08:25 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/15 16:53:36 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/20 12:34:10 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../../include/minishell.h"
 
 static void print_error(char *cmd, int fd);
@@ -17,30 +16,23 @@ static void	print_vars(t_var_lst *env_lst, int fd);
 static void	export_var(t_var_lst *env_lst, char *cmd);
 static int	name_is_invalid(char *cmd);
 
-
 void export(char **cmd, t_var_lst *env_lst, int fd)
 {
-	int	exit_status;
-
-	exit_status = 0;
 	cmd++;
 	if (!*cmd)
-	{
 		print_vars(env_lst, fd);
-		return ;
-	}
 	while (*cmd)
 	{
 		if (name_is_invalid(*cmd))
 		{
 			print_error(*cmd, fd);
-			exit_status = 1;
+			exit(1);
 		}
 		else
 			export_var(env_lst, *cmd);
 		cmd++;
 	}
-	g_exit_status = exit_status;
+	exit(0);
 }
 
 static void	print_vars(t_var_lst *env_lst, int fd)

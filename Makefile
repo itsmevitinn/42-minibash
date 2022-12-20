@@ -20,11 +20,13 @@ LIBFT = ${LIBFT_PATH}/libft.a
 
 CC = cc
 
-PARSER = parser.c interpret_vars.c sub_cmd.c cleanup.c utils.c
+PARSER = parser.c interpret_vars.c sub_cmd.c cleanup.c
 
-EXEC = bin_cmd.c
+UTILS = utils.c
 
-BUILT-IN = exit.c isbuiltin.c cd.c pwd.c echo.c env.c export.c unset.c
+EXEC = builtin_cmd.c bin_cmd.c exec_cmd.c
+
+BUILT-IN = exit.c cd.c pwd.c echo.c env.c export.c unset.c
 
 MAIN = minishell.c prompt.c
 
@@ -37,6 +39,7 @@ FUNCS = $(addprefix ./src/exec/, $(EXEC))			\
 		$(addprefix ./src/signals/, $(SIGNAL))		\
 		$(addprefix ./src/parser/, $(PARSER))		\
 		$(addprefix ./src/builtin/, $(BUILT-IN))	\
+		$(addprefix ./src/utils/, $(UTILS))	\
 		$(addprefix ./src/variables/, $(VARIABLES))
 
 

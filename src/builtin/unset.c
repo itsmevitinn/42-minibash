@@ -6,10 +6,9 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:10:07 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/16 10:01:35 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/20 14:48:58 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../../include/minishell.h"
 
 static int	name_is_invalid(char *cmd);
@@ -19,22 +18,19 @@ static void	print_error(char *cmd, int fd);
 
 void	unset(char **cmd, t_var_lst **env_lst, int fd)
 {
-	int	exit_status;
-
-	exit_status = 0;
 	cmd++;
 	while (*cmd)
 	{
 		if (name_is_invalid(*cmd))
 		{
 			print_error(*cmd, fd);
-			exit_status = 1;
+			exit(1);
 		}
 		else if (get_env(*cmd, *env_lst))
 			remove_var(env_lst, *cmd);
 		cmd++;
 	}
-	g_exit_status = exit_status;
+	exit(0);
 }
 
 static int	name_is_invalid(char *cmd)
@@ -51,7 +47,7 @@ static int	name_is_invalid(char *cmd)
 static void	print_error(char *cmd, int fd)
 {
 	ft_putstr_fd("bash: unset `", fd);
-	ft_putstr_fd(cmd ,fd);
+	ft_putstr_fd(cmd, fd);
 	ft_putstr_fd("\': not a valid identifier\n", fd);
 }
 

@@ -6,14 +6,12 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/19 17:46:16 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/20 18:06:50 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void remove_chunk(char *cmd_line, int len);
-static void free_paths(char **paths, int i);
 static void build_lst_cmd(t_cmd_lst **lst_cmd, char *line, t_var_lst *env_lst);
 void initialize_std_fd(t_cmd_lst *lst_cmd);
 void get_filename(t_cmd_lst *cmd, char *line, char type);
@@ -22,7 +20,6 @@ void open_file(t_cmd_lst *cmd, char *filename, int type);
 void get_sizes(char *line, int *chunk_size, int *file_size);
 void fill_filename(char *filename, char *start_file);
 void change_fd(t_cmd_lst *cmd, int file_fd, char type);
-int syntax_checker(char *filename);
 
 t_cmd_lst *parse_input(char *line, t_var_lst *env_lst)
 {
@@ -57,8 +54,6 @@ static void build_lst_cmd(t_cmd_lst **lst_cmd, char *line, t_var_lst *env_lst)
 			temp++;
 		}
 		print_matrix(head->args);
-		printf("fd input from %s: %i\n", head->args[0], head->input);
-		printf("fd output from %s: %i\n", head->args[0], head->output);
 		head = head->next;
 	}
 }
@@ -160,50 +155,4 @@ void change_fd(t_cmd_lst *cmd, int file_fd, char type)
 			close(cmd->output);
 		cmd->output = file_fd;
 	}
-}
-
-void find_right_path(char **splitted_cmd)
-{
-	char **paths;
-	char *full_path;
-	int i;
-
-	i = 0;
-	paths = ft_split(getenv("PATH"), ':');
-	while (paths[i])
-	{
-		full_path = ft_strjoin(paths[i], "/", 1);
-		full_path = ft_strjoin(full_path, splitted_cmd[0], 1);
-		if (!access(full_path, F_OK | X_OK))
-		// right path found
-		{
-			exec_bin_cmd(full_path, splitted_cmd);
-			break;
-		}
-		// free wrong path
-		free(full_path);
-		i++;
-	}
-	free_paths(paths, i);
-}
-
-static void free_paths(char **paths, int i)
-{
-	// we iterate here because the current "i" was already freed by strjoin
-	while (paths[i++])
-		free(paths[i]);
-	free(paths);
-}
-
-void print_matrix(char **splitted_cmd)
-{
-	int i;
-
-	i = 0;
-	while (splitted_cmd[i])
-	{
-		printf("[%i] %s ", i, splitted_cmd[i]);
-		i++;
-	}
-	printf("\n");
 }

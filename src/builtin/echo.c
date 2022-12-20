@@ -6,14 +6,13 @@
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 22:49:26 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/15 17:36:30 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/20 18:58:40 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
 
 void	echo(t_cmd_lst *cmd)
 {
-	printf("entrou echo\n");
 	int content_index;
 	int trailing_newline;
 
@@ -27,12 +26,12 @@ void	echo(t_cmd_lst *cmd)
 		content_index = 1;
 	while(cmd->args[content_index])
 	{
-		ft_putstr_fd(cmd->args[content_index], cmd->output);
+		ft_putstr_fd(cmd->args[content_index], 1);
 		if (cmd->args[content_index + 1])
-			write(cmd->output, " ", 1);
+			write(1, " ", 1);
 		content_index++;
 	}
 	if (trailing_newline)
-		write(cmd->output, "\n", 1);
-	return ;
+		write(1, "\n", 1);
+	exit(0);
 }

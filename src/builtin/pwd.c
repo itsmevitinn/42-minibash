@@ -6,20 +6,18 @@
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 22:49:00 by Vitor             #+#    #+#             */
-/*   Updated: 2022/11/30 22:50:06 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/20 12:30:21 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
 
-void	pwd(int fd)
+void	pwd(void)
 {
-	char *pwd;
-	int i;
+	char	*pwd;
 
-	i = 0;
 	pwd = getcwd(NULL, 0);
-	while(pwd[i])
-		write(fd, &pwd[i++], 1);
-	write(fd, "\n", 1);
+	ft_putstr_fd(pwd, 1);
+	ft_putchar_fd('\n', 1);
 	free(pwd);
+	exit(0);
 }
