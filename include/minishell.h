@@ -58,7 +58,7 @@ void	cleanup(char *args);
 char	*sub_cmd(char **cmd, char *i, char *name, char *content);
 void	remove_chunk(char *str, int len);
 char	*skip_quote(char *cmd);
-
+int		check_syntax(char *cmd_line);
 
 //INTERPRET_VARS_UTILS
 

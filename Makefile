@@ -20,7 +20,7 @@ LIBFT = ${LIBFT_PATH}/libft.a
 
 CC = cc
 
-PARSER = parser.c interpret_vars.c sub_cmd.c cleanup.c utils.c
+PARSER = parser.c interpret_vars.c sub_cmd.c cleanup.c utils.c syntax.c
 
 EXEC = bin_cmd.c
 
