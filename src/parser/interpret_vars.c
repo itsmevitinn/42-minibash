@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 20:37:37 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/16 21:44:35 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/21 16:48:01 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,27 @@ static void alter_state(int *state);
 static char *handle_dollar_sign(char **cmd, char *i, t_var_lst *env_lst);
 static char *get_var_name(char *cmd);
 
-void interpret_vars(char **cmd, t_var_lst *env_lst)
+void interpret_vars(char **args, t_var_lst *env_lst)
 {
-	char *letter;
+	char *line;
 	int inside_double_quotes;
 
 	inside_double_quotes = 0;
-	letter = *cmd;
-	while (*letter)
+	while (*args)
 	{
-		if (*letter == '\"')
-			alter_state(&inside_double_quotes);
-		if (*letter == '\'' && !inside_double_quotes)
-			letter = skip_quote(letter);
-		else if (*letter == '$')
-			letter = handle_dollar_sign(cmd, letter, env_lst);
-		else
-			letter++;
+		line = *args;
+		while (*line)
+		{
+			if (*line == '\"')
+				alter_state(&inside_double_quotes);
+			if (*line == '\'' && !inside_double_quotes)
+				line = skip_quote(line);
+			else if (*line == '$')
+				line = handle_dollar_sign(args, line, env_lst);
+			else
+				line++;
+		}
+		args++;
 	}
 }
 
@@ -44,7 +48,7 @@ static void alter_state(int *state)
 		*state = 1;
 }
 
-static char *handle_dollar_sign(char **cmd, char *i, t_var_lst *env_lst)
+static char *handle_dollar_sign(char **arg, char *i, t_var_lst *env_lst)
 {
 	t_var_lst *var;
 	char *exit_status;
@@ -53,7 +57,7 @@ static char *handle_dollar_sign(char **cmd, char *i, t_var_lst *env_lst)
 	if (i[1] == '?')
 	{
 		exit_status = ft_itoa(g_exit_status);
-		i = sub_cmd(cmd, i, "?", exit_status);
+		i = sub_arg(arg, i, "?", exit_status);
 		free(exit_status);
 	}
 	else
@@ -63,7 +67,7 @@ static char *handle_dollar_sign(char **cmd, char *i, t_var_lst *env_lst)
 		if (!var || !var->content)
 			remove_chunk(i, ft_strlen(var_name));
 		else
-			i = sub_cmd(cmd, i, var->name, var->content);
+			i = sub_arg(arg, i, var->name, var->content);
 		free(var_name);
 	}
 	return (i);

@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 15:01:03 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/16 21:37:26 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/21 16:48:13 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ static char	*insert_content(char *dst, char *content);
 static char	*create_sub(char *cmd, char *name, char *content);
 static char	*copy_until_dollar_sign(char *sub, char *cmd, int offset);
 
-char	*sub_cmd(char **cmd, char *i, char *name, char *content)
+char	*sub_arg(char **arg, char *index, char *name, char *content)
 {
 	char	*sub;
 	int	offset;
 
-	sub = create_sub(*cmd, name, content);
-	offset = i - *cmd;
-	i = copy_until_dollar_sign(sub, *cmd, offset);
-	i = insert_content(i, content);
-	copy_rest(i, &(*cmd)[offset + ft_strlen(name) + 1]);
-	free(*cmd);
-	*cmd = sub;
-	return (i);
+	sub = create_sub(*arg, name, content);
+	offset = index - *arg;
+	index = copy_until_dollar_sign(sub, *arg, offset);
+	index = insert_content(index, content);
+	copy_rest(index, &(*arg)[offset + ft_strlen(name) + 1]);
+	free(*arg);
+	*arg = sub;
+	return (index);
 }
 
 static char	*create_sub(char *cmd, char *name, char *content)

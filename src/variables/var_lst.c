@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 14:44:40 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/16 19:28:10 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/21 14:59:47 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,14 @@ t_cmd_lst *ft_cmd_new(char *line)
 	lst = malloc(sizeof(t_cmd_lst));
 	if (!lst)
 		return (NULL);
+	lst->filename = NULL;
+	lst->input = 0;
+	lst->output = 1;
 	lst->line = line;
 	lst->next = NULL;
+	lst->is_append = 0;
+	lst->heredoc_delimiter = NULL;
+
 	return (lst);
 }
 
