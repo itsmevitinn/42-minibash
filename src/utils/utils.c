@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 09:23:45 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/20 11:38:35 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/21 18:25:02 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,16 @@ void print_matrix(char **cmd_args)
 		i++;
 	}
 	printf("\n");
+}
+
+void	close_all_pipes(int **pipes)
+{
+	int i;
+
+	i = 0;
+	while(pipes[i])
+	{
+		close(pipes[i][0]);
+		close(pipes[i++][1]);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/20 19:06:06 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/21 18:25:43 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void precedence_analyzer(t_cmd_info *data);
 static void use_pipes(t_cmd_info *data);
 static void handle_not_builtin(t_cmd_lst *cmd, int **pipes, int cmd_qty);
 static void handle_builtin(t_cmd_lst *cmd, int **pipes, int cmd_qty);
-static void	close_all_pipes(t_cmd_info *data);
 
 int main(void)
 {
@@ -48,21 +47,8 @@ int main(void)
 		}
 		fill_data(&data);
 		exec_cmds(&data, &env_lst);
-		close_all_pipes(&data);
+		close_all_pipes(data.pipes);
 		free(user_input);
-	}
-}
-
-static void	close_all_pipes(t_cmd_info *data)
-{
-	ft_putstr_fd("closing pipes at parent\n", 2);
-	int i;
-
-	i = 0;
-	while(i < (data->qty - 1))
-	{
-		close(data->pipes[i][0]);
-		close(data->pipes[i++][1]);
 	}
 }
 
@@ -145,8 +131,8 @@ static void start_pipes(t_cmd_info *data)
 	pipes_index = 0;
 	while(pipes_index < pipes_qty)
 	{
-		printf("fd pipe created: %i\n", data->pipes[pipes_index][0]);
-		printf("fd pipe created: %i\n", data->pipes[pipes_index++][1]);
+		printf("fd pipe input: %i\n", data->pipes[pipes_index][0]);
+		printf("fd pipe output: %i\n", data->pipes[pipes_index++][1]);
 	}
 }
 

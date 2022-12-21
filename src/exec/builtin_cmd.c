@@ -6,15 +6,15 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:53:23 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/20 18:27:57 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/21 16:38:30 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
 
-int exec_builtin_cmd(t_cmd_lst *cmd, t_var_lst **env_lst)
+int exec_builtin_cmd(t_cmd_lst *cmd, t_var_lst **env_lst, int **pipes)
 {
 	if (!ft_strncmp(cmd->args[0], "echo", 4))
-		echo(cmd);
+		echo(cmd, pipes);
 	else if (!ft_strncmp(cmd->args[0], "cd", 2))
 		cd(cmd, *env_lst);
 	else if (!ft_strncmp(cmd->args[0], "pwd", 3))
