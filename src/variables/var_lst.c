@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 14:44:40 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/21 14:59:47 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/21 18:30:58 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_cmd_lst *ft_cmd_new(char *line)
 	lst->output = 1;
 	lst->line = line;
 	lst->next = NULL;
-	lst->is_append = 0;
+	lst->has_truncate= 0;
 	lst->heredoc_delimiter = NULL;
 
 	return (lst);

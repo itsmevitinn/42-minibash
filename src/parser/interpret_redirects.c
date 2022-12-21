@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:47:16 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/21 15:35:14 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/21 17:48:40 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	interpret_redirects(t_cmd_lst *cmd, char *line)
 			if (cmd->filename)
 				free(cmd->filename);
 			get_filename(cmd, line);
+			printf("filename = %s\n", cmd->filename);
 			update_fd(cmd, line);
 		}
 		else
@@ -48,6 +49,11 @@ static void get_sizes(char *line, int *chunk_size, int *file_size)
 {
 	*chunk_size = 0;
 	*file_size = 0;
+	if (*line == line[1])
+	{
+		(*chunk_size)++;
+		line++;
+	}
 	line++;
 	while (*line && ft_isspace(*line) && *line != '<' && *line != '>')
 	{
@@ -67,6 +73,8 @@ static void fill_filename(char *filename, char *line)
 	char *temp;
 
 	temp = filename;
+	if (*line == line[1])
+		line++;
 	line++;
 	while (*line && ft_isspace(*line) && *line != '<' && *line != '>')
 		line++;
