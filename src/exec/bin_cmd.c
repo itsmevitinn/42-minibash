@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/21 18:32:32 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/21 18:41:53 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
@@ -14,7 +14,10 @@
 void exec_bin_cmd(t_cmd_lst *cmd, int **pipes)
 {
 	int status;
-	if (!fork())
+	int pid;
+
+	pid = fork();
+	if (!pid)
 	{
 		char **paths;
 		char *full_path;

@@ -6,13 +6,14 @@
 /*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 22:49:26 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/21 18:34:31 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/21 18:41:35 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
 
 void	echo(t_cmd_lst *cmd, int **pipes)
 {
+	int status;
 	int pid;
 
 	pid = fork();
