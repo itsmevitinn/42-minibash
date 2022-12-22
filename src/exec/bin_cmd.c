@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/22 12:09:36 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/22 16:51:10 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ void exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data)
 {
 	int status;
 
-	cmd->pid = fork();
-	if (!cmd->pid)
+	data->pids[data->id] = fork();
+	// cmd->pid = fork();
+	// if (!cmd->pid)
+	if (!data->pids[data->id++])
 	{
 		char **paths;
 		char *full_path;

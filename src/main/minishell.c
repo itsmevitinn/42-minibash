@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/22 11:55:48 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/22 17:04:50 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void precedence_analyzer(t_cmd_info *data);
 static void use_pipes(t_cmd_info *data);
 static void handle_not_builtin(t_cmd_lst *cmd, int **pipes, int cmd_qty);
 static void handle_builtin(t_cmd_lst *cmd, int **pipes, int cmd_qty);
+static void wait_childs(t_cmd_info *data);
 
 int main(void)
 {
@@ -49,7 +50,22 @@ int main(void)
 		exec_cmds(&data, &env_lst);
 		if (data.qty >= 2)
 			close_all_pipes(&data);
+		wait_childs(&data);
 		free(user_input);
+	}
+}
+
+static void wait_childs(t_cmd_info *data)
+{
+	int i;
+	int status;
+
+	i = -1;
+	while(data->pids[++i])
+	{
+		printf("waiting pids...\n");
+		waitpid(data->pids[i], &status, 0);
+		g_exit_status = WEXITSTATUS(status);
 	}
 }
 

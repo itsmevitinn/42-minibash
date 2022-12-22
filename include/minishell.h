@@ -49,6 +49,8 @@ typedef struct	s_cmd_info
 {
 	int qty;
 	int **pipes;
+	int *pids;
+	int id;
 	t_cmd_lst *lst_cmd;
 }				t_cmd_info;
 
