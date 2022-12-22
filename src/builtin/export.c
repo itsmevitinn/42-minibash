@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:08:25 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/20 12:34:10 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/22 11:50:45 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
@@ -16,23 +16,23 @@ static void	print_vars(t_var_lst *env_lst, int fd);
 static void	export_var(t_var_lst *env_lst, char *cmd);
 static int	name_is_invalid(char *cmd);
 
-void export(char **cmd, t_var_lst *env_lst, int fd)
+void export(t_cmd_lst *cmd, t_var_lst *env_lst)
 {
-	cmd++;
-	if (!*cmd)
-		print_vars(env_lst, fd);
-	while (*cmd)
+	cmd->args++;
+	if (!*cmd->args)
+		print_vars(env_lst, cmd->output);
+	while (*cmd->args)
 	{
-		if (name_is_invalid(*cmd))
+		if (name_is_invalid(*cmd->args))
 		{
-			print_error(*cmd, fd);
-			exit(1);
+			print_error(*cmd->args, cmd->output);
+			g_exit_status = 1;
 		}
 		else
-			export_var(env_lst, *cmd);
+			export_var(env_lst, *cmd->args);
 		cmd++;
 	}
-	exit(0);
+	g_exit_status = 0;
 }
 
 static void	print_vars(t_var_lst *env_lst, int fd)

@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:10:07 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/20 14:48:58 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/22 11:51:13 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../include/minishell.h"
@@ -16,21 +16,21 @@ static void	remove_var(t_var_lst **var_lst, char *name);
 static t_var_lst	*get_previous(char *name, t_var_lst *lst);
 static void	print_error(char *cmd, int fd);
 
-void	unset(char **cmd, t_var_lst **env_lst, int fd)
+void	unset(t_cmd_lst *cmd, t_var_lst **env_lst)
 {
-	cmd++;
-	while (*cmd)
+	cmd->args++;
+	while (*cmd->args)
 	{
-		if (name_is_invalid(*cmd))
+		if (name_is_invalid(*cmd->args))
 		{
-			print_error(*cmd, fd);
-			exit(1);
+			print_error(*cmd->args, cmd->output);
+			g_exit_status = 1;
 		}
-		else if (get_env(*cmd, *env_lst))
-			remove_var(env_lst, *cmd);
+		else if (get_env(*cmd->args, *env_lst))
+			remove_var(env_lst, *cmd->args);
 		cmd++;
 	}
-	exit(0);
+	g_exit_status = 0;
 }
 
 static int	name_is_invalid(char *cmd)

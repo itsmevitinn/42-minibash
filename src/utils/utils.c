@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 09:23:45 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/21 18:25:02 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/22 10:09:41 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,14 @@ void print_matrix(char **cmd_args)
 	printf("\n");
 }
 
-void	close_all_pipes(int **pipes)
+void	close_all_pipes(t_cmd_info *data)
 {
 	int i;
 
-	i = 0;
-	while(pipes[i])
+	i = -1;
+	while(++i < (data->qty - 1))
 	{
-		close(pipes[i][0]);
-		close(pipes[i++][1]);
+		close(data->pipes[i][0]);
+		close(data->pipes[i][1]);
 	}
 }

@@ -6,18 +6,18 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 23:11:22 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/20 12:50:11 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/22 11:50:34 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-void ft_exit(char **cmd_args)
+void ft_exit(t_cmd_lst *cmd)
 {
 	int status;
 
-	if (cmd_args[1])
+	if (cmd->args[1])
 	{
-		status = ft_atoi(cmd_args[1]);
+		status = ft_atoi(cmd->args[1]);
 		printf("new status: %i\n", status);
 		exit(status);
 	}
