@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/22 11:57:43 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/22 12:09:36 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ void exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data)
 		printf("Chegou aqui\n");
 		exit(127);
 	}
-	waitpid(cmd->pid, &status, 0);
-	g_exit_status = WEXITSTATUS(status);
+	// waitpid(cmd->pid, &status, 0);
+	// g_exit_status = WEXITSTATUS(status);
 }
