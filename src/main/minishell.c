@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/21 23:59:31 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/22 00:08:52 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void precedence_analyzer(t_cmd_info *data);
 static void use_pipes(t_cmd_info *data);
 static void handle_not_builtin(t_cmd_lst *cmd, int **pipes, int cmd_qty);
 static void handle_builtin(t_cmd_lst *cmd, int **pipes, int cmd_qty);
-void wait_childs(t_cmd_info *data, int *status);
+static void wait_childs(t_cmd_info *data, int *status);
 
 int main(void)
 {
@@ -57,7 +57,7 @@ int main(void)
 	}
 }
 
-void wait_childs(t_cmd_info *data, int *status)
+static void wait_childs(t_cmd_info *data, int *status)
 {
 	int i;
 

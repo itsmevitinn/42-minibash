@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 22:49:26 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/21 23:48:33 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/22 00:03:28 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void echo(t_cmd_lst *cmd, t_cmd_info *data)
 {
-	int status;
-	// int pid;
-
 	data->pid[cmd->id] = fork();
 	if (!data->pid[cmd->id])
 	{
