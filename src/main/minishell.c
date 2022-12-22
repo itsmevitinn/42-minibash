@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/20 17:28:05 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/22 11:51:33 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int main(void)
 		{
 			add_history(user_input);
 			data.lst_cmd = parse_input(user_input, env_lst);
+			get_heredoc_input(data.lst_cmd);
 		}
 		fill_data(&data);
 		free(user_input);

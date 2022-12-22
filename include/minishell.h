@@ -42,7 +42,7 @@ typedef struct	s_cmd_lst
 	int input;
 	int output;
 	int	has_truncate;
-	char *heredoc_delimiter;
+	char *delimiter;
 	char *line;
 	char **args;
 	int id;
@@ -60,6 +60,7 @@ typedef struct	s_cmd_info
 //UTILS FUNCTIONS
 void	free_matrix(char **splitted_cmd);
 void 	print_matrix(char **splitted_cmd);
+void	get_heredoc_input(t_cmd_lst *cmd);
 int		whitespace_checker(char *input);
 
 //PROMPT FUNCTIONS

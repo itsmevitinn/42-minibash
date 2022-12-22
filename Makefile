@@ -22,7 +22,7 @@ CC = cc
 
 PARSER = parser.c interpret_vars.c sub_arg.c cleanup.c utils.c syntax.c interpret_redirects.c update_fd.c
 
-EXEC = bin_cmd.c
+EXEC = bin_cmd.c get_heredoc_input.c
 
 BUILT-IN = exit.c isbuiltin.c cd.c pwd.c echo.c env.c export.c unset.c
 
