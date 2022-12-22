@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/21 23:31:29 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/21 23:51:15 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 void exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data)
 {
 	int status;
-	int pid;
+	// int pid;
 
-	pid = fork();
-	if (!pid)
+	data->pid[cmd->id] = fork();
+	if (!data->pid[cmd->id])
 	{
 		char **paths;
 		char *full_path;
@@ -44,8 +44,8 @@ void exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data)
 			i++;
 		}
 		free_paths(paths, i);
-		exit(1);
+		exit(127);
 	}
-	wait(&status);
-	g_exit_status = WEXITSTATUS(status);
+	// wait(&status);
+	// g_exit_status = WEXITSTATUS(status);
 }

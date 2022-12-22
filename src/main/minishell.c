@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/21 23:26:58 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/21 23:59:31 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ static void precedence_analyzer(t_cmd_info *data);
 static void use_pipes(t_cmd_info *data);
 static void handle_not_builtin(t_cmd_lst *cmd, int **pipes, int cmd_qty);
 static void handle_builtin(t_cmd_lst *cmd, int **pipes, int cmd_qty);
+void wait_childs(t_cmd_info *data, int *status);
 
 int main(void)
 {
 	t_cmd_info data;
 	t_var_lst *env_lst;
 	char *user_input;
+	int status;
 
 	initialize_env(&env_lst);
 	setup_signals();
@@ -49,8 +51,19 @@ int main(void)
 		exec_cmds(&data, &env_lst);
 		if (data.qty >= 2)
 			close_all_pipes(data.pipes);
+		wait_childs(&data, &status);
+		g_exit_status = WEXITSTATUS(status);
 		free(user_input);
 	}
+}
+
+void wait_childs(t_cmd_info *data, int *status)
+{
+	int i;
+
+	i = -1;
+	while (data->pid[++i])
+		waitpid(data->pid[i], status, 0);
 }
 
 static void fill_data(t_cmd_info *data)
@@ -130,7 +143,7 @@ static void start_pipes(t_cmd_info *data)
 		pipe(data->pipes[pipes_index++]);
 	}
 	pipes_index = 0;
-	while(pipes_index < pipes_qty)
+	while (pipes_index < pipes_qty)
 	{
 		printf("fd pipe input: %i\n", data->pipes[pipes_index][0]);
 		printf("fd pipe output: %i\n", data->pipes[pipes_index++][1]);
