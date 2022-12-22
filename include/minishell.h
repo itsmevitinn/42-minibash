@@ -16,6 +16,11 @@
 # define START 2
 # define END 3
 
+# define TRUNCATE 1
+# define APPEND 2
+# define INPUT 3
+# define HEREDOC 4
+
 typedef struct	s_prompt
 {
 	char *logname;
@@ -62,14 +67,15 @@ char	*display_prompt(void);
 
 //PARSER FUNCTIONS
 t_cmd_lst	*parse_input(char *user_input, t_var_lst *env_lst);
+int		check_syntax(char *cmd_line);
 void	interpret_redirects(t_cmd_lst *lst_cmd, char *line);
 void	interpret_vars(char **cmd, t_var_lst *env_lst);
 void	cleanup(char **args);
 /*--Utils--*/
-char	*sub_arg(char **arg, char *index, char *name, char *content);
 void	remove_chunk(char *str, int len);
+void	update_fd(t_cmd_lst *cmd, int type);
 char	*skip_quote(char *cmd);
-int		check_syntax(char *cmd_line);
+char	*sub_arg(char **arg, char *index, char *name, char *content);
 
 //INTERPRET_VARS_UTILS
 

@@ -6,55 +6,56 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:50:29 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/21 18:34:27 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/22 11:04:44 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inlcude/minishell.h"
+#include "../../include/minishell.h"
 
-static int	get_type(char *line);
+static int	should_update(t_cmd_lst *cmd, int type);
+static void	close_old_fd(t_cmd_lst *cmd, int type);
+static void	get_new_fd(t_cmd_lst *cmd, int type);
 
-void	update_fd(t_cmd_lst *cmd, char *line)
+void	update_fd(t_cmd_lst *cmd, int type)
 {
-	int	type;
-	
-	type = get_type(line);
-	close_old_fd(cmd, line);
-	if (*type == '<' && cmd->input != 0)
-		close(cmd->input);
-	else if (*type == '>' && cmd->output != 1)
-		close(cmd->output);
-	if (*type == '<' && *type != type[1])
-		cmd->input = open(cmd->filename, O_RDONLY, 0666);
-	//else if (*type == '<' && *type == type[1])
-	//	handle heredoc
-	else if (*type == '>' && *type != type[1])
-		cmd->output = open(cmd->filename, O_CREAT | O_RDWR | O_TRUNC, 0666);
-	else if (*type == '>' && *type == type[1])
-		cmd->output = open(cmd->filename, O_CREAT | O_RDWR | O_APPEND, 0666);
+	if (should_update(cmd, type))
+	{
+		close_old_fd(cmd, type);
+		get_new_fd(cmd, type);
+	}
+}
 
+static int	should_update(t_cmd_lst *cmd, int type)
+{
+	if (type == APPEND && cmd->has_truncate)
+		return (0);
+	else if (type == INPUT && cmd->heredoc_delimiter)
+		return (0);
+	else
+		return (1);
 }
 
 static void	close_old_fd(t_cmd_lst *cmd, int type)
 {
-	if (type == TRUNCATE && cmd->output != 1)
+	if ((type == TRUNCATE || type == APPEND) && cmd->output != 1)
 		close(cmd->output);
-	else if (type == APPEND && cmd->output != 1 && !cmd->has_truncate)
-		close(cmd->output);
-	else if (type == HEREDOC && cmd->input)
+	else if ((type == INPUT || type == HEREDOC) && cmd->input)
 		close(cmd->input);
 }
 
-static int	get_type(char *line)
+static void	get_new_fd(t_cmd_lst *cmd, int type)
 {
-	if (*line == '<' && line[1] == *line)
-		return (HEREDOC);
-	else if (*line == '<')
-		return (INPUT);
-	else if (*line == '>' && line[1] == *line)
-		return (APPEND);
-	else if (*line == '>')
-		return (TRUNCATE);
-	else
-		return (ft_putstr_fd("impossible else if at get_type function\n", 2));
+	if (type == INPUT)
+		cmd->input = open(cmd->filename, O_RDONLY, 0666);
+	else if (type == HEREDOC)
+	{
+		cmd->input = 0;
+		if (cmd->heredoc_delimiter)
+			free(cmd->heredoc_delimiter);
+		cmd->heredoc_delimiter = ft_strdup(cmd->filename);
+	}
+	else if (type == TRUNCATE)
+		cmd->output = open(cmd->filename, O_CREAT | O_RDWR | O_TRUNC, 0666);
+	else if (type == APPEND)
+		cmd->output = open(cmd->filename, O_CREAT | O_RDWR | O_APPEND, 0666);
 }
