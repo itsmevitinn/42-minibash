@@ -76,13 +76,13 @@ char	*skip_quote(char *cmd);
 
 //EXEC FUNCTIONS
 void	exec_cmds(t_cmd_info *data, t_var_lst **env_lst);
-int		exec_builtin_cmd(t_cmd_lst *cmd, t_var_lst **env_lst, int **pipes);
-void	exec_bin_cmd(t_cmd_lst *cmd, int **pipes);
+int		exec_builtin_cmd(t_cmd_lst *cmd, t_var_lst **env_lst, t_cmd_info *data);
+void	exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data);
 int		is_builtin(char *cmd_name);
 
 //BULT-IN FUNCTIONS
 void	cd(t_cmd_lst *cmd, t_var_lst *env_lst);
-void	echo(t_cmd_lst *cmd, int **pipes);
+void	echo(t_cmd_lst *cmd, t_cmd_info *data);
 void	pwd(void);
 void	env(t_var_lst *env_lst, int fd);
 void	export(char **cmd, t_var_lst *env_lst, int fd);

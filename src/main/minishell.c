@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/21 18:25:43 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/21 23:26:58 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int main(void)
 		}
 		fill_data(&data);
 		exec_cmds(&data, &env_lst);
-		close_all_pipes(data.pipes);
+		if (data.qty >= 2)
+			close_all_pipes(data.pipes);
 		free(user_input);
 	}
 }

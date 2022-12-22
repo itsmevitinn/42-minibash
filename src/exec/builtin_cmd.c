@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
+/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:53:23 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/21 16:38:30 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/21 23:32:53 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-int exec_builtin_cmd(t_cmd_lst *cmd, t_var_lst **env_lst, int **pipes)
+
+int exec_builtin_cmd(t_cmd_lst *cmd, t_var_lst **env_lst, t_cmd_info *data)
 {
 	if (!ft_strncmp(cmd->args[0], "echo", 4))
-		echo(cmd, pipes);
+		echo(cmd, data);
 	else if (!ft_strncmp(cmd->args[0], "cd", 2))
 		cd(cmd, *env_lst);
 	else if (!ft_strncmp(cmd->args[0], "pwd", 3))
