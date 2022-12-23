@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:09:07 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/09 21:55:31 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/23 15:03:46 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	content_len(char *str);
 static int	name_len(char *str);
 static void	fill_array(char **array, char *str);
 
-char **split_env(char *str)
+char	**split_env(char *str)
 {
 	char	**array;
 
@@ -62,7 +62,7 @@ static int	content_len(char *str)
 		str++;
 		len++;
 	}
-	return (len);	
+	return (len);
 }
 
 static void	fill_array(char **array, char *str)

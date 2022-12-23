@@ -6,15 +6,15 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:47:16 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/22 11:03:58 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/23 14:57:31 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void fill_filename(char *filename, char *line);
+static void	fill_filename(char *filename, char *line);
 static void	get_filename(t_cmd_lst *cmd, char *line);
-static void get_sizes(char *line, int *chunk_size, int *file_size);
+static void	get_sizes(char *line, int *chunk_size, int *file_size);
 static int	get_type(char *line);
 
 void	interpret_redirects(t_cmd_lst *cmd, char *line)
@@ -61,7 +61,7 @@ static void	get_filename(t_cmd_lst *cmd, char *line)
 	remove_chunk(line, chunk_size);
 }
 
-static void get_sizes(char *line, int *chunk_size, int *file_size)
+static void	get_sizes(char *line, int *chunk_size, int *file_size)
 {
 	*chunk_size = 0;
 	*file_size = 0;
@@ -84,9 +84,9 @@ static void get_sizes(char *line, int *chunk_size, int *file_size)
 	}
 }
 
-static void fill_filename(char *filename, char *line)
+static void	fill_filename(char *filename, char *line)
 {
-	char *temp;
+	char	*temp;
 
 	temp = filename;
 	if (*line == line[1])

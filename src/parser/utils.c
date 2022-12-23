@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 09:23:45 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/14 09:31:39 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/23 14:57:52 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	remove_chunk(char *str, int len)
 {
 	char	*aux;
 
-	while (len >=0 && *str)
+	while (len >= 0 && *str)
 	{
 		aux = str;
 		while (*aux)

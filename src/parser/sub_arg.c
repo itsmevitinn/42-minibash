@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sub_cmd.c                                          :+:      :+:    :+:   */
+/*   sub_arg.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 15:01:03 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/21 16:48:13 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/23 15:02:14 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static char	*copy_until_dollar_sign(char *sub, char *cmd, int offset);
 
 char	*sub_arg(char **arg, char *index, char *name, char *content)
 {
+	int		offset;
 	char	*sub;
-	int	offset;
 
 	sub = create_sub(*arg, name, content);
 	offset = index - *arg;
@@ -34,7 +34,7 @@ char	*sub_arg(char **arg, char *index, char *name, char *content)
 
 static char	*create_sub(char *cmd, char *name, char *content)
 {
-	int	len;
+	int		len;
 	char	*sub;
 
 	len = ft_strlen(cmd) + ft_strlen(content) - ft_strlen(name) + 3;

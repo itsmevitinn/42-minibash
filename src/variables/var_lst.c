@@ -6,15 +6,15 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 14:44:40 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/22 11:36:51 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/23 15:06:36 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_cmd_lst *ft_cmd_new(char *line)
+t_cmd_lst	*ft_cmd_new(char *line)
 {
-	t_cmd_lst *lst;
+	t_cmd_lst	*lst;
 
 	lst = malloc(sizeof(t_cmd_lst));
 	if (!lst)
@@ -24,15 +24,14 @@ t_cmd_lst *ft_cmd_new(char *line)
 	lst->output = 1;
 	lst->line = line;
 	lst->next = NULL;
-	lst->has_truncate= 0;
+	lst->has_truncate = 0;
 	lst->delimiter = NULL;
-
 	return (lst);
 }
 
-t_var_lst *ft_var_new(char *name, void *content)
+t_var_lst	*ft_var_new(char *name, void *content)
 {
-	t_var_lst *lst;
+	t_var_lst	*lst;
 
 	lst = malloc(sizeof(t_var_lst));
 	if (!lst)
@@ -43,14 +42,14 @@ t_var_lst *ft_var_new(char *name, void *content)
 	return (lst);
 }
 
-void ft_cmdadd_back(t_cmd_lst **head, t_cmd_lst *new)
+void	ft_cmdadd_back(t_cmd_lst **head, t_cmd_lst *new)
 {
-	t_cmd_lst *temp;
+	t_cmd_lst	*temp;
 
 	if (!*head || !head)
 	{
 		*head = new;
-		return;
+		return ;
 	}
 	temp = *head;
 	while (temp->next)
@@ -58,14 +57,14 @@ void ft_cmdadd_back(t_cmd_lst **head, t_cmd_lst *new)
 	temp->next = new;
 }
 
-void ft_varadd_back(t_var_lst **head, t_var_lst *new)
+void	ft_varadd_back(t_var_lst **head, t_var_lst *new)
 {
-	t_var_lst *temp;
+	t_var_lst	*temp;
 
 	if (!*head || !head)
 	{
 		*head = new;
-		return;
+		return ;
 	}
 	temp = *head;
 	while (temp->next)
@@ -73,9 +72,9 @@ void ft_varadd_back(t_var_lst **head, t_var_lst *new)
 	temp->next = new;
 }
 
-void ft_varclear(t_var_lst **head)
+void	ft_varclear(t_var_lst **head)
 {
-	t_var_lst *ptr;
+	t_var_lst	*ptr;
 
 	ptr = *head;
 	while (ptr)
@@ -88,9 +87,9 @@ void ft_varclear(t_var_lst **head)
 	}
 }
 
-void change_content(char *name, char *content, t_var_lst *variables)
+void	change_content(char *name, char *content, t_var_lst *variables)
 {
-	int name_len;
+	int	name_len;
 
 	name_len = ft_strlen(name);
 	while (variables && ft_strncmp(name, variables->name, name_len + 1))
@@ -104,7 +103,7 @@ void change_content(char *name, char *content, t_var_lst *variables)
 
 t_var_lst	*get_env(char *name, t_var_lst *variables)
 {
-	int name_len;
+	int	name_len;
 
 	name_len = ft_strlen(name);
 	while (variables && ft_strncmp(name, variables->name, name_len + 1))

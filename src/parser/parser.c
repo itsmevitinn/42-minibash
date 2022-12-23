@@ -6,19 +6,19 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/23 14:48:34 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/23 15:01:37 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void build_lst_cmd(t_cmd_lst **lst_cmd, char *line);
+static void	build_lst_cmd(t_cmd_lst **lst_cmd, char *line);
 static void	parse_cmds(t_cmd_lst *lst_cmd, t_var_lst *env_lst);
-static void initialize_ids(t_cmd_lst *lst_cmd);
+static void	initialize_ids(t_cmd_lst *lst_cmd);
 
-t_cmd_lst *parse_input(char *line, t_var_lst *env_lst)
+t_cmd_lst	*parse_input(char *line, t_var_lst *env_lst)
 {
-	t_cmd_lst *lst_cmd;
+	t_cmd_lst	*lst_cmd;
 
 	lst_cmd = NULL;
 	if (check_syntax(line))
@@ -29,20 +29,19 @@ t_cmd_lst *parse_input(char *line, t_var_lst *env_lst)
 	return (lst_cmd);
 }
 
-static void build_lst_cmd(t_cmd_lst **lst_cmd, char *line)
+static void	build_lst_cmd(t_cmd_lst **lst_cmd, char *line)
 {
 	char	**all_cmds;
 
 	all_cmds = ft_split_quotes(line, '|');
-
 	while (*all_cmds)
 		ft_cmdadd_back(lst_cmd, ft_cmd_new(*all_cmds++));
 	initialize_ids(*lst_cmd);
 }
 
-static void initialize_ids(t_cmd_lst *lst_cmd)
+static void	initialize_ids(t_cmd_lst *lst_cmd)
 {
-	int counter;
+	int	counter;
 
 	counter = 0;
 	while (lst_cmd)
@@ -64,9 +63,9 @@ static void	parse_cmds(t_cmd_lst *lst_cmd, t_var_lst *env_lst)
 	}
 }
 
-void print_matrix(char **splitted_cmd)
+void	print_matrix(char **splitted_cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (splitted_cmd[i])

@@ -6,18 +6,18 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 13:12:19 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/21 16:56:32 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/23 14:59:57 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void remove_quotes(char *cmd);
-static void remove_ctrl_chars(char *cmd);
-static char *clean_quote(char *cmd);
-static char *skip_variable(char *cmd);
+static void	remove_quotes(char *cmd);
+static void	remove_ctrl_chars(char *cmd);
+static char	*clean_quote(char *cmd);
+static char	*skip_variable(char *cmd);
 
-void cleanup(char **args)
+void	cleanup(char **args)
 {
 	while (*args)
 	{
@@ -27,7 +27,7 @@ void cleanup(char **args)
 	}
 }
 
-static void remove_quotes(char *cmd)
+static void	remove_quotes(char *cmd)
 {
 	while (*cmd)
 	{
@@ -40,7 +40,7 @@ static void remove_quotes(char *cmd)
 	}
 }
 
-static char *skip_variable(char *cmd)
+static char	*skip_variable(char *cmd)
 {
 	while (*cmd && *cmd != END)
 		cmd++;
@@ -49,9 +49,9 @@ static char *skip_variable(char *cmd)
 	return (cmd);
 }
 
-static char *clean_quote(char *cmd)
+static char	*clean_quote(char *cmd)
 {
-	char quote;
+	char	quote;
 
 	quote = *cmd;
 	remove_chunk(cmd, 0);
@@ -62,7 +62,7 @@ static char *clean_quote(char *cmd)
 	return (cmd);
 }
 
-static void remove_ctrl_chars(char *cmd)
+static void	remove_ctrl_chars(char *cmd)
 {
 	while (*cmd)
 	{

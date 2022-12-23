@@ -6,20 +6,20 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 20:37:37 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/21 16:48:01 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/23 14:59:17 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void alter_state(int *state);
-static char *handle_dollar_sign(char **cmd, char *i, t_var_lst *env_lst);
-static char *get_var_name(char *cmd);
+static void	alter_state(int *state);
+static char	*handle_dollar_sign(char **cmd, char *i, t_var_lst *env_lst);
+static char	*get_var_name(char *cmd);
 
-void interpret_vars(char **args, t_var_lst *env_lst)
+void	interpret_vars(char **args, t_var_lst *env_lst)
 {
-	char *line;
-	int inside_double_quotes;
+	char	*line;
+	int		inside_double_quotes;
 
 	inside_double_quotes = 0;
 	while (*args)
@@ -40,7 +40,7 @@ void interpret_vars(char **args, t_var_lst *env_lst)
 	}
 }
 
-static void alter_state(int *state)
+static void	alter_state(int *state)
 {
 	if (*state)
 		*state = 0;
@@ -48,11 +48,11 @@ static void alter_state(int *state)
 		*state = 1;
 }
 
-static char *handle_dollar_sign(char **arg, char *i, t_var_lst *env_lst)
+static char	*handle_dollar_sign(char **arg, char *i, t_var_lst *env_lst)
 {
-	t_var_lst *var;
-	char *exit_status;
-	char *var_name;
+	t_var_lst	*var;
+	char		*exit_status;
+	char		*var_name;
 
 	if (i[1] == '?')
 	{
@@ -73,10 +73,10 @@ static char *handle_dollar_sign(char **arg, char *i, t_var_lst *env_lst)
 	return (i);
 }
 
-static char *get_var_name(char *cmd)
+static char	*get_var_name(char *cmd)
 {
-	char *aux;
-	char *name;
+	char	*aux;
+	char	*name;
 
 	aux = cmd;
 	while (*aux && ft_isalpha(*aux))
