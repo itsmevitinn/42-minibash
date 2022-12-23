@@ -50,7 +50,6 @@ typedef struct	s_cmd_info
 	int qty;
 	int **pipes;
 	int *pids;
-	int id;
 	t_cmd_lst *lst_cmd;
 }				t_cmd_info;
 
@@ -78,18 +77,18 @@ char	*skip_quote(char *cmd);
 
 //EXEC FUNCTIONS
 void	exec_cmds(t_cmd_info *data, t_var_lst **env_lst);
-int		exec_builtin_cmd(t_cmd_lst *cmd, t_var_lst **env_lst);
+int		exec_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst);
 void	exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data);
 int		is_builtin(char *cmd_name);
 
 //BULT-IN FUNCTIONS
-void	cd(t_cmd_lst *cmd, t_var_lst *env_lst);
-void	echo(t_cmd_lst *cmd);
-void	pwd(t_cmd_lst *cmd);
-void	env(t_cmd_lst *cmd, t_var_lst *env_lst);
-void	export(t_cmd_lst *cmd, t_var_lst *env_lst);
-void	unset(t_cmd_lst *cmd, t_var_lst **env_lst);
-void	ft_exit(t_cmd_lst *cmd);
+void	cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
+void	echo(t_cmd_lst *cmd, t_cmd_info *data);
+void	pwd(t_cmd_lst *cmd, t_cmd_info *data);
+void	env(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
+void	export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
+void	unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst);
+void	ft_exit(t_cmd_lst *cmd, t_cmd_info *data);
 
 //DATA FUNCTIONS
 

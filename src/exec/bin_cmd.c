@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/22 16:51:10 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/23 17:03:52 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,13 @@
 
 void exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data)
 {
-	int status;
-
-	data->pids[data->id] = fork();
-	// cmd->pid = fork();
-	// if (!cmd->pid)
-	if (!data->pids[data->id++])
+	data->pids[cmd->id] = fork();
+	if (!data->pids[cmd->id])
 	{
 		char **paths;
 		char *full_path;
 		int i;
+
 		dup2(cmd->input, 0);
 		dup2(cmd->output, 1);
 		if (data->qty >= 2)
@@ -41,9 +38,9 @@ void exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data)
 			i++;
 		}
 		free_paths(paths, i);
-		printf("Chegou aqui\n");
+		ft_putstr_fd("bash: ", 2);
+		ft_putstr_fd(cmd->args[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
 		exit(127);
 	}
-	// waitpid(cmd->pid, &status, 0);
-	// g_exit_status = WEXITSTATUS(status);
 }

@@ -6,32 +6,37 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 22:49:26 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/22 11:49:24 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/23 17:06:12 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void echo(t_cmd_lst *cmd)
+void echo(t_cmd_lst *cmd, t_cmd_info *data)
 {
-	int content_index;
-	int trailing_newline;
-	trailing_newline = 1;
-	if (!ft_strncmp(cmd->args[1], "-n", 2) && ft_strlen(cmd->args[1]) == 2)
+	data->pids[cmd->id] = fork();
+	if (!data->pids[cmd->id])
 	{
-		content_index = 2;
-		trailing_newline = 0;
+		int content_index;
+		int trailing_newline;
+
+		trailing_newline = 1;
+		if (!ft_strncmp(cmd->args[1], "-n", 2) && ft_strlen(cmd->args[1]) == 2)
+		{
+			content_index = 2;
+			trailing_newline = 0;
+		}
+		else
+			content_index = 1;
+		while (cmd->args[content_index])
+		{
+			ft_putstr_fd(cmd->args[content_index], cmd->output);
+			if (cmd->args[content_index + 1])
+				write(cmd->output, " ", 1);
+			content_index++;
+		}
+		if (trailing_newline)
+			write(cmd->output, "\n", 1);
+		exit(0);
 	}
-	else
-		content_index = 1;
-	while (cmd->args[content_index])
-	{
-		ft_putstr_fd(cmd->args[content_index], cmd->output);
-		if (cmd->args[content_index + 1])
-			write(cmd->output, " ", 1);
-		content_index++;
-	}
-	if (trailing_newline)
-		write(cmd->output, "\n", 1);
-	g_exit_status = 0;
 }

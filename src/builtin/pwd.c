@@ -3,21 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Vitor <vsergio@student.42.rio>             +#+  +:+       +#+        */
+/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 22:49:00 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/22 11:51:03 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/23 15:20:31 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-void	pwd(t_cmd_lst *cmd)
+void pwd(t_cmd_lst *cmd, t_cmd_info *data)
 {
-	char	*pwd;
+	data->pids[cmd->id] = fork();
+	if (!data->pids[cmd->id])
+	{
+		char *pwd;
 
-	pwd = getcwd(NULL, 0);
-	ft_putstr_fd(pwd, cmd->output);
-	ft_putchar_fd('\n', cmd->output);
-	free(pwd);
-	g_exit_status = 0;
+		pwd = getcwd(NULL, 0);
+		ft_putstr_fd(pwd, cmd->output);
+		ft_putchar_fd('\n', cmd->output);
+		free(pwd);
+		exit(0);
+	}
 }

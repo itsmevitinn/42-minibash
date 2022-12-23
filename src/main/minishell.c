@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/22 17:04:50 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/23 16:08:30 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,13 @@ int main(void)
 
 static void wait_childs(t_cmd_info *data)
 {
-	int i;
 	int status;
+	int i;
 
 	i = -1;
-	while(data->pids[++i])
-	{
-		printf("waiting pids...\n");
+	while (data->pids[++i])
 		waitpid(data->pids[i], &status, 0);
-		g_exit_status = WEXITSTATUS(status);
-	}
+	g_exit_status = WEXITSTATUS(status);
 }
 
 static void fill_data(t_cmd_info *data)

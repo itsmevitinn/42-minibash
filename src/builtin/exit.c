@@ -6,12 +6,12 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 23:11:22 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/22 11:50:34 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/23 16:00:17 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-void ft_exit(t_cmd_lst *cmd)
+void ft_exit(t_cmd_lst *cmd, t_cmd_info *data)
 {
 	int status;
 

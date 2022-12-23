@@ -6,38 +6,42 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:08:25 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/22 11:50:45 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/23 15:58:00 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static void print_error(char *cmd, int fd);
-static void	print_vars(t_var_lst *env_lst, int fd);
-static void	export_var(t_var_lst *env_lst, char *cmd);
-static int	name_is_invalid(char *cmd);
+static void print_vars(t_var_lst *env_lst, int fd);
+static void export_var(t_var_lst *env_lst, char *cmd);
+static int name_is_invalid(char *cmd);
 
-void export(t_cmd_lst *cmd, t_var_lst *env_lst)
+void export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {
-	cmd->args++;
-	if (!*cmd->args)
-		print_vars(env_lst, cmd->output);
-	while (*cmd->args)
+	if (data->qty == 1)
 	{
-		if (name_is_invalid(*cmd->args))
+		cmd->args++;
+		if (!*cmd->args)
+			print_vars(env_lst, cmd->output);
+		while (*cmd->args)
 		{
-			print_error(*cmd->args, cmd->output);
-			g_exit_status = 1;
+			if (name_is_invalid(*cmd->args))
+			{
+				print_error(*cmd->args, cmd->output);
+				g_exit_status = 1;
+			}
+			else
+				export_var(env_lst, *cmd->args);
+			cmd++;
 		}
-		else
-			export_var(env_lst, *cmd->args);
-		cmd++;
+		g_exit_status = 0;
 	}
-	g_exit_status = 0;
 }
 
-static void	print_vars(t_var_lst *env_lst, int fd)
+static void print_vars(t_var_lst *env_lst, int fd)
 {
-	int	should_print;
+	int should_print;
 	while (env_lst)
 	{
 		should_print = ft_strncmp("_", env_lst->name, 2);
@@ -58,7 +62,7 @@ static void	print_vars(t_var_lst *env_lst, int fd)
 	}
 }
 
-static int	name_is_invalid(char *cmd) //CHECK VALID CHARACTERS DIFFERENT FOR 1ST CHARACTER
+static int name_is_invalid(char *cmd) // CHECK VALID CHARACTERS DIFFERENT FOR 1ST CHARACTER
 {
 	if (*cmd == '=')
 		return (1);
@@ -78,16 +82,16 @@ static void print_error(char *cmd, int fd)
 	ft_putstr_fd("': not a valid identifier\n", fd);
 }
 
-static void	export_var(t_var_lst *env_lst, char *cmd)
+static void export_var(t_var_lst *env_lst, char *cmd)
 {
-	char	*content;
-	char	*name;
-	char	*aux;
+	char *content;
+	char *name;
+	char *aux;
 
 	content = ft_strchr(cmd, '=');
 	if (content)
 	{
-		name = malloc (content - cmd + 1);
+		name = malloc(content - cmd + 1);
 		aux = name;
 		while (cmd != content)
 			*aux++ = *cmd++;

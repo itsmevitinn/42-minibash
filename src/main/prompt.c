@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
+/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/11/30 15:08:53 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/23 16:04:20 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static void	build_prompt_msg(t_prompt *prompt_msg);

@@ -6,28 +6,28 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:53:23 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/22 11:53:01 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/23 16:00:33 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int exec_builtin_cmd(t_cmd_lst *cmd, t_var_lst **env_lst)
+int exec_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)
 {
 	if (!ft_strncmp(cmd->args[0], "echo", 4))
-		echo(cmd);
+		echo(cmd, data);
 	else if (!ft_strncmp(cmd->args[0], "cd", 2))
-		cd(cmd, *env_lst);
+		cd(cmd, data, *env_lst);
 	else if (!ft_strncmp(cmd->args[0], "pwd", 3))
-		pwd(cmd);
+		pwd(cmd, data);
 	else if (!ft_strncmp(cmd->args[0], "export", 6))
-		export(cmd, *env_lst);
+		export(cmd, data, *env_lst);
 	else if (!ft_strncmp(cmd->args[0], "unset", 5))
-		unset(cmd, env_lst);
+		unset(cmd, data, env_lst);
 	else if (!ft_strncmp(cmd->args[0], "env", 3))
-		env(cmd, *env_lst);
+		env(cmd, data, *env_lst);
 	else if (!ft_strncmp(cmd->args[0], "exit", 3))
-		ft_exit(cmd);
+		ft_exit(cmd, data);
 	else
 		return (0);
 	return (1);
