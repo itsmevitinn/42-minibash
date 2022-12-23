@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/22 11:31:34 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/23 14:48:34 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ t_cmd_lst *parse_input(char *line, t_var_lst *env_lst)
 	t_cmd_lst *lst_cmd;
 
 	lst_cmd = NULL;
-	build_lst_cmd(&lst_cmd, line);
-	parse_cmds(lst_cmd, env_lst);
+	if (check_syntax(line))
+	{		
+		build_lst_cmd(&lst_cmd, line);
+		parse_cmds(lst_cmd, env_lst);
+	}
 	return (lst_cmd);
 }
 
