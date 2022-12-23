@@ -60,7 +60,6 @@ typedef struct	s_cmd_info
 //UTILS FUNCTIONS
 void	free_matrix(char **splitted_cmd);
 void 	print_matrix(char **splitted_cmd);
-void	get_heredoc_input(t_cmd_lst *cmd);
 int		whitespace_checker(char *input);
 
 //PROMPT FUNCTIONS
@@ -82,6 +81,7 @@ char	*sub_arg(char **arg, char *index, char *name, char *content);
 
 //EXEC FUNCTIONS
 void	exec_bin_cmd(char *right_path, char **splitted_cmd);
+void	get_heredoc_input(t_cmd_lst *cmd);
 
 //BULT-IN FUNCTIONS
 int		is_builtin(t_cmd_lst *cmd, t_var_lst *env_lst);
@@ -101,6 +101,7 @@ int	parse_cmd(char *cmd);
 
 //SIGNAL_FUNCTIONS
 void	setup_signals(void);
+void	restore_sigint(void);
 
 //VARIABlES FUNCTIONS
 void	initialize_env(t_var_lst **lst);

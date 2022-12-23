@@ -6,17 +6,13 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:57:27 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/22 15:45:57 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/23 14:40:02 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-static void	handle_signal(int sig);
 
-extern char	*rl_prompt;
-extern char	*rl_line_buffer;
-extern int	rl_done;
-extern int	rl_eof_found;
+static void	handle_signal(int sig);
 
 void	setup_signals(void)
 {
@@ -34,11 +30,6 @@ void	setup_signals(void)
 static void	handle_signal(int sig)
 {
 	write(1, "\n", 1);
-	if(!ft_strncmp(rl_prompt, ">", 2))
-	{
-		rl_done = 1;
-		rl_eof_found = 1;
-	}
 	if (RL_ISSTATE(RL_STATE_READCMD))
 	{
 		g_exit_status = 1;
@@ -46,7 +37,14 @@ static void	handle_signal(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	else
-		g_exit_status = 130;
 	(void)sig;
+}
+
+void restore_sigint(void)
+{
+	struct sigaction	sa_sig;
+
+	sigemptyset(&(sa_sig.sa_mask));
+	sa_sig.sa_handler = SIG_DFL;
+	sigaction(SIGINT, &sa_sig, NULL);
 }
