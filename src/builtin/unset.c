@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:10:07 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/23 15:57:50 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/24 00:27:39 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,42 @@ static void print_error(char *cmd, int fd);
 
 void unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)
 {
-	if (data->qty == 1)
+	char **args;
+
+	args = cmd->args;
+	if (data->qty != 1)
 	{
-		cmd->args++;
-		while (*cmd->args)
+		data->pids[cmd->id] = fork();
+		if (!data->pids[cmd->id])
 		{
-			if (name_is_invalid(*cmd->args))
+			args++;
+			while (*args)
 			{
-				print_error(*cmd->args, cmd->output);
+				if (name_is_invalid(*args))
+				{
+					print_error(*args, cmd->output);
+					exit(1);
+				}
+				else if (get_env(*args, *env_lst))
+					remove_var(env_lst, *args);
+				args++;
+			}
+			exit(0);
+		}
+	}
+	else
+	{
+		args++;
+		while (*args)
+		{
+			if (name_is_invalid(*args))
+			{
+				print_error(*args, cmd->output);
 				g_exit_status = 1;
 			}
-			else if (get_env(*cmd->args, *env_lst))
-				remove_var(env_lst, *cmd->args);
-			cmd++;
+			else if (get_env(*args, *env_lst))
+				remove_var(env_lst, *args);
+			args++;
 		}
 		g_exit_status = 0;
 	}

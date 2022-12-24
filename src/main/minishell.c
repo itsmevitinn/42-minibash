@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/23 16:08:30 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/24 01:16:19 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ static void wait_childs(t_cmd_info *data)
 
 	i = -1;
 	while (data->pids[++i])
+	{
 		waitpid(data->pids[i], &status, 0);
-	g_exit_status = WEXITSTATUS(status);
+		g_exit_status = WEXITSTATUS(status);
+	}
 }
 
 static void fill_data(t_cmd_info *data)
@@ -103,16 +105,10 @@ static void handle_not_builtin(t_cmd_lst *cmd, int **pipes, int cmd_qty)
 	last_id = cmd_qty - 1;
 	// redirect output not found: cmd->output == 1
 	if (cmd->output == 1 && cmd->id != last_id)
-	{
 		cmd->output = pipes[cmd->id][1]; // so, go to pipe
-		printf("nao-builtin \"%s\" teve o output redirecionado para um pipe\n", cmd->args[0]);
-	}
 	// redirect input not found: cmd->input == 0
 	if (cmd->input == 0 && cmd->id != 0)
-	{
 		cmd->input = pipes[cmd->id - 1][0];
-		printf("nao-builtin \"%s\" teve input redirecionado de um pipe\n", cmd->args[0]);
-	}
 }
 
 static void handle_builtin(t_cmd_lst *cmd, int **pipes, int cmd_qty)
@@ -122,11 +118,7 @@ static void handle_builtin(t_cmd_lst *cmd, int **pipes, int cmd_qty)
 	last_id = cmd_qty - 1;
 	// redirect not found: cmd->output == 1
 	if (cmd->output == 1 && cmd->id != last_id)
-	{
-		// if not found, go to pipe
 		cmd->output = pipes[cmd->id][1];
-		printf("builtin \"%s\" teve o output redirecionado para um pipe\n", cmd->args[0]);
-	}
 }
 
 static void start_pipes(t_cmd_info *data)

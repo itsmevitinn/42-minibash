@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/20 18:06:50 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/23 23:42:36 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static void build_lst_cmd(t_cmd_lst **lst_cmd, char *line, t_var_lst *env_lst)
 	t_cmd_lst *head;
 
 	all_cmds = ft_split_quotes(line, '|');
-
 	while (*all_cmds)
 		ft_cmdadd_back(lst_cmd, ft_cmd_new(*all_cmds++));
 	initialize_std_fd(*lst_cmd);
@@ -53,7 +52,6 @@ static void build_lst_cmd(t_cmd_lst **lst_cmd, char *line, t_var_lst *env_lst)
 			cleanup(*temp);
 			temp++;
 		}
-		print_matrix(head->args);
 		head = head->next;
 	}
 }
@@ -95,7 +93,6 @@ void get_filename(t_cmd_lst *cmd, char *line, char type)
 	filename = malloc(sizeof(char) * (file_size + 1));
 	fill_filename(filename, line);
 	cmd->filename = filename;
-	printf("filename value: %s\n", cmd->filename);
 	open_file(cmd, filename, type);
 	remove_chunk(line, chunk_size);
 }

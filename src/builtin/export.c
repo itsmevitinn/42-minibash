@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:08:25 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/23 15:58:00 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/24 00:27:28 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,46 @@ static int name_is_invalid(char *cmd);
 
 void export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {
-	if (data->qty == 1)
+	char **args;
+
+	args = cmd->args;
+	if (data->qty != 1)
 	{
-		cmd->args++;
-		if (!*cmd->args)
-			print_vars(env_lst, cmd->output);
-		while (*cmd->args)
+		data->pids[cmd->id] = fork();
+		if (!data->pids[cmd->id])
 		{
-			if (name_is_invalid(*cmd->args))
+			args++;
+			if (!*args)
+				print_vars(env_lst, cmd->output);
+			while (*args && data->qty == 1)
 			{
-				print_error(*cmd->args, cmd->output);
+				if (name_is_invalid(*args))
+				{
+					print_error(*args, cmd->output);
+					exit(1);
+				}
+				else
+					export_var(env_lst, *args);
+				args++;
+			}
+			exit(0);
+		}
+	}
+	else
+	{
+		args++;
+		if (!*args)
+			print_vars(env_lst, cmd->output);
+		while (*args)
+		{
+			if (name_is_invalid(*args))
+			{
+				print_error(*args, cmd->output);
 				g_exit_status = 1;
 			}
 			else
-				export_var(env_lst, *cmd->args);
-			cmd++;
+				export_var(env_lst, *args);
+			args++;
 		}
 		g_exit_status = 0;
 	}
