@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:10:07 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/24 00:27:39 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/24 17:45:43 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,25 @@ static void print_error(char *cmd, int fd);
 void unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)
 {
 	char **args;
+	int status;
 
 	args = cmd->args;
+	if (cmd->delimiter)
+	{
+		if (!fork())
+		{
+			restore_sigint();
+			get_heredoc_input(cmd);
+			exit(0);
+		}
+		wait(&status);
+		if (!WIFEXITED(status))
+			return;
+	}
 	if (data->qty != 1)
 	{
-		data->pids[cmd->id] = fork();
-		if (!data->pids[cmd->id])
+		cmd->pid = fork();
+		if (!cmd->pid)
 		{
 			args++;
 			while (*args)
@@ -58,6 +71,10 @@ void unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)
 		}
 		g_exit_status = 0;
 	}
+	if (cmd->id < (data->qty - 1))
+		close(data->pipes[cmd->id][1]);
+	waitpid(cmd->pid, &status, 0);
+	g_exit_status = WEXITSTATUS(status);
 }
 
 static int name_is_invalid(char *cmd)

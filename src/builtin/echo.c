@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 22:49:26 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/24 12:51:53 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/24 17:48:58 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,19 @@
 
 void echo(t_cmd_lst *cmd, t_cmd_info *data)
 {
-	data->pids[cmd->id] = fork();
-	if (!data->pids[cmd->id])
+	int status;
+
+	cmd->pid = fork();
+	if (!cmd->pid)
 	{
 		int content_index;
 		int trailing_newline;
 
 		content_index = -1;
 		trailing_newline = 1;
+		restore_sigint();
+		if (cmd->delimiter)
+			get_heredoc_input(cmd);
 		if (!cmd->args[1])
 		{
 			ft_putstr_fd("\n", cmd->output);
@@ -45,4 +50,12 @@ void echo(t_cmd_lst *cmd, t_cmd_info *data)
 			write(cmd->output, "\n", 1);
 		exit(0);
 	}
+	// closing all my writing pipes
+	if (cmd->id < (data->qty - 1))
+		close(data->pipes[cmd->id][1]);
+	waitpid(cmd->pid, &status, 0);
+	if (!WIFEXITED(status))
+		return;
+	else
+		g_exit_status = WEXITSTATUS(status);
 }

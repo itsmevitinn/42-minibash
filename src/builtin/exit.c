@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 23:11:22 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/24 01:13:39 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/24 17:52:52 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,22 @@ void ft_exit(t_cmd_lst *cmd, t_cmd_info *data)
 {
 	int status;
 
+	if (cmd->delimiter)
+	{
+		if (!fork())
+		{
+			restore_sigint();
+			get_heredoc_input(cmd);
+			exit(0);
+		}
+		wait(&status);
+		if (!WIFEXITED(status))
+			return;
+	}
 	if (data->qty != 1)
 	{
-		data->pids[cmd->id] = fork();
-		if (!data->pids[cmd->id])
+		cmd->pid = fork();
+		if (!cmd->pid)
 		{
 			if (!cmd->args[1])
 				exit(EXIT_SUCCESS);
@@ -59,6 +71,10 @@ void ft_exit(t_cmd_lst *cmd, t_cmd_info *data)
 			exit(255);
 		}
 	}
+	if (cmd->id < (data->qty - 1))
+		close(data->pipes[cmd->id][1]);
+	waitpid(cmd->pid, &status, 0);
+	g_exit_status = WEXITSTATUS(status);
 }
 
 static int numeric_argument(char *status)

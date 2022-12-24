@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/23 17:05:00 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/24 17:36:37 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,23 @@ void cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 	char *current_dir;
 	char *path;
 	int updater;
+	int status;
 
 	updater = 1;
 	current_dir = getcwd(NULL, 0);
 	path = cmd->args[1];
+	if (cmd->delimiter)
+	{
+		if (!fork())
+		{
+			restore_sigint();
+			get_heredoc_input(cmd);
+			exit(0);
+		}
+		wait(&status);
+		if (!WIFEXITED(status))
+			return;
+	}
 	if (data->qty == 1)
 	{
 		if (!path)
@@ -36,10 +49,10 @@ void cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 			update_oldpwd(current_dir, env_lst);
 		g_exit_status = 0;
 	}
-	else
+	else if (data->qty != 1)
 	{
-		data->pids[cmd->id] = fork();
-		if (!data->pids[cmd->id])
+		cmd->pid = fork();
+		if (!cmd->pid)
 		{
 			if (!path)
 				chdir(get_content("HOME", env_lst));
@@ -50,6 +63,10 @@ void cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 			exit(0);
 		}
 	}
+	if (cmd->id < (data->qty - 1))
+		close(data->pipes[cmd->id][1]);
+	waitpid(cmd->pid, &status, 0);
+	g_exit_status = WEXITSTATUS(status);
 }
 
 static void oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd, int *updater)

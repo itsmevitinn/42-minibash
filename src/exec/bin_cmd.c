@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/24 12:51:57 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/24 17:13:40 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data)
 {
-	data->pids[cmd->id] = fork();
-	if (!data->pids[cmd->id])
+	int status;
+
+	cmd->pid = fork();
+	if (!cmd->pid)
 	{
 		char **paths;
 		char *full_path;
@@ -45,4 +47,11 @@ void exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data)
 		ft_putstr_fd(": command not found\n", 2);
 		exit(127);
 	}
+	if (cmd->id < (data->qty - 1))
+		close(data->pipes[cmd->id][1]);
+	waitpid(cmd->pid, &status, 0);
+	if (!WIFEXITED(status))
+		return;
+	else
+		g_exit_status = WEXITSTATUS(status);
 }
