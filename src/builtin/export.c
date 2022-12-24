@@ -6,46 +6,67 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:08:25 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/15 16:53:36 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/24 00:27:28 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 static void print_error(char *cmd, int fd);
-static void	print_vars(t_var_lst *env_lst, int fd);
-static void	export_var(t_var_lst *env_lst, char *cmd);
-static int	name_is_invalid(char *cmd);
+static void print_vars(t_var_lst *env_lst, int fd);
+static void export_var(t_var_lst *env_lst, char *cmd);
+static int name_is_invalid(char *cmd);
 
-
-void export(char **cmd, t_var_lst *env_lst, int fd)
+void export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {
-	int	exit_status;
+	char **args;
 
-	exit_status = 0;
-	cmd++;
-	if (!*cmd)
+	args = cmd->args;
+	if (data->qty != 1)
 	{
-		print_vars(env_lst, fd);
-		return ;
-	}
-	while (*cmd)
-	{
-		if (name_is_invalid(*cmd))
+		data->pids[cmd->id] = fork();
+		if (!data->pids[cmd->id])
 		{
-			print_error(*cmd, fd);
-			exit_status = 1;
+			args++;
+			if (!*args)
+				print_vars(env_lst, cmd->output);
+			while (*args && data->qty == 1)
+			{
+				if (name_is_invalid(*args))
+				{
+					print_error(*args, cmd->output);
+					exit(1);
+				}
+				else
+					export_var(env_lst, *args);
+				args++;
+			}
+			exit(0);
 		}
-		else
-			export_var(env_lst, *cmd);
-		cmd++;
 	}
-	g_exit_status = exit_status;
+	else
+	{
+		args++;
+		if (!*args)
+			print_vars(env_lst, cmd->output);
+		while (*args)
+		{
+			if (name_is_invalid(*args))
+			{
+				print_error(*args, cmd->output);
+				g_exit_status = 1;
+			}
+			else
+				export_var(env_lst, *args);
+			args++;
+		}
+		g_exit_status = 0;
+	}
 }
 
-static void	print_vars(t_var_lst *env_lst, int fd)
+static void print_vars(t_var_lst *env_lst, int fd)
 {
-	int	should_print;
+	int should_print;
 	while (env_lst)
 	{
 		should_print = ft_strncmp("_", env_lst->name, 2);
@@ -66,7 +87,7 @@ static void	print_vars(t_var_lst *env_lst, int fd)
 	}
 }
 
-static int	name_is_invalid(char *cmd) //CHECK VALID CHARACTERS DIFFERENT FOR 1ST CHARACTER
+static int name_is_invalid(char *cmd) // CHECK VALID CHARACTERS DIFFERENT FOR 1ST CHARACTER
 {
 	if (*cmd == '=')
 		return (1);
@@ -86,16 +107,16 @@ static void print_error(char *cmd, int fd)
 	ft_putstr_fd("': not a valid identifier\n", fd);
 }
 
-static void	export_var(t_var_lst *env_lst, char *cmd)
+static void export_var(t_var_lst *env_lst, char *cmd)
 {
-	char	*content;
-	char	*name;
-	char	*aux;
+	char *content;
+	char *name;
+	char *aux;
 
 	content = ft_strchr(cmd, '=');
 	if (content)
 	{
-		name = malloc (content - cmd + 1);
+		name = malloc(content - cmd + 1);
 		aux = name;
 		while (cmd != content)
 			*aux++ = *cmd++;

@@ -6,33 +6,43 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/12 16:57:13 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/24 12:51:57 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	exec_bin_cmd(char *full_path, char **splitted_cmd)
+void exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data)
 {
-	int	pid;
-	int status;
-
-	pid = fork();
-	if (!pid)
-		execve(full_path, splitted_cmd, NULL);
-	wait(&status);
-	g_exit_status = WEXITSTATUS(status);
-	//free right path after execution
-	free(full_path);
-	free_matrix(splitted_cmd);
-}
-
-void	free_matrix(char **splitted_cmd)
-{
-	int i;
-
-	i = 0;
-	while(splitted_cmd[i])
-		free(splitted_cmd[i++]);
-	free(splitted_cmd);
+	data->pids[cmd->id] = fork();
+	if (!data->pids[cmd->id])
+	{
+		char **paths;
+		char *full_path;
+		int i;
+		restore_sigint();
+		if (cmd->delimiter)
+			get_heredoc_input(cmd);
+		dup2(cmd->input, 0);
+		dup2(cmd->output, 1);
+		if (data->qty >= 2)
+			close_all_pipes(data);
+		i = 0;
+		paths = ft_split(getenv("PATH"), ':');
+		while (paths[i])
+		{
+			full_path = ft_strjoin(paths[i], "/", 1);
+			full_path = ft_strjoin(full_path, cmd->args[0], 1);
+			if (!access(full_path, F_OK | X_OK))
+				execve(full_path, cmd->args, NULL);
+			// free wrong path
+			free(full_path);
+			i++;
+		}
+		free_paths(paths, i);
+		ft_putstr_fd("bash: ", 2);
+		ft_putstr_fd(cmd->args[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+		exit(127);
+	}
 }
