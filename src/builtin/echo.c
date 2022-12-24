@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 22:49:26 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/23 17:06:12 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/24 01:43:10 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,14 @@ void echo(t_cmd_lst *cmd, t_cmd_info *data)
 		int content_index;
 		int trailing_newline;
 
+		content_index = -1;
 		trailing_newline = 1;
-		if (!ft_strncmp(cmd->args[1], "-n", 2) && ft_strlen(cmd->args[1]) == 2)
+		if (!cmd->args[1])
+		{
+			ft_putstr_fd("\n", cmd->output);
+			exit(0);
+		}
+		else if (!ft_strncmp(cmd->args[1], "-n", 2) && ft_strlen(cmd->args[1]) == 2)
 		{
 			content_index = 2;
 			trailing_newline = 0;
