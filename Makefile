@@ -7,9 +7,9 @@ uname_p := $(shell uname -p)
 
 # !!! need to run brew install radline  !!! #
 ifeq ($(uname_p), arm)
-	FLAGS = -Wall -Wextra -g -lreadline -L /opt/homebrew/opt/readline/lib -I /opt/homebrew/opt/readline/include #-Werror
+	FLAGS = -Wall -Wextra -Werror -g -lreadline -L /opt/homebrew/opt/readline/lib -I /opt/homebrew/opt/readline/include
 else
-	FLAGS = -Wall -Wextra -g -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include #-Werror
+	FLAGS = -Wall -Wextra -Werror -g -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
 endif
 
 MAKELIBFT = ${MAKE_IN_DIRECTORY} ./libft
