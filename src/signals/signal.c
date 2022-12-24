@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:57:27 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/23 14:40:02 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/23 15:02:56 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	handle_signal(int sig)
 	(void)sig;
 }
 
-void restore_sigint(void)
+void	restore_sigint(void)
 {
 	struct sigaction	sa_sig;
 
