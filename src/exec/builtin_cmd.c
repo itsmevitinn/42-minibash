@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:53:23 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/23 16:00:33 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/24 18:37:14 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int exec_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)
 		unset(cmd, data, env_lst);
 	else if (!ft_strncmp(cmd->args[0], "env", 3))
 		env(cmd, data, *env_lst);
-	else if (!ft_strncmp(cmd->args[0], "exit", 3))
+	else if (!ft_strncmp(cmd->args[0], "exit", 4))
 		ft_exit(cmd, data);
 	else
 		return (0);

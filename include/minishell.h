@@ -84,7 +84,7 @@ char	*sub_arg(char **arg, char *index, char *name, char *content);
 //EXEC FUNCTIONS
 void	exec_cmds(t_cmd_info *data, t_var_lst **env_lst);
 int		exec_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst);
-void	exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data);
+int 	exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 int		is_builtin(char *cmd_name);
 void	get_heredoc_input(t_cmd_lst *cmd);
 
