@@ -60,7 +60,7 @@ typedef struct	s_cmd_info
 //MEM_UTILS FUNCTIONS
 void	free_matrix(char **cmd_args);
 void	free_paths(char **paths, int i);
-void	free_data(t_cmd_info *data);
+void	free_pipes(t_cmd_info *data);
 
 //UTILS FUNCTIONS
 void	print_matrix(char **cmd_args);

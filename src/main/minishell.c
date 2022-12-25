@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/25 16:15:32 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/25 17:26:46 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int main(void)
 	while (42)
 	{
 		user_input = display_prompt();
+		// user_input = "echo \"|\" wc -l";
 		if (!user_input)
 		{
 			rl_clear_history();
@@ -45,7 +46,7 @@ int main(void)
 			fill_data(&data);
 			exec_cmds(&data, &env_lst);
 			ft_cmdclear(&data.lst_cmd);
-			free_data(&data);
+			free_pipes(&data);
 		}
 		free(user_input);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 09:23:45 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/25 14:45:52 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/25 17:22:43 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,9 @@ void print_matrix(char **cmd_args)
 {
 	int i;
 
-	i = 0;
-	while (cmd_args[i])
-	{
+	i = -1;
+	while (cmd_args[++i])
 		printf("[%i] %s ", i, cmd_args[i]);
-		i++;
-	}
 	printf("\n");
 }
 
