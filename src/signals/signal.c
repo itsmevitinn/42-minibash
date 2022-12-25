@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:57:27 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/23 15:02:56 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/25 16:06:35 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	setup_signals(void)
 	struct sigaction	sa_sig_int;
 	struct sigaction	sa_sig_quit;
 
-	sigemptyset(&(sa_sig_int.sa_mask));
-	sigemptyset(&(sa_sig_quit.sa_mask));
+	memset(&sa_sig_int, 0, sizeof(sa_sig_int));
+	memset(&sa_sig_quit, 0, sizeof(sa_sig_quit));
 	sa_sig_int.sa_handler = &handle_signal;
 	sa_sig_quit.sa_handler = SIG_IGN;
 	sigaction(SIGINT, &sa_sig_int, NULL);
@@ -44,7 +44,7 @@ void	restore_sigint(void)
 {
 	struct sigaction	sa_sig;
 
-	sigemptyset(&(sa_sig.sa_mask));
+	memset(&sa_sig, 0, sizeof(sa_sig));
 	sa_sig.sa_handler = SIG_DFL;
 	sigaction(SIGINT, &sa_sig, NULL);
 }

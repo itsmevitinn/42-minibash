@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/24 12:32:57 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/25 16:00:35 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,15 @@ static void	get_hostname(t_prompt *prompt_msg)
 	int		pipe_hostname[2];
 	char	**args;
 
-	args = ft_split("", ' ');
+	args = ft_split("hostname", ' ');
 	pipe(pipe_hostname);
 	if (!fork())
 	{
 		dup2(pipe_hostname[1], 1);
 		execve("/bin/hostname", args, NULL);
 	}
+	free(*args);
+	free(args);
 	wait(NULL);
 	prompt_msg->hostname = get_next_line(pipe_hostname[0]);
 	prompt_msg->hostname[ft_strlen(prompt_msg->hostname) - 1] = '\0';

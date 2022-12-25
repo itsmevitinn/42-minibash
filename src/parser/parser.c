@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/24 12:37:39 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/25 15:46:30 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,13 @@ t_cmd_lst	*parse_input(char *line, t_var_lst *env_lst)
 static void	build_lst_cmd(t_cmd_lst **lst_cmd, char *line)
 {
 	char	**all_cmds;
+	char	**temp;
 
 	all_cmds = ft_split_quotes(line, '|');
-	while (*all_cmds)
-		ft_cmdadd_back(lst_cmd, ft_cmd_new(*all_cmds++));
+	temp = all_cmds;
+	while (*temp)
+		ft_cmdadd_back(lst_cmd, ft_cmd_new(*temp++));
+	free(all_cmds);
 	initialize_ids(*lst_cmd);
 }
 
