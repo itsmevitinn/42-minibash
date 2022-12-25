@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/25 16:15:32 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/25 17:03:54 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int main(void)
 static void fill_data(t_cmd_info *data)
 {
 	cmds_quantity(data);
+	data->pipes = NULL;
 	if (data->qty >= 2)
 	{
 		start_pipes(data);
