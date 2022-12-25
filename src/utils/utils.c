@@ -6,39 +6,11 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 09:23:45 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/24 12:37:09 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/25 13:51:03 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-char	*skip_quote(char *cmd)
-{
-	char	quote;
-
-	quote = *cmd++;
-	while (*cmd != quote && *cmd)
-		cmd++;
-	if (*cmd == quote)
-		cmd++;
-	return (cmd);
-}
-
-void	remove_chunk(char *str, int len)
-{
-	char	*aux;
-
-	while (len >= 0 && *str)
-	{
-		aux = str;
-		while (*aux)
-		{
-			*aux = aux[1];
-			aux++;
-		}
-		len--;
-	}
-}
 
 void	free_matrix(char **cmd_args)
 {

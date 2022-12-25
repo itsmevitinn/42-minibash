@@ -24,7 +24,7 @@ PARSER = parser.c interpret_vars.c sub_arg.c cleanup.c syntax.c interpret_redire
 
 EXEC = bin_cmd.c get_heredoc_input.c exec_cmd.c builtin_cmd.c
 
-UTILS = utils.c
+UTILS = parser_utils.c var_utils.c utils.c
 
 BUILT-IN = exit.c cd.c pwd.c echo.c env.c export.c unset.c
 
@@ -32,7 +32,7 @@ MAIN = minishell.c prompt.c
 
 SIGNAL = signal.c
 
-VARIABLES = environment.c var_lst.c split_env.c
+VARIABLES = var_lst.c cmd_lst.c environment.c
 
 FUNCS = $(addprefix ./src/exec/, $(EXEC))			\
 		$(addprefix ./src/main/, $(MAIN))			\
