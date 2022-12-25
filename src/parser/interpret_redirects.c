@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:47:16 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/23 14:57:31 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/25 13:41:41 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ void	interpret_redirects(t_cmd_lst *cmd, char *line)
 
 	while (*line)
 	{
-		if (*line == '<' || *line == '>')
+		if (*line == '\'' || *line == '\"')
+			line = skip_quote(line);
+		else if (*line == '<' || *line == '>')
 		{
 			type = get_type(line);
 			if (cmd->filename)
