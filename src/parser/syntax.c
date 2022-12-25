@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:48:37 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/20 11:53:47 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/25 13:23:06 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	is_error_prone_char(char c);
 static void	print_error(char *str);
+static int	is_syntax_error(char c, char type);
 static char	*check_char(char *cmd, int *error);
 
 int	check_syntax(char *cmd_line)
@@ -45,17 +46,32 @@ static int	is_error_prone_char(char c)
 
 static char	*check_char(char *cmd, int *error)
 {
+	char	type;
+
+	type = *cmd;
 	if (*cmd == cmd[1])
 		cmd++;
 	cmd++;
 	while (ft_isspace(*cmd))
 		cmd++;
-	if (is_error_prone_char(*cmd))
+	if (is_syntax_error(*cmd, type))
 	{
 		print_error(cmd);
 		*error = 1;
 	}
 	return (cmd);
+}
+
+int	is_syntax_error(char c, char type)
+{
+	if (type == '|' && (!c || c == '|'))
+		return (1);
+	else if (type == '|')
+		return (0);
+	else if (c == '>' || c == '<' || !c)
+		return (1);
+	else
+		return (0);
 }
 
 static void	print_error(char *str)
