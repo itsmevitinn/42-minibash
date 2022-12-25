@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 14:02:11 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/25 14:38:13 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/25 14:49:40 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,23 @@ void	ft_cmdadd_back(t_cmd_lst **head, t_cmd_lst *new)
 	temp->next = new;
 }
 
-//void	ft_cmdclear(t_cmd_lst **head)
-//{
-//	t_cmd_lst	*ptr;
-//
-//	ptr = *head;
-//	while (ptr)
-//	{
-//		free(ptr->name);
-//		free(ptr->content);
-//		ptr = ptr->next;
-//		free(*head);
-//		*head = ptr;
-//	}
-//}
+void	ft_cmdclear(t_cmd_lst **head)
+{
+	t_cmd_lst	*ptr;
+
+	ptr = *head;
+	while (ptr)
+	{
+		free(ptr->filename);
+		if (ptr->input)
+			close(ptr->input);
+		if (ptr->output != 1)
+			close(ptr->output);
+		free(ptr->delimiter);
+		free(ptr->line);
+		free_matrix(ptr->args);
+		ptr = ptr->next;
+		free(*head);
+		*head = ptr;
+	}
+}

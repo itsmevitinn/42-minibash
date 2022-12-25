@@ -79,8 +79,6 @@ void	update_fd(t_cmd_lst *cmd, int type);
 char	*skip_quote(char *cmd);
 char	*sub_arg(char **arg, char *index, char *name, char *content);
 
-//INTERPRET_VARS_UTILS
-
 //EXEC FUNCTIONS
 void	exec_cmds(t_cmd_info *data, t_var_lst **env_lst);
 int		exec_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst);
@@ -119,8 +117,9 @@ void		change_content(char *name, char *content, t_var_lst *variables);
 char		*get_content(char *name, t_var_lst *env);
 
 //LST_CMD FUNCTIONS
-t_cmd_lst *ft_cmd_new(char *cmd_line);
-void ft_cmdadd_back(t_cmd_lst **head, t_cmd_lst *new);
+t_cmd_lst	*ft_cmd_new(char *cmd_line);
+void		ft_cmdadd_back(t_cmd_lst **head, t_cmd_lst *new);
+void		ft_cmdclear(t_cmd_lst **head);
 
 extern int g_exit_status;
 
