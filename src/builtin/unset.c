@@ -3,41 +3,81 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
+/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:10:07 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/16 10:01:35 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/24 17:45:43 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	name_is_invalid(char *cmd);
-static void	remove_var(t_var_lst **var_lst, char *name);
-static t_var_lst	*get_previous(char *name, t_var_lst *lst);
-static void	print_error(char *cmd, int fd);
+static int name_is_invalid(char *cmd);
+static void remove_var(t_var_lst **var_lst, char *name);
+static t_var_lst *get_previous(char *name, t_var_lst *lst);
+static void print_error(char *cmd, int fd);
 
-void	unset(char **cmd, t_var_lst **env_lst, int fd)
+void unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)
 {
-	int	exit_status;
+	char **args;
+	int status;
 
-	exit_status = 0;
-	cmd++;
-	while (*cmd)
+	args = cmd->args;
+	if (cmd->delimiter)
 	{
-		if (name_is_invalid(*cmd))
+		if (!fork())
 		{
-			print_error(*cmd, fd);
-			exit_status = 1;
+			restore_sigint();
+			get_heredoc_input(cmd);
+			exit(0);
 		}
-		else if (get_env(*cmd, *env_lst))
-			remove_var(env_lst, *cmd);
-		cmd++;
+		wait(&status);
+		if (!WIFEXITED(status))
+			return;
 	}
-	g_exit_status = exit_status;
+	if (data->qty != 1)
+	{
+		cmd->pid = fork();
+		if (!cmd->pid)
+		{
+			args++;
+			while (*args)
+			{
+				if (name_is_invalid(*args))
+				{
+					print_error(*args, cmd->output);
+					exit(1);
+				}
+				else if (get_env(*args, *env_lst))
+					remove_var(env_lst, *args);
+				args++;
+			}
+			exit(0);
+		}
+	}
+	else
+	{
+		args++;
+		while (*args)
+		{
+			if (name_is_invalid(*args))
+			{
+				print_error(*args, cmd->output);
+				g_exit_status = 1;
+			}
+			else if (get_env(*args, *env_lst))
+				remove_var(env_lst, *args);
+			args++;
+		}
+		g_exit_status = 0;
+	}
+	if (cmd->id < (data->qty - 1))
+		close(data->pipes[cmd->id][1]);
+	waitpid(cmd->pid, &status, 0);
+	g_exit_status = WEXITSTATUS(status);
 }
 
-static int	name_is_invalid(char *cmd)
+static int name_is_invalid(char *cmd)
 {
 	while (*cmd)
 	{
@@ -48,21 +88,21 @@ static int	name_is_invalid(char *cmd)
 	return (0);
 }
 
-static void	print_error(char *cmd, int fd)
+static void print_error(char *cmd, int fd)
 {
 	ft_putstr_fd("bash: unset `", fd);
-	ft_putstr_fd(cmd ,fd);
+	ft_putstr_fd(cmd, fd);
 	ft_putstr_fd("\': not a valid identifier\n", fd);
 }
 
-static void	remove_var(t_var_lst **var_lst, char *name)
+static void remove_var(t_var_lst **var_lst, char *name)
 {
-	t_var_lst	*previous;
-	t_var_lst	*temp;
+	t_var_lst *previous;
+	t_var_lst *temp;
 
 	if (!ft_strncmp(name, "_", 2))
-		return ;
-	previous  = get_previous(name, *var_lst);
+		return;
+	previous = get_previous(name, *var_lst);
 	if (!previous)
 	{
 		temp = *var_lst;
@@ -78,9 +118,9 @@ static void	remove_var(t_var_lst **var_lst, char *name)
 	free(temp);
 }
 
-static t_var_lst	*get_previous(char *name, t_var_lst *lst)
+static t_var_lst *get_previous(char *name, t_var_lst *lst)
 {
-	int	name_len;
+	int name_len;
 
 	name_len = ft_strlen(name);
 	if (!ft_strncmp(name, lst->name, name_len + 1))
@@ -89,4 +129,3 @@ static t_var_lst	*get_previous(char *name, t_var_lst *lst)
 		lst = lst->next;
 	return (lst);
 }
-

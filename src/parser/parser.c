@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/23 15:01:37 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/24 12:37:39 by Vitor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,4 @@ static void	parse_cmds(t_cmd_lst *lst_cmd, t_var_lst *env_lst)
 		cleanup(lst_cmd->args);
 		lst_cmd = lst_cmd->next;
 	}
-}
-
-void	print_matrix(char **splitted_cmd)
-{
-	int	i;
-
-	i = 0;
-	while (splitted_cmd[i])
-	{
-		printf("[%i] %s ", i, splitted_cmd[i]);
-		i++;
-	}
-	printf("\n");
 }
