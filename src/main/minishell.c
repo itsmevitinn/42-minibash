@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/25 16:15:32 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/25 16:21:42 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static void handle_builtin(t_cmd_lst *cmd, int **pipes, int cmd_qty);
 
 int main(void)
 {
-	t_cmd_info data;
+//	t_cmd_info data;
 	t_var_lst *env_lst;
 	char *user_input;
-
+//
 	initialize_env(&env_lst);
-	setup_signals();
+//	setup_signals();
 	while (42)
 	{
 		user_input = display_prompt();
@@ -41,11 +41,11 @@ int main(void)
 		else if (!whitespace_checker(user_input))
 		{
 			add_history(user_input);
-			data.lst_cmd = parse_input(user_input, env_lst);
-			fill_data(&data);
-			exec_cmds(&data, &env_lst);
-			ft_cmdclear(&data.lst_cmd);
-			free_data(&data);
+//			data.lst_cmd = parse_input(user_input, env_lst);
+//			fill_data(&data);
+//			exec_cmds(&data, &env_lst);
+//			ft_cmdclear(&data.lst_cmd);
+//			free_data(&data);
 		}
 		free(user_input);
 	}

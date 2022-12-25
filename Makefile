@@ -9,7 +9,7 @@ uname_p := $(shell uname -p)
 ifeq ($(uname_p), arm)
 	FLAGS = -Wall -Wextra -Werror -g -lreadline -L /opt/homebrew/opt/readline/lib -I /opt/homebrew/opt/readline/include
 else
-	FLAGS = -Wall -Wextra -Werror -g -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
+	FLAGS = -Wall -Wextra -g -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
 endif
 
 MAKELIBFT = ${MAKE_IN_DIRECTORY} ./libft

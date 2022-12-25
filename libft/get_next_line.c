@@ -3,140 +3,114 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
+/*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 11:01:02 by vsergio           #+#    #+#             */
-/*   Updated: 2022/07/28 22:33:07 by vsergio          ###   ########.fr       */
+/*   Created: 2022/07/06 11:24:05 by gcorreia          #+#    #+#             */
+/*   Updated: 2022/12/25 16:53:43 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
+
+static int	ft_linelen(char const *str);
+char	*find_line_in(int fd, char **buffer);
+char	*get_last_line_from(char **buffer);
+char	*get_line_from(char **buffer);
 
 char	*get_next_line(int fd)
 {
-	static t_list_gnl	*stash;
-	char				*line;
+	static char	*buffer[4096];
+	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0)
 		return (NULL);
-	read_and_stash(&stash, fd);
-	if (stash == NULL)
-		return (NULL);
-	extract_line(stash, &line);
-	clean_stash(&stash);
-	if (line[0] == '\0')
+	if (!buffer[fd])
 	{
-		free_stash(stash);
-		stash = NULL;
-		free(line);
-		return (NULL);
+		buffer[fd] = malloc(BUFFER_SIZE + 1);
+		if (!buffer[fd])
+			return (NULL);
+		buffer[fd][0] = '\0';
+	}
+	if (!ft_linelen(buffer[fd]))
+		line = find_line_in(fd, &(buffer[fd]));
+	else
+		line = get_line_from(&(buffer[fd]));
+	if (!line)
+	{
+		free(buffer[fd]);
+		buffer[fd] = NULL;
 	}
 	return (line);
 }
 
-void	read_and_stash(t_list_gnl **stash, int fd)
+static int	ft_linelen(char const *str)
 {
-	char	*buffer;
-	int		readed;
-
-	readed = 1;
-	while (!found_newline(*stash) && readed != 0)
-	{
-		buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-		if (buffer == NULL)
-			return ;
-		readed = read(fd, buffer, BUFFER_SIZE);
-		if ((*stash == NULL && readed == 0) || readed == -1)
-		{
-			free(buffer);
-			return ;
-		}
-		buffer[readed] = '\0';
-		add_to_stash(stash, buffer, readed);
-		free(buffer);
-	}
-}
-
-void	add_to_stash(t_list_gnl **stash, char *buffer, int readed)
-{
-	int			i;
-	t_list_gnl	*end_stash;
-	t_list_gnl	*new_node;
-
-	i = 0;
-	new_node = malloc(sizeof(t_list_gnl));
-	if (new_node == NULL)
-		return ;
-	new_node->string = malloc(sizeof(t_list) * (readed + 1));
-	if (new_node->string == NULL)
-		return ;
-	new_node->next = NULL;
-	while (buffer[i] && i < readed)
-	{
-		new_node->string[i] = buffer[i];
-		i++;
-	}
-	new_node->string[i] = '\0';
-	if (*stash == NULL)
-	{
-		*stash = new_node;
-		return ;
-	}
-	end_stash = ft_lstlast_gnl(*stash);
-	end_stash->next = new_node;
-}
-
-void	extract_line(t_list_gnl *stash, char	**line)
-{
+	int	len;
 	int	i;
-	int	j;
 
-	if (stash == NULL)
-		return ;
-	generate_line(stash, line);
-	j = 0;
-	if (*line == NULL)
-		return ;
-	while (stash)
+	len = ft_strlen(str);
+	i = 0;
+	while (i < len)
 	{
-		i = 0;
-		while (stash->string[i])
-		{
-			if (stash->string[i] == '\n')
-			{	
-				(*line)[j++] = stash->string[i];
-				break ;
-			}
-			(*line)[j++] = stash->string[i++];
-		}
-		stash = stash->next;
+		if (str[i] == '\n')
+			return (i + 1);
+		i++;
 	}
-	(*line)[j] = '\0';
+	return (0);
 }
 
-void	clean_stash(t_list_gnl **stash)
+char	*find_line_in(int fd, char **buffer)
 {
-	t_list_gnl	*new;
-	t_list_gnl	*last;
-	int			i;
-	int			j;
+	char	tempread[BUFFER_SIZE + 1];
+	char	*tempcontent;
+	int		returnvalue;
 
-	j = 0;
-	new = malloc(sizeof(t_list_gnl));
-	if (stash == NULL || new == NULL)
-		return ;
-	last = ft_lstlast_gnl(*stash);
-	i = 0;
-	while (last->string[i] && last->string[i] != '\n')
-		i++;
-	if (last->string && last->string[i] == '\n')
-		i++;
-	new->string = malloc(sizeof(char) * ((ft_strlen(last->string) - i) + 1));
-	new->next = NULL;
-	if (new->string == NULL)
-		return ;
-	while (last->string[i])
-		new->string[j++] = last->string[i++];
-	new->string[j] = '\0';
-	free_stash(*stash);
-	*stash = new;
+	returnvalue = 1;
+	while (!ft_linelen(*buffer) && returnvalue)
+	{
+		returnvalue = read(fd, tempread, BUFFER_SIZE);
+		if (returnvalue >= 0)
+		{
+			tempread[returnvalue] = '\0';
+			tempcontent = ft_strjoin(*buffer, tempread, 0);
+			free(*buffer);
+			*buffer = tempcontent;
+		}
+		else
+			return (NULL);
+	}
+	if (!returnvalue)
+		return (get_last_line_from(buffer));
+	else
+		return (get_line_from(buffer));
+}
+
+char	*get_last_line_from(char **buffer)
+{
+	char	*line;
+	int		linelen;
+
+	linelen = ft_strlen(*buffer);
+	if (!linelen)
+		return (NULL);
+	line = malloc(linelen + 1);
+	if (!line)
+		return (NULL);
+	ft_strlcpy(line, *buffer, linelen + 1);
+	*buffer[0] = '\0';
+	return (line);
+}
+
+char	*get_line_from(char **buffer)
+{
+	char	*line;
+	int		linelen;
+
+	linelen = ft_linelen(*buffer);
+	line = malloc(linelen + 1);
+	if (!line)
+		return (NULL);
+	ft_strlcpy(line, *buffer, linelen + 1);
+	ft_strlcpy(*buffer, *buffer + linelen, ft_strlen(*buffer));
+	return (line);
 }
