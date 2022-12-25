@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_lst.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 14:02:11 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/25 16:07:20 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/25 17:02:01 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	ft_cmdclear(t_cmd_lst **head)
 	while (ptr)
 	{
 		free(ptr->filename);
-		if (ptr->input)
+		if (ptr->input > 2)
 			close(ptr->input);
-		if (ptr->output != 1)
+		if (ptr->output > 2)
 			close(ptr->output);
 		free(ptr->delimiter);
 		free(ptr->line);

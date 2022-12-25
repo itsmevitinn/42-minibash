@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/25 17:03:54 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/25 17:31:21 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int main(void)
 			fill_data(&data);
 			exec_cmds(&data, &env_lst);
 			ft_cmdclear(&data.lst_cmd);
-			free_data(&data);
+			free_pipes(&data);
 		}
 		free(user_input);
 	}
