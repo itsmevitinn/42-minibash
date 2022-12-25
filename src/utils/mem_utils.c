@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 14:45:19 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/25 14:45:37 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/25 16:14:19 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,14 @@ void free_paths(char **paths, int i)
 	while (paths[i++])
 		free(paths[i]);
 	free(paths);
+}
+
+void	free_data(t_cmd_info *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->qty - 1)
+		free(data->pipes[i++]);
+	free(data->pipes);
 }

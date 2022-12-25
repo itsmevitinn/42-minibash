@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/25 15:57:13 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/25 16:15:32 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int main(void)
 			fill_data(&data);
 			exec_cmds(&data, &env_lst);
 			ft_cmdclear(&data.lst_cmd);
+			free_data(&data);
 		}
 		free(user_input);
 	}
