@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:53:23 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/25 15:55:59 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/25 16:42:13 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int is_builtin(char *cmd_name)
 		return (1);
 	else if (!ft_strncmp(cmd_name, "env", 3))
 		return (1);
-	else if (!ft_strncmp(cmd_name, "exit", 3))
+	else if (!ft_strncmp(cmd_name, "exit", 4))
 		return (1);
 	else
 		return (0);
