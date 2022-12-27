@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/27 00:59:55 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/27 20:34:31 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 static void oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd, int *updater);
 static void relative_or_absolute(char *path, t_cmd_info *data);
 static void update_oldpwd(char *current_dir, t_var_lst *env);
+static int heredoc_func(t_cmd_lst *cmd);
 
 int cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {
@@ -22,21 +23,11 @@ int cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 	int updater;
 	int status;
 
+	if (!check_heredoc(cmd))
+		return (0);
 	updater = 1;
 	current_dir = getcwd(NULL, 0);
 	path = cmd->args[1];
-	if (cmd->delimiter)
-	{
-		if (!fork())
-		{
-			restore_sigint();
-			get_heredoc_input(cmd);
-			exit(0);
-		}
-		wait(&status);
-		if (!WIFEXITED(status))
-			return (0);
-	}
 	if (data->qty == 1)
 	{
 		if (!path)

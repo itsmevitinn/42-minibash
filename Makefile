@@ -7,7 +7,7 @@ uname_p := $(shell uname -p)
 
 # !!! need to run brew install radline  !!! #
 ifeq ($(uname_p), arm)
-	FLAGS = -Wall -Wextra -Werror -g -lreadline -L /opt/homebrew/opt/readline/lib -I /opt/homebrew/opt/readline/include
+	FLAGS = -Wall -Wextra -g -lreadline -L /opt/homebrew/opt/readline/lib -I /opt/homebrew/opt/readline/include
 else
 	FLAGS = -Wall -Wextra -Werror -g -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
 endif
@@ -24,7 +24,7 @@ PARSER = parser.c interpret_vars.c sub_arg.c cleanup.c syntax.c interpret_redire
 
 EXEC = bin_cmd.c get_heredoc_input.c exec_cmd.c builtin_cmd.c
 
-UTILS = parser_utils.c var_utils.c mem_utils.c utils.c data_utils.c bin_cmd_utils.c
+UTILS = parser_utils.c var_utils.c mem_utils.c utils.c data_utils.c bin_cmd_utils.c builtin_cmd_utils.c
 
 BUILT-IN = exit.c cd.c pwd.c echo.c env.c export.c unset.c
 

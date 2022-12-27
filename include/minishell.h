@@ -74,9 +74,13 @@ void cmds_quantity(t_cmd_info *data);
 //FILL_DATA FUNCTIONS
 void fill_data(t_cmd_info *data);
 
-//EXEC_UTILS FUNCTIONS
+//BIN_CMD_UTILS FUNCTIONS
 int finish_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data);
 void command_not_found(t_cmd_lst *cmd);
+
+//BUILTIN_CMD_UTILS FUNCTIONS
+int check_heredoc(t_cmd_lst *cmd);
+int execute_heredoc(t_cmd_lst *cmd);
 
 //PARSER FUNCTIONS
 t_cmd_lst	*parse_input(char *user_input, t_var_lst *env_lst);
