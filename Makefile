@@ -8,8 +8,6 @@ uname_p := $(shell uname -p)
 # !!! need to run brew install radline  !!! #
 ifeq ($(uname_p), arm)
 	FLAGS = -Wall -Wextra -Werror -g -lreadline -L /opt/homebrew/opt/readline/lib -I /opt/homebrew/opt/readline/include
-else if ($(uname_p), x86_64)
-	FLAGS = -Wall -Wextra -Werror -g -lreadline -L /home/linuxbrew/.linuxbrew/opt/readline/lib -I /home/linuxbrew/.linuxbrew/opt/readline/include
 else
 	FLAGS = -Wall -Wextra -Werror -g -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
 endif
