@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 09:23:45 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/25 17:22:43 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/27 01:03:44 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,24 @@ void	close_all_pipes(t_cmd_info *data)
 		close(data->pipes[i][0]);
 		close(data->pipes[i][1]);
 	}
+}
+
+int is_builtin(char *cmd_name)
+{
+	if (!ft_strncmp(cmd_name, "echo", 4))
+		return (1);
+	else if (!ft_strncmp(cmd_name, "cd", 2))
+		return (1);
+	else if (!ft_strncmp(cmd_name, "pwd", 3))
+		return (1);
+	else if (!ft_strncmp(cmd_name, "export", 6))
+		return (1);
+	else if (!ft_strncmp(cmd_name, "unset", 5))
+		return (1);
+	else if (!ft_strncmp(cmd_name, "env", 3))
+		return (1);
+	else if (!ft_strncmp(cmd_name, "exit", 4))
+		return (1);
+	else
+		return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 14:45:19 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/25 17:20:33 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/27 00:51:32 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,12 @@ void	free_matrix(char **cmd_args)
 	free(cmd_args);
 }
 
-void free_paths(char **paths, int i)
-{
-	// we iterate here because the current "i" was already freed by strjoin
-	while (paths[i++])
-		free(paths[i]);
-	free(paths);
-}
-
 void	free_pipes(t_cmd_info *data)
 {
 	int	i;
 
 	i = -1;
-	while (++i < data->qty - 1)
+	while (++i < (data->qty - 1))
 		free(data->pipes[i]);
 	free(data->pipes);
 }

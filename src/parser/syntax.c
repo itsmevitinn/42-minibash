@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 10:48:37 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/25 13:23:06 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/26 21:55:48 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static char	*check_char(char *cmd, int *error)
 	return (cmd);
 }
 
-int	is_syntax_error(char c, char type)
+static int	is_syntax_error(char c, char type)
 {
 	if (type == '|' && (!c || c == '|'))
 		return (1);

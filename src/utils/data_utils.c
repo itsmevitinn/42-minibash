@@ -1,40 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_cmd.c                                         :+:      :+:    :+:   */
+/*   data_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 11:59:16 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/27 01:36:08 by vsergio          ###   ########.fr       */
+/*   Created: 2022/12/26 21:51:07 by vsergio           #+#    #+#             */
+/*   Updated: 2022/12/27 01:03:52 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	exec_cmds(t_cmd_info *data, t_var_lst **env_lst)
+void cmds_quantity(t_cmd_info *data)
 {
-	t_cmd_lst	*cmd;
+	t_cmd_lst *temp;
+	int		qty;
 
-	cmd = data->lst_cmd;
-	while(cmd)
+	temp = data->lst_cmd;
+	qty = 0;
+	while (temp)
 	{
-		if (is_builtin(cmd->args[0]))
-		{
-			if (!exec_builtin_cmd(cmd, data, env_lst))
-			{
-				g_exit_status = 1;
-				break;
-			}
-		}
-		else
-		{
-			if (!exec_bin_cmd(cmd, data, *env_lst))
-			{
-				g_exit_status = 1;
-				break;
-			}
-		}
-		cmd = cmd->next;
+		qty++;
+		temp = temp->next;
 	}
+	data->qty = qty;
 }

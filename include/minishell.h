@@ -59,16 +59,24 @@ typedef struct	s_cmd_info
 
 //MEM_UTILS FUNCTIONS
 void	free_matrix(char **cmd_args);
-void	free_paths(char **paths, int i);
 void	free_pipes(t_cmd_info *data);
 
 //UTILS FUNCTIONS
 void	print_matrix(char **cmd_args);
-int		whitespace_checker(char *input);
 void	close_all_pipes(t_cmd_info *data);
 
 //PROMPT FUNCTIONS
 char	*display_prompt(void);
+
+//DATA_UTILS FUNCTIONS
+void cmds_quantity(t_cmd_info *data);
+
+//FILL_DATA FUNCTIONS
+void fill_data(t_cmd_info *data);
+
+//EXEC_UTILS FUNCTIONS
+int finish_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data);
+void command_not_found(t_cmd_lst *cmd);
 
 //PARSER FUNCTIONS
 t_cmd_lst	*parse_input(char *user_input, t_var_lst *env_lst);
@@ -76,29 +84,28 @@ int		check_syntax(char *cmd_line);
 void	interpret_redirects(t_cmd_lst *lst_cmd, char *line);
 void	interpret_vars(char **cmd, t_var_lst *env_lst);
 void	cleanup(char **args);
-/*--Utils--*/
+
+//UTILS
 void	remove_chunk(char *str, int len);
 void	update_fd(t_cmd_lst *cmd, int type);
 char	*skip_quote(char *cmd);
 char	*sub_arg(char **arg, char *index, char *name, char *content);
+int is_builtin(char *cmd_name);
 
 //EXEC FUNCTIONS
 void	exec_cmds(t_cmd_info *data, t_var_lst **env_lst);
 int		exec_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst);
 int 	exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
-int		is_builtin(char *cmd_name);
 void	get_heredoc_input(t_cmd_lst *cmd);
 
 //BULT-IN FUNCTIONS
-void	cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
-void	echo(t_cmd_lst *cmd, t_cmd_info *data);
+int		cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
+int		echo(t_cmd_lst *cmd, t_cmd_info *data);
 void	pwd(t_cmd_lst *cmd, t_cmd_info *data);
 void	env(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 void	export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 void	unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst);
 void	ft_exit(t_cmd_lst *cmd, t_cmd_info *data);
-
-//DATA FUNCTIONS
 
 //SIGNAL_FUNCTIONS
 void	setup_signals(void);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/24 17:36:37 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/27 00:59:55 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@ static void oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd, int *update
 static void relative_or_absolute(char *path, t_cmd_info *data);
 static void update_oldpwd(char *current_dir, t_var_lst *env);
 
-void cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
+int cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {
 	char *current_dir;
 	char *path;
@@ -35,7 +35,7 @@ void cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 		}
 		wait(&status);
 		if (!WIFEXITED(status))
-			return;
+			return (0);
 	}
 	if (data->qty == 1)
 	{
@@ -67,6 +67,7 @@ void cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 		close(data->pipes[cmd->id][1]);
 	waitpid(cmd->pid, &status, 0);
 	g_exit_status = WEXITSTATUS(status);
+	return (1);
 }
 
 static void oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd, int *updater)

@@ -9,7 +9,7 @@ uname_p := $(shell uname -p)
 ifeq ($(uname_p), arm)
 	FLAGS = -Wall -Wextra -Werror -g -lreadline -L /opt/homebrew/opt/readline/lib -I /opt/homebrew/opt/readline/include
 else
-	FLAGS = -Wall -Wextra -g -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
+	FLAGS = -Wall -Wextra -Werror -g -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include
 endif
 
 MAKELIBFT = ${MAKE_IN_DIRECTORY} ./libft
@@ -24,11 +24,11 @@ PARSER = parser.c interpret_vars.c sub_arg.c cleanup.c syntax.c interpret_redire
 
 EXEC = bin_cmd.c get_heredoc_input.c exec_cmd.c builtin_cmd.c
 
-UTILS = parser_utils.c var_utils.c mem_utils.c utils.c
+UTILS = parser_utils.c var_utils.c mem_utils.c utils.c data_utils.c bin_cmd_utils.c
 
 BUILT-IN = exit.c cd.c pwd.c echo.c env.c export.c unset.c
 
-MAIN = minishell.c prompt.c
+MAIN = minishell.c prompt.c fill_data.c
 
 SIGNAL = signal.c
 
@@ -51,10 +51,10 @@ $(NAME):	$(FUNCS) $(LIBFT)
 			@$(CC) $(FLAGS) $(FUNCS) $(LIBFT) -o $(NAME)
 			@echo "\033[32m 💯 | minishell created."
 
-$(LIBFT): 
+$(LIBFT):
 			$(MAKELIBFT)
 
-clean: 
+clean:
 			@${RM} ${NAME}.dSYM
 			@echo "\033[33m 🧹 | minishell cleaned."
 
