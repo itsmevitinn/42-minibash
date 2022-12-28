@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:10:07 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/24 17:45:43 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/27 23:29:53 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,14 @@ static void remove_var(t_var_lst **var_lst, char *name);
 static t_var_lst *get_previous(char *name, t_var_lst *lst);
 static void print_error(char *cmd, int fd);
 
-void unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)
+int unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)
 {
 	char **args;
 	int status;
 
+	if (!check_heredoc(cmd))
+		return (0);
 	args = cmd->args;
-	if (cmd->delimiter)
-	{
-		if (!fork())
-		{
-			restore_sigint();
-			get_heredoc_input(cmd);
-			exit(0);
-		}
-		wait(&status);
-		if (!WIFEXITED(status))
-			return;
-	}
 	if (data->qty != 1)
 	{
 		cmd->pid = fork();
@@ -75,6 +65,7 @@ void unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)
 		close(data->pipes[cmd->id][1]);
 	waitpid(cmd->pid, &status, 0);
 	g_exit_status = WEXITSTATUS(status);
+	return (1);
 }
 
 static int name_is_invalid(char *cmd)

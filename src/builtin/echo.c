@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 22:49:26 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/27 20:34:03 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/27 23:05:27 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int echo(t_cmd_lst *cmd, t_cmd_info *data)
 			write(cmd->output, "\n", 1);
 		exit(0);
 	}
-	// closing all my writing pipes
+	// finish_builtin_cmd(cmd, data);
 	if (cmd->id < (data->qty - 1))
 		close(data->pipes[cmd->id][1]);
 	waitpid(cmd->pid, &status, 0);

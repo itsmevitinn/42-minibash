@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:08:25 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/24 17:38:26 by Vitor            ###   ########.fr       */
+/*   Updated: 2022/12/27 23:23:27 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,14 @@ static void print_vars(t_var_lst *env_lst, int fd);
 static void export_var(t_var_lst *env_lst, char *cmd);
 static int name_is_invalid(char *cmd);
 
-void export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
+int export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {
 	char **args;
 	int status;
 
+	if (!check_heredoc(cmd))
+		return (0);
 	args = cmd->args;
-	if (cmd->delimiter)
-	{
-		if (!fork())
-		{
-			restore_sigint();
-			get_heredoc_input(cmd);
-			exit(0);
-		}
-		wait(&status);
-		if (!WIFEXITED(status))
-			return;
-	}
 	if (data->qty != 1)
 	{
 		cmd->pid = fork();
@@ -79,6 +69,7 @@ void export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 		close(data->pipes[cmd->id][1]);
 	waitpid(cmd->pid, &status, 0);
 	g_exit_status = WEXITSTATUS(status);
+	return (1);
 }
 
 static void print_vars(t_var_lst *env_lst, int fd)

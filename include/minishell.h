@@ -79,8 +79,9 @@ int finish_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data);
 void command_not_found(t_cmd_lst *cmd);
 
 //BUILTIN_CMD_UTILS FUNCTIONS
-int check_heredoc(t_cmd_lst *cmd);
-int execute_heredoc(t_cmd_lst *cmd);
+int		check_heredoc(t_cmd_lst *cmd);
+int		execute_heredoc(t_cmd_lst *cmd);
+void	finish_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data);
 
 //PARSER FUNCTIONS
 t_cmd_lst	*parse_input(char *user_input, t_var_lst *env_lst);
@@ -105,11 +106,11 @@ void	get_heredoc_input(t_cmd_lst *cmd);
 //BULT-IN FUNCTIONS
 int		cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 int		echo(t_cmd_lst *cmd, t_cmd_info *data);
-void	pwd(t_cmd_lst *cmd, t_cmd_info *data);
-void	env(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
-void	export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
-void	unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst);
-void	ft_exit(t_cmd_lst *cmd, t_cmd_info *data);
+int		pwd(t_cmd_lst *cmd, t_cmd_info *data);
+int		env(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
+int		export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
+int		unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst);
+int		ft_exit(t_cmd_lst *cmd, t_cmd_info *data);
 
 //SIGNAL_FUNCTIONS
 void	setup_signals(void);
