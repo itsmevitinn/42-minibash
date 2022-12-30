@@ -49,19 +49,19 @@ all:		$(NAME)
 
 $(NAME):	$(FUNCS) $(LIBFT)
 			@$(CC) $(FLAGS) $(FUNCS) $(LIBFT) -o $(NAME)
-			@echo "\033[32m 💯 | minishell created."
+			@echo "\033[32m 💯 | minishell created. \033[0m"
 
 $(LIBFT):
 			$(MAKELIBFT)
 
 clean:
 			@${RM} ${NAME}.dSYM
-			@echo "\033[33m 🧹 | minishell cleaned."
+			@echo "\033[33m 🧹 | minishell cleaned. \033[0m"
 
 fclean: 	clean
 			@${MAKE_IN_DIRECTORY} ${LIBFT_PATH} fclean
 			@$(RM) $(NAME)
-			@echo "\033[33m 🌪️  | minishell all cleaned."
+			@echo "\033[33m 🌪️  | minishell all cleaned. \033[0m"
 
 re:			fclean all
 
