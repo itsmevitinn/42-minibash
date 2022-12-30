@@ -6,13 +6,13 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 22:49:26 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/30 01:09:55 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/30 01:41:25 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int echo(t_cmd_lst *cmd, t_cmd_info *data)
+int echo(t_cmd_lst *cmd)
 {
 	int status;
 

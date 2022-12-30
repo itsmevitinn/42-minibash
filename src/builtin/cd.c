@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/30 01:09:59 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/30 01:42:27 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 static void oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd, int *updater);
 static void relative_or_absolute(char *path, t_cmd_info *data);
 static void update_oldpwd(char *current_dir, t_var_lst *env);
-static int heredoc_func(t_cmd_lst *cmd);
 
 int cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {

@@ -6,13 +6,13 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:00:18 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/30 01:09:29 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/30 01:41:11 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int env(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
+int env(t_cmd_lst *cmd, t_var_lst *env_lst)
 {
 	int status;
 

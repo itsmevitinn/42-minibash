@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:53:23 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/27 23:27:59 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/30 01:43:03 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int exec_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)
 {
 	if (!ft_strncmp(cmd->args[0], "echo", 4))
 	{
-		if (!echo(cmd, data))
+		if (!echo(cmd))
 			return (0);
 	}
 	else if (!ft_strncmp(cmd->args[0], "cd", 2))
@@ -26,7 +26,7 @@ int exec_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)
 	}
 	else if (!ft_strncmp(cmd->args[0], "pwd", 3))
 	{
-		if (!pwd(cmd, data))
+		if (!pwd(cmd))
 			return (0);
 	}
 	else if (!ft_strncmp(cmd->args[0], "export", 6))
@@ -41,7 +41,7 @@ int exec_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)
 	}
 	else if (!ft_strncmp(cmd->args[0], "env", 3))
 	{
-		if (!env(cmd, data, *env_lst))
+		if (!env(cmd, *env_lst))
 			return (0);
 	}
 	else if (!ft_strncmp(cmd->args[0], "exit", 4))

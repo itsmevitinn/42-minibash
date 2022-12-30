@@ -75,7 +75,7 @@ void cmds_quantity(t_cmd_info *data);
 void fill_data(t_cmd_info *data);
 
 //BIN_CMD_UTILS FUNCTIONS
-int finish_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data);
+int finish_bin_cmd(t_cmd_lst *cmd);
 void command_not_found(t_cmd_lst *cmd);
 
 //BUILTIN_CMD_UTILS FUNCTIONS
@@ -105,9 +105,9 @@ void	get_heredoc_input(t_cmd_lst *cmd);
 
 //BULT-IN FUNCTIONS
 int		cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
-int		echo(t_cmd_lst *cmd, t_cmd_info *data);
-int		pwd(t_cmd_lst *cmd, t_cmd_info *data);
-int		env(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
+int		echo(t_cmd_lst *cmd);
+int		pwd(t_cmd_lst *cmd);
+int		env(t_cmd_lst *cmd, t_var_lst *env_lst);
 int		export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 int		unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst);
 int		ft_exit(t_cmd_lst *cmd, t_cmd_info *data);

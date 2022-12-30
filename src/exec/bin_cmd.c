@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/27 00:51:43 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/30 01:43:14 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 		find_bin_path(cmd, env_lst);
 		command_not_found(cmd);
 	}
-	if (!finish_bin_cmd(cmd, data))
+	if (!finish_bin_cmd(cmd))
 		return (0);
 	return (1);
 }
