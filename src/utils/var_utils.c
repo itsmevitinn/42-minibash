@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 14:08:30 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/25 14:09:27 by gcorreia         ###   ########.fr       */
+/*   Updated: 2022/12/30 19:39:55 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,28 @@ char *get_content(char *name, t_var_lst *env)
 	if (env)
 		return (env->content);
 	return (NULL);
+}
+
+char **list_to_matrix(t_var_lst *env_lst)
+{
+	t_var_lst *temp;
+	char *all_contents;
+	char **matrix;
+
+	temp = env_lst;
+	all_contents = temp->name;
+	all_contents = ft_strjoin(all_contents, "=", 1);
+	all_contents = ft_strjoin(all_contents, temp->content, 1);
+	all_contents = ft_strjoin(all_contents, "\n", 1);
+	temp = temp->next;
+	while (temp)
+	{
+		all_contents = ft_strjoin(all_contents, temp->name, 1);
+		all_contents = ft_strjoin(all_contents, "=", 1);
+		all_contents = ft_strjoin(all_contents, temp->content, 1);
+		all_contents = ft_strjoin(all_contents, "\n", 1);
+		temp = temp->next;
+	}
+	matrix = ft_split(all_contents, '\n');
+	return (matrix);
 }

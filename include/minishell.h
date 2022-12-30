@@ -130,7 +130,7 @@ void		ft_varadd_back(t_var_lst **head, t_var_lst *new);
 void		ft_varclear(t_var_lst **head);
 void		change_content(char *name, char *content, t_var_lst *variables);
 char		*get_content(char *name, t_var_lst *env);
-
+char **list_to_matrix(t_var_lst *env_lst);
 //LST_CMD FUNCTIONS
 t_cmd_lst	*ft_cmd_new(char *cmd_line);
 void		ft_cmdadd_back(t_cmd_lst **head, t_cmd_lst *new);
