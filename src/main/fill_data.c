@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:16:40 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/26 22:22:07 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/30 01:30:13 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void start_pipes(t_cmd_info *data);
 static void precedence_analyzer(t_cmd_info *data);
+static void handle_cmd_pipes(t_cmd_lst *cmd, t_cmd_info *data);
 static void handle_builtin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty);
 static void handle_bin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty);
 
@@ -35,12 +36,20 @@ static void precedence_analyzer(t_cmd_info *data)
 	temp_cmd = data->lst_cmd;
 	while (temp_cmd)
 	{
-		if (is_builtin(temp_cmd->args[0]))
-			handle_builtin_cmd(temp_cmd, data->pipes, data->qty);
-		else
-			handle_bin_cmd(temp_cmd, data->pipes, data->qty);
+		handle_cmd_pipes(temp_cmd, data);
 		temp_cmd = temp_cmd->next;
 	}
+}
+
+static void handle_cmd_pipes(t_cmd_lst *cmd, t_cmd_info *data)
+{
+	if (!*cmd->args)
+		return ;
+	if (is_builtin(cmd->args[0]))
+		handle_builtin_cmd(cmd, data->pipes, data->qty);
+	else
+		handle_bin_cmd(cmd, data->pipes, data->qty);
+	return ;
 }
 
 static void handle_builtin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty)

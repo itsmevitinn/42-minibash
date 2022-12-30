@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 22:49:26 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/27 23:05:27 by vsergio          ###   ########.fr       */
+/*   Updated: 2022/12/30 01:09:55 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ int echo(t_cmd_lst *cmd, t_cmd_info *data)
 		exit(0);
 	}
 	// finish_builtin_cmd(cmd, data);
-	if (cmd->id < (data->qty - 1))
-		close(data->pipes[cmd->id][1]);
 	waitpid(cmd->pid, &status, 0);
 	g_exit_status = WEXITSTATUS(status);
 	return (1);
