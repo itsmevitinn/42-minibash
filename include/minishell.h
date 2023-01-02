@@ -41,7 +41,6 @@ typedef struct	s_cmd_lst
 	char *filename;
 	int input;
 	int output;
-	int	has_truncate;
 	char *delimiter;
 	char *line;
 	char **args;

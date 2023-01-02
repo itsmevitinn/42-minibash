@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 14:02:11 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/25 17:02:01 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/02 20:06:03 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_cmd_lst	*ft_cmd_new(char *line)
 	lst->output = 1;
 	lst->line = line;
 	lst->next = NULL;
-	lst->has_truncate = 0;
 	lst->delimiter = NULL;
 	return (lst);
 }
@@ -46,7 +45,7 @@ void	ft_cmdadd_back(t_cmd_lst **head, t_cmd_lst *new)
 
 void	ft_cmdclear(t_cmd_lst **head)
 {
-	t_cmd_lst	*ptr;
+	t_cmd_lst *ptr;
 
 	ptr = *head;
 	while (ptr)

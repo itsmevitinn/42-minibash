@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_heredoc_input.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 11:06:22 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/23 14:43:13 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/02 20:30:33 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ static void	print_warning(char *delimiter);
 void	get_heredoc_input(t_cmd_lst *cmd)
 {
 	char	*line;
+	int		temp_fd;
 
-	cmd->input = open("/tmp/.txt", O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	temp_fd = open("/tmp/.txt", O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	while (42)
 	{
 		line = readline(">");
@@ -29,13 +30,16 @@ void	get_heredoc_input(t_cmd_lst *cmd)
 		}
 		else if (!ft_strncmp(line, cmd->delimiter, ft_strlen(line) + 1))
 			break ;
-		ft_putstr_fd(line, cmd->input);
-		ft_putchar_fd('\n', cmd->input);
+		ft_putstr_fd(line, temp_fd);
+		ft_putchar_fd('\n', temp_fd);
 		free(line);
 	}
 	free(line);
-	close(cmd->input);
-	cmd->input = open("/tmp/.txt", O_RDONLY, 0666);
+	close(temp_fd);
+	//if input is != 0, then the last thing was a redirect
+	//if input == 0, then te last thing was a heredoc
+	if (cmd->input == 0)
+		cmd->input = open("/tmp/.txt", O_RDONLY, 0666);
 }
 
 static void	print_warning(char *delimiter)
