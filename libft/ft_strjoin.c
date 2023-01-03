@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 17:08:57 by vsergio           #+#    #+#             */
-/*   Updated: 2022/11/24 22:27:59 by Vitor            ###   ########.fr       */
+/*   Updated: 2023/01/03 16:03:51 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ char	*ft_strjoin(char *s1, char *s2, int frees)
 
 void	free_strings(char *s1, char *s2, int frees)
 {
-	if (frees == 1)
+	if (frees == 'f')
 	{
 		if (s1)
 			free(s1);
 	}
-	else if (frees == 2)
+	else if (frees == 's')
 	{
 		if (s2)
 			free(s2);

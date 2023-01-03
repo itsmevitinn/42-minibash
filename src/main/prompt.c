@@ -6,7 +6,7 @@
 /*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/25 16:47:46 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/03 15:58:30 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ static void	build_prompt_msg(t_prompt *prompt_msg)
 	prompt_msg->display = ft_strjoin(prompt_msg->logname, "@", 0);
 	prompt_msg->display = ft_strjoin(prompt_msg->display,
 			prompt_msg->hostname, 'a');
-	prompt_msg->display = ft_strjoin(prompt_msg->display, ":", 1);
+	prompt_msg->display = ft_strjoin(prompt_msg->display, ":", 'f');
 	prompt_msg->display = ft_strjoin(prompt_msg->display,
 			prompt_msg->current_dir, 'a');
-	prompt_msg->display = ft_strjoin(prompt_msg->display, "$ ", 1);
+	prompt_msg->display = ft_strjoin(prompt_msg->display, "$ ", 'f');
 }

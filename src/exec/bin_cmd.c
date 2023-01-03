@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/02 21:20:30 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/03 16:04:35 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	find_bin_path(t_cmd_lst *cmd, t_var_lst *env_lst)
 	while (env_paths[i])
 	{
 		temp = ft_strjoin(env_paths[i], "/", 0);
-		cmd_path = ft_strjoin(temp, cmd->args[0], 1);
+		cmd_path = ft_strjoin(temp, cmd->args[0], 'f');
 		if (!access(cmd_path, F_OK | X_OK))
 			execve(cmd_path, cmd->args, list_to_matrix(env_lst));
 		// freeing wrong path
