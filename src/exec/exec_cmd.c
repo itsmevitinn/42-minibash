@@ -6,12 +6,13 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 11:59:16 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/02 21:43:00 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/02 21:44:23 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+static int	error_found(t_cmd_lst *cmd);
 static int	find_cmd_type(t_cmd_lst *cmd, t_cmd_info *data,
 				t_var_lst **env_lst);
 
