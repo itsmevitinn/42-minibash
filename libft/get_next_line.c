@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 11:24:05 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/25 16:53:43 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:37:11 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,6 @@ char	*get_line_from(char **buffer)
 		return (NULL);
 	ft_strlcpy(line, *buffer, linelen + 1);
 	ft_strlcpy(*buffer, *buffer + linelen, ft_strlen(*buffer));
+	free(*buffer);
 	return (line);
 }
