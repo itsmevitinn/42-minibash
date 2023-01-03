@@ -6,15 +6,15 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 09:23:45 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/27 01:03:44 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/02 21:18:35 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void print_matrix(char **cmd_args)
+void	print_matrix(char **cmd_args)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (cmd_args[++i])
@@ -24,17 +24,17 @@ void print_matrix(char **cmd_args)
 
 void	close_all_pipes(t_cmd_info *data)
 {
-	int i;
+	int	i;
 
 	i = -1;
-	while(++i < (data->qty - 1))
+	while (++i < (data->qty - 1))
 	{
 		close(data->pipes[i][0]);
 		close(data->pipes[i][1]);
 	}
 }
 
-int is_builtin(char *cmd_name)
+int	is_builtin(char *cmd_name)
 {
 	if (!ft_strncmp(cmd_name, "echo", 4))
 		return (1);

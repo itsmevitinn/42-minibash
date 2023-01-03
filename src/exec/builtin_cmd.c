@@ -6,13 +6,13 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:53:23 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/30 01:43:03 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/02 21:22:24 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int exec_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)
+int	exec_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)
 {
 	if (!ft_strncmp(cmd->args[0], "echo", 4))
 	{

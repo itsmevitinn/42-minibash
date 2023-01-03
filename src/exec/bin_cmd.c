@@ -6,17 +6,17 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/30 19:40:59 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/02 21:20:30 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void setup_fds(t_cmd_lst *cmd, t_cmd_info *data);
-static void try_absolute_path(t_cmd_lst *cmd, t_var_lst *env_lst);
-static void find_bin_path(t_cmd_lst *cmd, t_var_lst *env_lst);
+static void	setup_fds(t_cmd_lst *cmd, t_cmd_info *data);
+static void	try_absolute_path(t_cmd_lst *cmd, t_var_lst *env_lst);
+static void	find_bin_path(t_cmd_lst *cmd, t_var_lst *env_lst);
 
-int exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
+int	exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {
 	cmd->pid = fork();
 	if (!cmd->pid)
@@ -34,7 +34,7 @@ int exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 	return (1);
 }
 
-static void setup_fds(t_cmd_lst *cmd, t_cmd_info *data)
+static void	setup_fds(t_cmd_lst *cmd, t_cmd_info *data)
 {
 	dup2(cmd->input, 0);
 	dup2(cmd->output, 1);
@@ -42,12 +42,12 @@ static void setup_fds(t_cmd_lst *cmd, t_cmd_info *data)
 		close_all_pipes(data);
 }
 
-static void find_bin_path(t_cmd_lst *cmd, t_var_lst *env_lst)
+static void	find_bin_path(t_cmd_lst *cmd, t_var_lst *env_lst)
 {
-	char **env_paths;
-	char *cmd_path;
-	char *temp;
-	int i;
+	char	**env_paths;
+	char	*cmd_path;
+	char	*temp;
+	int		i;
 
 	i = 0;
 	env_paths = ft_split(get_content("PATH", env_lst), ':');
@@ -64,7 +64,7 @@ static void find_bin_path(t_cmd_lst *cmd, t_var_lst *env_lst)
 	free_matrix(env_paths);
 }
 
-static void try_absolute_path(t_cmd_lst *cmd, t_var_lst *env_lst)
+static void	try_absolute_path(t_cmd_lst *cmd, t_var_lst *env_lst)
 {
 	if (!access(cmd->args[0], F_OK | X_OK))
 		execve(cmd->args[0], cmd->args, list_to_matrix(env_lst));

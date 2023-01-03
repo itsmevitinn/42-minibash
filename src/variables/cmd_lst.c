@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 14:02:11 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/02 20:06:03 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/02 21:19:50 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_cmdadd_back(t_cmd_lst **head, t_cmd_lst *new)
 
 void	ft_cmdclear(t_cmd_lst **head)
 {
-	t_cmd_lst *ptr;
+	t_cmd_lst	*ptr;
 
 	ptr = *head;
 	while (ptr)

@@ -6,21 +6,21 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:08:25 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/30 01:09:39 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/02 21:25:34 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void print_error(char *cmd, int fd);
-static void print_vars(t_var_lst *env_lst, int fd);
-static void export_var(t_var_lst *env_lst, char *cmd);
-static int name_is_invalid(char *cmd);
+static void	print_error(char *cmd, int fd);
+static void	print_vars(t_var_lst *env_lst, int fd);
+static void	export_var(t_var_lst *env_lst, char *cmd);
+static int	name_is_invalid(char *cmd);
 
-int export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
+int	export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {
-	char **args;
-	int status;
+	char	**args;
+	int		status;
 
 	if (!check_heredoc(cmd))
 		return (0);
@@ -70,9 +70,10 @@ int export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 	return (1);
 }
 
-static void print_vars(t_var_lst *env_lst, int fd)
+static void	print_vars(t_var_lst *env_lst, int fd)
 {
-	int should_print;
+	int	should_print;
+
 	while (env_lst)
 	{
 		should_print = ft_strncmp("_", env_lst->name, 2);
@@ -93,7 +94,8 @@ static void print_vars(t_var_lst *env_lst, int fd)
 	}
 }
 
-static int name_is_invalid(char *cmd) // CHECK VALID CHARACTERS DIFFERENT FOR 1ST CHARACTER
+static int	name_is_invalid(char *cmd)
+// CHECK VALID CHARACTERS DIFFERENT FOR 1ST CHARACTER
 {
 	if (*cmd == '=')
 		return (1);
@@ -106,18 +108,18 @@ static int name_is_invalid(char *cmd) // CHECK VALID CHARACTERS DIFFERENT FOR 1S
 	return (0);
 }
 
-static void print_error(char *cmd, int fd)
+static void	print_error(char *cmd, int fd)
 {
 	ft_putstr_fd("export: `", fd);
 	ft_putstr_fd(cmd, fd);
 	ft_putstr_fd("': not a valid identifier\n", fd);
 }
 
-static void export_var(t_var_lst *env_lst, char *cmd)
+static void	export_var(t_var_lst *env_lst, char *cmd)
 {
-	char *content;
-	char *name;
-	char *aux;
+	char	*content;
+	char	*name;
+	char	*aux;
 
 	content = ft_strchr(cmd, '=');
 	if (content)

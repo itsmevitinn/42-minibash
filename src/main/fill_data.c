@@ -6,19 +6,19 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:16:40 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/30 01:30:13 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/02 21:22:44 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void start_pipes(t_cmd_info *data);
-static void precedence_analyzer(t_cmd_info *data);
-static void handle_cmd_pipes(t_cmd_lst *cmd, t_cmd_info *data);
-static void handle_builtin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty);
-static void handle_bin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty);
+static void	start_pipes(t_cmd_info *data);
+static void	precedence_analyzer(t_cmd_info *data);
+static void	handle_cmd_pipes(t_cmd_lst *cmd, t_cmd_info *data);
+static void	handle_builtin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty);
+static void	handle_bin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty);
 
-void fill_data(t_cmd_info *data)
+void	fill_data(t_cmd_info *data)
 {
 	data->pipes = NULL;
 	cmds_quantity(data);
@@ -29,9 +29,9 @@ void fill_data(t_cmd_info *data)
 	}
 }
 
-static void precedence_analyzer(t_cmd_info *data)
+static void	precedence_analyzer(t_cmd_info *data)
 {
-	t_cmd_lst *temp_cmd;
+	t_cmd_lst	*temp_cmd;
 
 	temp_cmd = data->lst_cmd;
 	while (temp_cmd)
@@ -41,7 +41,7 @@ static void precedence_analyzer(t_cmd_info *data)
 	}
 }
 
-static void handle_cmd_pipes(t_cmd_lst *cmd, t_cmd_info *data)
+static void	handle_cmd_pipes(t_cmd_lst *cmd, t_cmd_info *data)
 {
 	if (!*cmd->args)
 		return ;
@@ -52,9 +52,9 @@ static void handle_cmd_pipes(t_cmd_lst *cmd, t_cmd_info *data)
 	return ;
 }
 
-static void handle_builtin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty)
+static void	handle_builtin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty)
 {
-	int last_id;
+	int	last_id;
 
 	last_id = cmd_qty - 1;
 	// redirect not found: cmd->output == 1
@@ -62,9 +62,9 @@ static void handle_builtin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty)
 		cmd->output = pipes[cmd->id][1];
 }
 
-static void handle_bin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty)
+static void	handle_bin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty)
 {
-	int last_id;
+	int	last_id;
 
 	last_id = cmd_qty - 1;
 	// redirect output not found: cmd->output == 1
@@ -75,10 +75,10 @@ static void handle_bin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty)
 		cmd->input = pipes[cmd->id - 1][0];
 }
 
-static void start_pipes(t_cmd_info *data)
+static void	start_pipes(t_cmd_info *data)
 {
-	int pipes_qty;
-	int pipes_index;
+	int	pipes_qty;
+	int	pipes_index;
 
 	pipes_qty = data->qty - 1;
 	pipes_index = 0;

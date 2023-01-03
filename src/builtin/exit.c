@@ -6,16 +6,17 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 23:11:22 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/30 01:09:34 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/02 21:27:02 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-static int numeric_argument(char *status);
 
-int ft_exit(t_cmd_lst *cmd, t_cmd_info *data)
+static int	numeric_argument(char *status);
+
+int	ft_exit(t_cmd_lst *cmd, t_cmd_info *data)
 {
-	int status;
+	int	status;
 
 	if (!check_heredoc(cmd))
 		return (0);
@@ -66,7 +67,7 @@ int ft_exit(t_cmd_lst *cmd, t_cmd_info *data)
 	return (1);
 }
 
-static int numeric_argument(char *status)
+static int	numeric_argument(char *status)
 {
 	while (*status)
 	{

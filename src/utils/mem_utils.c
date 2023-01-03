@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 14:45:19 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/27 00:51:32 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/02 21:18:11 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	free_matrix(char **cmd_args)
 {
-	int i;
+	int	i;
 
 	i = -1;
-	while(cmd_args[++i])
+	while (cmd_args[++i])
 		free(cmd_args[i]);
 	free(cmd_args);
 }

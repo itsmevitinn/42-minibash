@@ -6,21 +6,22 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/30 01:42:27 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/02 21:26:16 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-static void oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd, int *updater);
-static void relative_or_absolute(char *path, t_cmd_info *data);
-static void update_oldpwd(char *current_dir, t_var_lst *env);
+static void	oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd,
+				int *updater);
+static void	relative_or_absolute(char *path, t_cmd_info *data);
+static void	update_oldpwd(char *current_dir, t_var_lst *env);
 
-int cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
+int	cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {
-	char *current_dir;
-	char *path;
-	int updater;
-	int status;
+	char	*current_dir;
+	char	*path;
+	int		updater;
+	int		status;
 
 	if (!check_heredoc(cmd))
 		return (0);
@@ -58,7 +59,8 @@ int cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 	return (1);
 }
 
-static void oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd, int *updater)
+static void	oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd,
+		int *updater)
 {
 	if (get_env("OLDPWD", env))
 	{
@@ -77,9 +79,9 @@ static void oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd, int *update
 	}
 }
 
-static void relative_or_absolute(char *path, t_cmd_info *data)
+static void	relative_or_absolute(char *path, t_cmd_info *data)
 {
-	int ret_chdir;
+	int	ret_chdir;
 
 	ret_chdir = chdir(path);
 	if (ret_chdir == -1)
@@ -94,7 +96,7 @@ static void relative_or_absolute(char *path, t_cmd_info *data)
 	}
 }
 
-static void update_oldpwd(char *current_dir, t_var_lst *env)
+static void	update_oldpwd(char *current_dir, t_var_lst *env)
 {
 	if (get_env("OLDPWD", env))
 		change_content("OLDPWD", current_dir, env);

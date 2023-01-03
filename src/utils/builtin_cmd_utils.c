@@ -6,13 +6,13 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 19:46:28 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/27 23:05:54 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/02 21:19:18 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int check_heredoc(t_cmd_lst *cmd)
+int	check_heredoc(t_cmd_lst *cmd)
 {
 	if (cmd->delimiter)
 	{
@@ -22,10 +22,10 @@ int check_heredoc(t_cmd_lst *cmd)
 	return (1);
 }
 
-int execute_heredoc(t_cmd_lst *cmd)
+int	execute_heredoc(t_cmd_lst *cmd)
 {
-	int status;
-	int heredoc_pid;
+	int	status;
+	int	heredoc_pid;
 
 	heredoc_pid = fork();
 	if (!heredoc_pid)
@@ -44,9 +44,9 @@ int execute_heredoc(t_cmd_lst *cmd)
 		return (1);
 }
 
-void finish_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data)
+void	finish_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data)
 {
-	int status;
+	int	status;
 
 	if (cmd->id < (data->qty - 1))
 		close(data->pipes[cmd->id][1]);

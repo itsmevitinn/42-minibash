@@ -6,15 +6,15 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 23:08:43 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/30 01:41:57 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/02 21:19:29 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int finish_bin_cmd(t_cmd_lst *cmd)
+int	finish_bin_cmd(t_cmd_lst *cmd)
 {
-	int status;
+	int	status;
 
 	waitpid(cmd->pid, &status, 0);
 	if (!WIFEXITED(status))
@@ -27,7 +27,7 @@ int finish_bin_cmd(t_cmd_lst *cmd)
 	return (1);
 }
 
-void command_not_found(t_cmd_lst *cmd)
+void	command_not_found(t_cmd_lst *cmd)
 {
 	ft_putstr_fd("bash: ", 2);
 	ft_putstr_fd(cmd->args[0], 2);

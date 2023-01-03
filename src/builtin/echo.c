@@ -6,24 +6,23 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 22:49:26 by Vitor             #+#    #+#             */
-/*   Updated: 2022/12/30 01:41:25 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/02 21:28:48 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int echo(t_cmd_lst *cmd)
+int	echo(t_cmd_lst *cmd)
 {
-	int status;
+	int	status;
+	int	content_index;
+	int	trailing_newline;
 
 	if (!check_heredoc(cmd))
 		return (0);
 	cmd->pid = fork();
 	if (!cmd->pid)
 	{
-		int content_index;
-		int trailing_newline;
-
 		content_index = -1;
 		trailing_newline = 1;
 		if (!cmd->args[1])

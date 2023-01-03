@@ -6,15 +6,15 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:00:18 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/30 01:41:11 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/02 21:23:37 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int env(t_cmd_lst *cmd, t_var_lst *env_lst)
+int	env(t_cmd_lst *cmd, t_var_lst *env_lst)
 {
-	int status;
+	int	status;
 
 	if (!check_heredoc(cmd))
 		return (0);

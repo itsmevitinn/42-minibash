@@ -6,21 +6,21 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/26 22:21:27 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/02 21:22:57 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int whitespace_checker(char *input);
+static int	whitespace_checker(char *input);
 
-int g_exit_status;
+int			g_exit_status;
 
-int main(void)
+int	main(void)
 {
-	t_cmd_info data;
-	t_var_lst *env_lst;
-	char *user_input;
+	t_cmd_info	data;
+	t_var_lst	*env_lst;
+	char		*user_input;
 
 	initialize_env(&env_lst);
 	setup_signals();
@@ -46,9 +46,9 @@ int main(void)
 	}
 }
 
-static int whitespace_checker(char *input)
+static int	whitespace_checker(char *input)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (input[i])
