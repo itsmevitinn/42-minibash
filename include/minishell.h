@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/02 21:30:45 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/03 12:04:07 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void command_not_found(t_cmd_lst *cmd);
 //BUILTIN_CMD_UTILS FUNCTIONS
 int		check_heredoc(t_cmd_lst *cmd);
 int		execute_heredoc(t_cmd_lst *cmd);
-void	finish_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data);
+void	finish_fork_builtin(t_cmd_lst *cmd);
 
 //PARSER FUNCTIONS
 t_cmd_lst	*parse_input(char *user_input, t_var_lst *env_lst);

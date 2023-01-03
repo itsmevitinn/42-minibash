@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 19:46:28 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/02 21:19:18 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/03 12:02:48 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,10 @@ int	execute_heredoc(t_cmd_lst *cmd)
 		return (1);
 }
 
-void	finish_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data)
+void	finish_fork_builtin(t_cmd_lst *cmd)
 {
 	int	status;
 
-	if (cmd->id < (data->qty - 1))
-		close(data->pipes[cmd->id][1]);
 	waitpid(cmd->pid, &status, 0);
 	g_exit_status = WEXITSTATUS(status);
 }
