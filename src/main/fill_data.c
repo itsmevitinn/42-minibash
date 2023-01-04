@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:16:40 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/02 21:22:44 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/04 11:24:57 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static void	handle_builtin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty)
 	int	last_id;
 
 	last_id = cmd_qty - 1;
-	// redirect not found: cmd->output == 1
 	if (cmd->output == 1 && cmd->id != last_id)
 		cmd->output = pipes[cmd->id][1];
 }
@@ -67,10 +66,8 @@ static void	handle_bin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty)
 	int	last_id;
 
 	last_id = cmd_qty - 1;
-	// redirect output not found: cmd->output == 1
 	if (cmd->output == 1 && cmd->id != last_id)
-		cmd->output = pipes[cmd->id][1]; // so, go to pipe
-	// redirect input not found: cmd->input == 0
+		cmd->output = pipes[cmd->id][1];
 	if (cmd->input == 0 && cmd->id != 0)
 		cmd->input = pipes[cmd->id - 1][0];
 }

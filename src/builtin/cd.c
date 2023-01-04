@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/03 12:03:37 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/04 11:26:42 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd,
 				int *updater);
 static void	relative_or_absolute(char *path, t_cmd_info *data);
 static void	update_oldpwd(char *current_dir, t_var_lst *env);
-static void go_home(t_var_lst *env_lst, t_cmd_info *data);
+static void	go_home(t_var_lst *env_lst, t_cmd_info *data);
 
 int	cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {
@@ -58,9 +58,9 @@ int	cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 	return (1);
 }
 
-static void go_home(t_var_lst *env_lst, t_cmd_info *data)
+static void	go_home(t_var_lst *env_lst, t_cmd_info *data)
 {
-	int ret_chdir;
+	int	ret_chdir;
 
 	ret_chdir = chdir(get_content("HOME", env_lst));
 	if (ret_chdir == -1)

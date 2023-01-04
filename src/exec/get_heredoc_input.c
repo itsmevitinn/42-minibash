@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 11:06:22 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/02 21:21:51 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/04 11:19:58 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	get_heredoc_input(t_cmd_lst *cmd)
 	}
 	free(line);
 	close(temp_fd);
-	//if input is != 0, then the last thing was a redirect
-	//if input == 0, then te last thing was a heredoc
 	if (cmd->input == 0)
 		cmd->input = open("/tmp/.txt", O_RDONLY, 0666);
 }
