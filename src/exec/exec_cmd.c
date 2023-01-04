@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 11:59:16 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/02 21:44:23 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/04 11:03:22 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ static int	error_found(t_cmd_lst *cmd)
 		ft_putstr_fd(cmd->filename, 2);
 		ft_putstr_fd(": ", 2);
 		perror(NULL);
+		g_exit_status = 1;
 		return (1);
 	}
-	//empty command, just go to the next one
 	else if (!*cmd->args)
 		return (1);
 	return (0);

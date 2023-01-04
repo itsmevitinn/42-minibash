@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/03 17:17:15 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/04 11:01:19 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static void	find_bin_path(t_cmd_lst *cmd, t_var_lst *env_lst)
 		cmd_path = ft_strjoin(cmd_path, cmd->args[0], 'f');
 		if (!access(cmd_path, F_OK | X_OK))
 			execve(cmd_path, cmd->args, env_matrix);
-		// freeing wrong path
 		free(cmd_path);
 		i++;
 	}
@@ -68,7 +67,7 @@ static void	find_bin_path(t_cmd_lst *cmd, t_var_lst *env_lst)
 
 static void	try_absolute_path(t_cmd_lst *cmd, t_var_lst *env_lst)
 {
-	char **env_matrix;
+	char	**env_matrix;
 
 	env_matrix = list_to_matrix(env_lst);
 	if (!access(cmd->args[0], F_OK | X_OK))
