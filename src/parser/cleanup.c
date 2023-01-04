@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 13:12:19 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/23 14:59:57 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/04 14:18:08 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	remove_quotes(char *cmd);
 static void	remove_ctrl_chars(char *cmd);
-static char	*clean_quote(char *cmd);
-static char	*skip_variable(char *cmd);
 
 void	cleanup(char **args)
 {
@@ -27,7 +24,7 @@ void	cleanup(char **args)
 	}
 }
 
-static void	remove_quotes(char *cmd)
+void	remove_quotes(char *cmd)
 {
 	while (*cmd)
 	{
@@ -40,7 +37,7 @@ static void	remove_quotes(char *cmd)
 	}
 }
 
-static char	*skip_variable(char *cmd)
+char	*skip_variable(char *cmd)
 {
 	while (*cmd && *cmd != END)
 		cmd++;
@@ -49,7 +46,7 @@ static char	*skip_variable(char *cmd)
 	return (cmd);
 }
 
-static char	*clean_quote(char *cmd)
+char	*clean_quote(char *cmd)
 {
 	char	quote;
 

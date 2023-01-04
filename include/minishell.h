@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/03 12:04:07 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/04 14:17:26 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,11 @@ void	update_fd(t_cmd_lst *cmd, int type);
 char	*skip_quote(char *cmd);
 char	*sub_arg(char **arg, char *index, char *name, char *content);
 int is_builtin(char *cmd_name);
+
+//CLEANUP
+void	remove_quotes(char *cmd);
+char	*skip_variable(char *cmd);
+char	*clean_quote(char *cmd);
 
 //EXEC FUNCTIONS
 void	exec_cmds(t_cmd_info *data, t_var_lst **env_lst);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpret_redirects.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:47:16 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/25 13:41:41 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/04 14:13:25 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static void	get_filename(t_cmd_lst *cmd, char *line)
 	get_sizes(line, &chunk_size, &file_size);
 	cmd->filename = malloc(sizeof(char) * (file_size + 1));
 	fill_filename(cmd->filename, line);
+	remove_quotes(cmd->filename);
 	remove_chunk(line, chunk_size);
 }
 
