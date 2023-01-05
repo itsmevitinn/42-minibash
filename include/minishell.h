@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/04 14:17:26 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/04 22:04:00 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,19 @@ void cmds_quantity(t_cmd_info *data);
 
 //FILL_DATA FUNCTIONS
 void fill_data(t_cmd_info *data);
+
+//EXEC_BUILTIN UTILS
+int	try_echo_execution(t_cmd_lst *cmd);
+int	try_cd_execution(t_cmd_lst *cmd, t_cmd_info *data,
+				t_var_lst **env_lst);
+int	try_pwd_execution(t_cmd_lst *cmd);
+int	try_export_execution(t_cmd_lst *cmd, t_cmd_info *data,
+				t_var_lst **env_lst);
+int	try_unset_execution(t_cmd_lst *cmd, t_cmd_info *data,
+				t_var_lst **env_lst);
+int	try_env_execution(t_cmd_lst *cmd, t_var_lst **env_lst);
+int	try_exit_execution(t_cmd_lst *cmd, t_cmd_info *data);
+
 
 //BIN_CMD_UTILS FUNCTIONS
 int finish_bin_cmd(t_cmd_lst *cmd);
