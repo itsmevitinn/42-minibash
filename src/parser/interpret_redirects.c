@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:47:16 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/05 17:46:51 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/05 18:16:27 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	interpret_redirects(t_cmd_lst *cmd, char *line)
 				print_syntax_error(cmd, line);
 				return (0);
 			}
-			update_fd(cmd, type);
+			if (!update_fd(cmd, type))
+				return (0);
 		}
 		else
 			line++;

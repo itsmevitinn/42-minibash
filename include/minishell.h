@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/05 17:43:51 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/05 18:19:54 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void		cleanup(char **args);
 
 //UTILS
 void		remove_chunk(char *str, int len);
-void		update_fd(t_cmd_lst *cmd, int type);
+int			update_fd(t_cmd_lst *cmd, int type);
 char		*skip_quote(char *cmd);
 char		*sub_arg(char **arg, char *index, char *name, char *content);
 int			is_builtin(char *cmd_name);
