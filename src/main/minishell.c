@@ -6,13 +6,14 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/02 21:22:57 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/04 22:32:51 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 static int	whitespace_checker(char *input);
+static void	run_input(char *user_input, t_cmd_info *data, t_var_lst *env_lst);
 
 int			g_exit_status;
 
@@ -34,15 +35,9 @@ int	main(void)
 			return (0);
 		}
 		else if (!whitespace_checker(user_input))
-		{
-			add_history(user_input);
-			data.lst_cmd = parse_input(user_input, env_lst);
-			fill_data(&data);
-			exec_cmds(&data, &env_lst);
-			ft_cmdclear(&data.lst_cmd);
-			free_pipes(&data);
-		}
-		free(user_input);
+			run_input(user_input, &data, env_lst);
+		if (user_input)
+			free(user_input);
 	}
 }
 
@@ -55,4 +50,14 @@ static int	whitespace_checker(char *input)
 		if (!ft_isspace(input[i++]))
 			return (0);
 	return (1);
+}
+
+static void	run_input(char *user_input, t_cmd_info *data, t_var_lst *env_lst)
+{
+	add_history(user_input);
+	data->lst_cmd = parse_input(user_input, env_lst);
+	fill_data(data);
+	exec_cmds(data, &env_lst);
+	ft_cmdclear(&data->lst_cmd);
+	free_pipes(data);
 }
