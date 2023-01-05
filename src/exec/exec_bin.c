@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bin_cmd.c                                          :+:      :+:    :+:   */
+/*   exec_bin.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/04 11:01:19 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 16:47:52 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ int	exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 	if (!cmd->pid)
 	{
 		restore_sigint();
-		if (cmd->delimiter)
-			get_heredoc_input(cmd);
 		setup_fds(cmd, data);
 		try_absolute_path(cmd, env_lst);
 		find_bin_path(cmd, env_lst);

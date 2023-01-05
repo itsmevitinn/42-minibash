@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:08:25 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/05 11:00:19 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 16:36:26 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ static void	exec_export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 
 int	export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {
-	if (!check_heredoc(cmd))
-		return (0);
 	if (data->qty != 1)
 	{
 		cmd->pid = fork();

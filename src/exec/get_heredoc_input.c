@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 11:06:22 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/04 11:19:58 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 16:47:11 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 static void	print_warning(char *delimiter);
 
-void	get_heredoc_input(t_cmd_lst *cmd)
+void	get_heredoc_input(t_cmd_lst *cmd, int *here_pipe)
 {
 	char	*line;
-	int		temp_fd;
 
-	temp_fd = open("/tmp/.txt", O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	while (42)
 	{
 		line = readline(">");
@@ -30,14 +28,12 @@ void	get_heredoc_input(t_cmd_lst *cmd)
 		}
 		else if (!ft_strncmp(line, cmd->delimiter, ft_strlen(line) + 1))
 			break ;
-		ft_putstr_fd(line, temp_fd);
-		ft_putchar_fd('\n', temp_fd);
+		ft_putstr_fd(line, here_pipe[1]);
+		ft_putchar_fd('\n', here_pipe[1]);
 		free(line);
 	}
 	free(line);
-	close(temp_fd);
-	if (cmd->input == 0)
-		cmd->input = open("/tmp/.txt", O_RDONLY, 0666);
+	close(here_pipe[1]);
 }
 
 static void	print_warning(char *delimiter)

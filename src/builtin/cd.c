@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/05 10:00:18 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 16:35:49 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static void	exec_cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 
 int	cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {
-	if (!check_heredoc(cmd))
-		return (0);
 	if (data->qty == 1)
 		exec_cd(cmd, data, env_lst);
 	else if (data->qty > 1)

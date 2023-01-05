@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 23:11:22 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/05 10:20:38 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 16:36:18 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static void	exec_exit(t_cmd_lst *cmd, t_cmd_info *data);
 
 int	ft_exit(t_cmd_lst *cmd, t_cmd_info *data)
 {
-	if (!check_heredoc(cmd))
-		return (0);
 	if (data->qty > 1)
 	{
 		cmd->pid = fork();

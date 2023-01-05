@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 19:46:28 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/03 12:02:48 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 16:43:21 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,20 @@ int	execute_heredoc(t_cmd_lst *cmd)
 {
 	int	status;
 	int	heredoc_pid;
+	int	here_pipe[2];
 
+	pipe(here_pipe);
+	if (cmd->input > 2)
+		close(cmd->input);
+	cmd->input = here_pipe[0];
 	heredoc_pid = fork();
 	if (!heredoc_pid)
 	{
 		restore_sigint();
-		get_heredoc_input(cmd);
+		get_heredoc_input(cmd, here_pipe);
 		exit(0);
 	}
+	close(here_pipe[1]);
 	waitpid(heredoc_pid, &status, 0);
 	if (!WIFEXITED(status))
 	{

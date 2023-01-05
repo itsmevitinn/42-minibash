@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:50:29 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/02 20:31:47 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 16:39:41 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ static void	get_new_fd(t_cmd_lst *cmd, int type)
 		cmd->input = open(cmd->filename, O_RDONLY, 0666);
 	else if (type == HEREDOC)
 	{
-		cmd->input = 0;
 		if (cmd->delimiter)
 			free(cmd->delimiter);
 		cmd->delimiter = ft_strdup(cmd->filename);
+		check_heredoc(cmd);
 	}
 	else if (type == TRUNCATE)
 		cmd->output = open(cmd->filename, O_CREAT | O_RDWR | O_TRUNC, 0666);

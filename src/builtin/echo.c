@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 22:49:26 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/05 10:09:34 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 16:36:04 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static void	exec_echo(t_cmd_lst *cmd);
 
 int	echo(t_cmd_lst *cmd)
 {
-	if (!check_heredoc(cmd))
-		return (0);
 	cmd->pid = fork();
 	if (!cmd->pid)
 		exec_echo(cmd);

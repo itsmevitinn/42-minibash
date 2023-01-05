@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/05 11:27:48 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 16:24:51 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void		exec_cmds(t_cmd_info *data, t_var_lst **env_lst);
 int			exec_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data,
 				t_var_lst **env_lst);
 int			exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
-void		get_heredoc_input(t_cmd_lst *cmd);
+void		get_heredoc_input(t_cmd_lst *cmd, int *here_pipe);
 
 //BULT-IN FUNCTIONS
 int			cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);

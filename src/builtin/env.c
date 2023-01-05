@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:00:18 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/02 21:23:37 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 16:36:10 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int	env(t_cmd_lst *cmd, t_var_lst *env_lst)
 {
 	int	status;
 
-	if (!check_heredoc(cmd))
-		return (0);
 	cmd->pid = fork();
 	if (!cmd->pid)
 	{

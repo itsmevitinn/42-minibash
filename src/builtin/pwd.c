@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 22:49:00 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/02 21:24:08 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 16:36:31 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	pwd(t_cmd_lst *cmd)
 	char	*pwd;
 	int		status;
 
-	if (!check_heredoc(cmd))
-		return (0);
 	cmd->pid = fork();
 	if (!cmd->pid)
 	{
