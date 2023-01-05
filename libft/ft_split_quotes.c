@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:35:39 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/16 21:03:10 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/05 18:49:14 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static	int	count_splits(char *s, char c);
 static int	sub_len(char *s, char c);
 static void	ft_free(char **final, int offset);
+static int	check_empty_string(char *s);
 
 char	**ft_split_quotes(char const *s, char c)
 {
@@ -22,12 +23,12 @@ char	**ft_split_quotes(char const *s, char c)
 	int		splits;
 	int		offset;
 	int		substring;
+	int		has_empty_string;
 
 	offset = 0;
+	has_empty_string = check_empty_string((char *)s);
 	splits = count_splits((char *)s, c);
-	final = malloc(sizeof(char *) * (splits + 1));
-	if (final == NULL)
-		return (NULL);
+	final = malloc_matrix(splits, has_empty_string);
 	while (offset < splits)
 	{
 		while (*(char *)s != '\0' && *(char *)s == c)
@@ -41,8 +42,18 @@ char	**ft_split_quotes(char const *s, char c)
 		}
 		s += substring;
 	}
-	final[splits] = NULL;
+	finish_final(final, splits, has_empty_string);
 	return (final);
+}
+
+static int	check_empty_string(char *s)
+{
+	int	len;
+
+	len = ft_strlen(s);
+	if (s[len - 1] == '|')
+		return (1);
+	return (0);
 }
 
 static void	ft_free(char **final, int offset)

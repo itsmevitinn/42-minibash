@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:26:12 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/01 10:30:27 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 18:31:46 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,7 @@ int			size_and_print_int(va_list list_arg);
 int			size_and_print_hex(va_list list_arg, char *basehex, char check);
 char		*ft_strtrim_edges(char const *s1, char const *set);
 int			ft_isspace(char value);
+char		**malloc_matrix(int splits, int has_empty_string);
+void		finish_final(char **final, int splits, int has_empty_string);
+
 #endif
