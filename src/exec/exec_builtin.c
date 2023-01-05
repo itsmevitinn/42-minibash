@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:53:23 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/04 22:03:29 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/04 22:07:44 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,3 @@ int	exec_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)
 		return (0);
 	return (1);
 }
-
