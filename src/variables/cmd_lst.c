@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 14:02:11 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/02 21:19:50 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 18:03:33 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_cmd_lst	*ft_cmd_new(char *line)
 	lst->input = 0;
 	lst->output = 1;
 	lst->line = line;
+	lst->args = NULL;
 	lst->next = NULL;
 	lst->delimiter = NULL;
 	return (lst);
@@ -57,7 +58,8 @@ void	ft_cmdclear(t_cmd_lst **head)
 			close(ptr->output);
 		free(ptr->delimiter);
 		free(ptr->line);
-		free_matrix(ptr->args);
+		if (ptr->args)
+			free_matrix(ptr->args);
 		ptr = ptr->next;
 		free(*head);
 		*head = ptr;

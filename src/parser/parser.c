@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/26 23:13:57 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 18:04:33 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 static void	build_lst_cmd(t_cmd_lst **lst_cmd, char *line);
 static void	initialize_ids(t_cmd_lst *lst_cmd);
-static void	parse_cmds(t_cmd_lst *lst_cmd, t_var_lst *env_lst);
+static int	parse_cmds(t_cmd_lst *lst_cmd, t_var_lst *env_lst);
 
 t_cmd_lst	*parse_input(char *line, t_var_lst *env_lst)
 {
 	t_cmd_lst	*lst_cmd;
 
 	lst_cmd = NULL;
-	if (check_syntax(line))
+	build_lst_cmd(&lst_cmd, line);
+	if (!parse_cmds(lst_cmd, env_lst))
 	{
-		build_lst_cmd(&lst_cmd, line);
-		parse_cmds(lst_cmd, env_lst);
+		ft_cmdclear(&lst_cmd);
+		return (NULL);
 	}
 	return (lst_cmd);
 }
@@ -54,14 +55,21 @@ static void	initialize_ids(t_cmd_lst *lst_cmd)
 	}
 }
 
-static void	parse_cmds(t_cmd_lst *lst_cmd, t_var_lst *env_lst)
+static int	parse_cmds(t_cmd_lst *lst_cmd, t_var_lst *env_lst)
 {
 	while (lst_cmd)
 	{
-		interpret_redirects(lst_cmd, lst_cmd->line);
+		if (whitespace_checker(lst_cmd->line))
+		{
+			print_syntax_error(lst_cmd, "");
+			return (0);
+		}
+		if (!interpret_redirects(lst_cmd, lst_cmd->line))
+			return (0);
 		lst_cmd->args = ft_split_quotes(lst_cmd->line, ' ');
 		interpret_vars(lst_cmd->args, env_lst);
 		cleanup(lst_cmd->args);
 		lst_cmd = lst_cmd->next;
 	}
+	return (1);
 }

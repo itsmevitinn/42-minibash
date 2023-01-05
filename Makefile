@@ -20,7 +20,7 @@ LIBFT = ${LIBFT_PATH}/libft.a
 
 CC = cc
 
-PARSER = parser.c interpret_vars.c sub_arg.c cleanup.c syntax.c interpret_redirects.c update_fd.c
+PARSER = parser.c interpret_vars.c sub_arg.c cleanup.c interpret_redirects.c update_fd.c
 
 EXEC = exec_bin.c get_heredoc_input.c exec_cmd.c exec_builtin.c
 

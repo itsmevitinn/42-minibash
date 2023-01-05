@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:47:16 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/04 14:13:25 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 17:46:51 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	get_filename(t_cmd_lst *cmd, char *line);
 static void	get_sizes(char *line, int *chunk_size, int *file_size);
 static int	get_type(char *line);
 
-void	interpret_redirects(t_cmd_lst *cmd, char *line)
+int	interpret_redirects(t_cmd_lst *cmd, char *line)
 {
 	int	type;
 
@@ -31,11 +31,17 @@ void	interpret_redirects(t_cmd_lst *cmd, char *line)
 			if (cmd->filename)
 				free(cmd->filename);
 			get_filename(cmd, line);
+			if (whitespace_checker(cmd->filename))
+			{
+				print_syntax_error(cmd, line);
+				return (0);
+			}
 			update_fd(cmd, type);
 		}
 		else
 			line++;
 	}
+	return (1);
 }
 
 static int	get_type(char *line)

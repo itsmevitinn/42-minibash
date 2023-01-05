@@ -6,13 +6,12 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/04 22:32:51 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 17:57:10 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	whitespace_checker(char *input);
 static void	run_input(char *user_input, t_cmd_info *data, t_var_lst *env_lst);
 
 int			g_exit_status;
@@ -39,17 +38,6 @@ int	main(void)
 		if (user_input)
 			free(user_input);
 	}
-}
-
-static int	whitespace_checker(char *input)
-{
-	int	i;
-
-	i = 0;
-	while (input[i])
-		if (!ft_isspace(input[i++]))
-			return (0);
-	return (1);
 }
 
 static void	run_input(char *user_input, t_cmd_info *data, t_var_lst *env_lst)

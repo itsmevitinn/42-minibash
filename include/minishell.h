@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/05 16:24:51 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/05 17:43:51 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void		finish_fork_builtin(t_cmd_lst *cmd);
 //PARSER FUNCTIONS
 t_cmd_lst	*parse_input(char *user_input, t_var_lst *env_lst);
 int			check_syntax(char *cmd_line);
-void		interpret_redirects(t_cmd_lst *lst_cmd, char *line);
+int			interpret_redirects(t_cmd_lst *lst_cmd, char *line);
 void		interpret_vars(char **cmd, t_var_lst *env_lst);
 void		cleanup(char **args);
 
@@ -129,6 +129,8 @@ char		*skip_quote(char *cmd);
 char		*sub_arg(char **arg, char *index, char *name, char *content);
 int			is_builtin(char *cmd_name);
 void		print_invalid_identifier(char *value, char *cmd);
+int			whitespace_checker(char *input);
+void		print_syntax_error(t_cmd_lst *cmd, char *str);
 
 //CLEANUP
 void		remove_quotes(char *cmd);
