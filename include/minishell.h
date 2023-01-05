@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/04 22:04:00 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/04 22:22:49 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,16 @@ void	close_all_pipes(t_cmd_info *data);
 char	*display_prompt(void);
 
 //DATA_UTILS FUNCTIONS
-void cmds_quantity(t_cmd_info *data);
+int	cmds_quantity(t_cmd_info *data);
 
 //FILL_DATA FUNCTIONS
 void fill_data(t_cmd_info *data);
+
+//PRECEDENCE_ANALYZER FUNCTIONS
+void	precedence_analyzer(t_cmd_info *data);
+void	handle_cmd_pipes(t_cmd_lst *cmd, t_cmd_info *data);
+void	handle_builtin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty);
+void	handle_bin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty);
 
 //EXEC_BUILTIN UTILS
 int	try_echo_execution(t_cmd_lst *cmd);

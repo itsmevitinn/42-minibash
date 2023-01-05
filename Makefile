@@ -28,7 +28,7 @@ UTILS = parser_utils.c var_utils.c mem_utils.c utils.c data_utils.c bin_cmd_util
 
 BUILT-IN = exit.c cd.c pwd.c echo.c env.c export.c unset.c
 
-MAIN = minishell.c prompt.c fill_data.c
+MAIN = minishell.c prompt.c fill_data.c precedence_analyzer.c
 
 SIGNAL = signal.c
 

@@ -6,13 +6,13 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 21:51:07 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/02 21:18:20 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/04 22:14:46 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	cmds_quantity(t_cmd_info *data)
+int	cmds_quantity(t_cmd_info *data)
 {
 	t_cmd_lst	*temp;
 	int			qty;
@@ -24,5 +24,5 @@ void	cmds_quantity(t_cmd_info *data)
 		qty++;
 		temp = temp->next;
 	}
-	data->qty = qty;
+	return (qty);
 }
