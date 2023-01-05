@@ -6,12 +6,11 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:35:39 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/05 18:45:43 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 18:49:14 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 static	int	count_splits(char *s, char c);
 static int	sub_len(char *s, char c);
