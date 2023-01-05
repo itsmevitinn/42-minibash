@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/05 17:57:10 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/05 18:22:34 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(void)
 		user_input = display_prompt();
 		if (!user_input)
 		{
+			printf("exit\n");
 			rl_clear_history();
 			ft_varclear(&env_lst);
 			return (0);
