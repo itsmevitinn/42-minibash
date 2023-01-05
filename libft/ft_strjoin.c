@@ -6,13 +6,14 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 17:08:57 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/03 16:03:51 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 11:20:20 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 void	free_strings(char *s1, char *s2, int frees);
+
 char	*ft_strjoin(char *s1, char *s2, int frees)
 {
 	char	*full_string;

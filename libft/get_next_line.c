@@ -6,16 +6,16 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 11:24:05 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/03 16:37:11 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 11:20:41 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 static int	ft_linelen(char const *str);
-char	*find_line_in(int fd, char **buffer);
-char	*get_last_line_from(char **buffer);
-char	*get_line_from(char **buffer);
+char		*find_line_in(int fd, char **buffer);
+char		*get_last_line_from(char **buffer);
+char		*get_line_from(char **buffer);
 
 char	*get_next_line(int fd)
 {

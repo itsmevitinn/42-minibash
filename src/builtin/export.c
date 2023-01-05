@@ -3,71 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:08:25 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/02 21:25:34 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 11:00:19 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	print_error(char *cmd, int fd);
 static void	print_vars(t_var_lst *env_lst, int fd);
 static void	export_var(t_var_lst *env_lst, char *cmd);
 static int	name_is_invalid(char *cmd);
+static void	exec_export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 
 int	export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {
-	char	**args;
-	int		status;
-
 	if (!check_heredoc(cmd))
 		return (0);
-	args = cmd->args;
 	if (data->qty != 1)
 	{
 		cmd->pid = fork();
 		if (!cmd->pid)
-		{
-			args++;
-			if (!*args)
-				print_vars(env_lst, cmd->output);
-			while (*args && data->qty == 1)
-			{
-				if (name_is_invalid(*args))
-				{
-					print_error(*args, cmd->output);
-					exit(1);
-				}
-				else
-					export_var(env_lst, *args);
-				args++;
-			}
-			exit(0);
-		}
+			exec_export(cmd, data, env_lst);
+		finish_fork_builtin(cmd);
 	}
 	else
-	{
-		args++;
-		if (!*args)
-			print_vars(env_lst, cmd->output);
-		while (*args)
-		{
-			if (name_is_invalid(*args))
-			{
-				print_error(*args, cmd->output);
-				g_exit_status = 1;
-			}
-			else
-				export_var(env_lst, *args);
-			args++;
-		}
-		g_exit_status = 0;
-	}
-	waitpid(cmd->pid, &status, 0);
-	g_exit_status = WEXITSTATUS(status);
+		exec_export(cmd, data, env_lst);
 	return (1);
+}
+
+static void	exec_export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
+{
+	char	**args;
+
+	args = cmd->args;
+	args++;
+	if (!*args)
+		print_vars(env_lst, cmd->output);
+	while (*args)
+	{
+		if (name_is_invalid(*args))
+		{
+			print_invalid_identifier(*args, "export");
+			if (data->qty > 1)
+				exit(1);
+			g_exit_status = 1;
+			break ;
+		}
+		else
+			export_var(env_lst, *args);
+		args++;
+	}
+	if (data->qty > 1)
+		exit(0);
 }
 
 static void	print_vars(t_var_lst *env_lst, int fd)
@@ -95,7 +84,6 @@ static void	print_vars(t_var_lst *env_lst, int fd)
 }
 
 static int	name_is_invalid(char *cmd)
-// CHECK VALID CHARACTERS DIFFERENT FOR 1ST CHARACTER
 {
 	if (*cmd == '=')
 		return (1);
@@ -106,13 +94,6 @@ static int	name_is_invalid(char *cmd)
 		cmd++;
 	}
 	return (0);
-}
-
-static void	print_error(char *cmd, int fd)
-{
-	ft_putstr_fd("export: `", fd);
-	ft_putstr_fd(cmd, fd);
-	ft_putstr_fd("': not a valid identifier\n", fd);
 }
 
 static void	export_var(t_var_lst *env_lst, char *cmd)
@@ -137,4 +118,5 @@ static void	export_var(t_var_lst *env_lst, char *cmd)
 		change_content(name, content, env_lst);
 	else
 		ft_varadd_back(&env_lst, ft_var_new(name, content));
+	g_exit_status = 0;
 }

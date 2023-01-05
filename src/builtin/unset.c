@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:10:07 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/02 21:23:27 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 11:18:14 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,55 +15,47 @@
 static int			name_is_invalid(char *cmd);
 static void			remove_var(t_var_lst **var_lst, char *name);
 static t_var_lst	*get_previous(char *name, t_var_lst *lst);
-static void			print_error(char *cmd, int fd);
+static void			exec_unset(t_cmd_lst *cmd, t_cmd_info *data,
+						t_var_lst **env_lst);
 
 int	unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)
 {
-	char	**args;
-	int		status;
-
 	if (!check_heredoc(cmd))
 		return (0);
-	args = cmd->args;
 	if (data->qty != 1)
 	{
 		cmd->pid = fork();
 		if (!cmd->pid)
-		{
-			args++;
-			while (*args)
-			{
-				if (name_is_invalid(*args))
-				{
-					print_error(*args, cmd->output);
-					exit(1);
-				}
-				else if (get_env(*args, *env_lst))
-					remove_var(env_lst, *args);
-				args++;
-			}
-			exit(0);
-		}
+			exec_unset(cmd, data, env_lst);
+		finish_fork_builtin(cmd);
 	}
 	else
-	{
-		args++;
-		while (*args)
-		{
-			if (name_is_invalid(*args))
-			{
-				print_error(*args, cmd->output);
-				g_exit_status = 1;
-			}
-			else if (get_env(*args, *env_lst))
-				remove_var(env_lst, *args);
-			args++;
-		}
-		g_exit_status = 0;
-	}
-	waitpid(cmd->pid, &status, 0);
-	g_exit_status = WEXITSTATUS(status);
+		exec_unset(cmd, data, env_lst);
 	return (1);
+}
+
+static void	exec_unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)
+{
+	char	**args;
+
+	args = cmd->args;
+	args++;
+	while (*args)
+	{
+		if (name_is_invalid(*args))
+		{
+			print_invalid_identifier(*args, "unset");
+			if (data->qty > 1)
+				exit(1);
+			g_exit_status = 1;
+			break ;
+		}
+		else if (get_env(*args, *env_lst))
+			remove_var(env_lst, *args);
+		args++;
+	}
+	if (data->qty > 1)
+		exit(0);
 }
 
 static int	name_is_invalid(char *cmd)
@@ -75,13 +67,6 @@ static int	name_is_invalid(char *cmd)
 		cmd++;
 	}
 	return (0);
-}
-
-static void	print_error(char *cmd, int fd)
-{
-	ft_putstr_fd("bash: unset `", fd);
-	ft_putstr_fd(cmd, fd);
-	ft_putstr_fd("\': not a valid identifier\n", fd);
 }
 
 static void	remove_var(t_var_lst **var_lst, char *name)
@@ -105,6 +90,7 @@ static void	remove_var(t_var_lst **var_lst, char *name)
 	free(temp->name);
 	free(temp->content);
 	free(temp);
+	g_exit_status = 0;
 }
 
 static t_var_lst	*get_previous(char *name, t_var_lst *lst)

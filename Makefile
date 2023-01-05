@@ -24,7 +24,7 @@ PARSER = parser.c interpret_vars.c sub_arg.c cleanup.c syntax.c interpret_redire
 
 EXEC = exec_bin.c get_heredoc_input.c exec_cmd.c exec_builtin.c
 
-UTILS = parser_utils.c var_utils.c mem_utils.c utils.c data_utils.c bin_cmd_utils.c builtin_cmd_utils.c exec_builtin_utils.c exec_builtin_utils2.c
+UTILS = parser_utils.c var_utils.c mem_utils.c utils.c data_utils.c bin_cmd_utils.c builtin_cmd_utils.c exec_builtin_utils.c exec_builtin_utils2.c cd_utils.c
 
 BUILT-IN = exit.c cd.c pwd.c echo.c env.c export.c unset.c
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 09:23:45 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/02 21:18:35 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 11:03:30 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,13 @@ int	is_builtin(char *cmd_name)
 		return (1);
 	else
 		return (0);
+}
+
+void	print_invalid_identifier(char *value, char *cmd)
+{
+	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": `", 2);
+	ft_putstr_fd(value, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
 }

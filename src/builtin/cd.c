@@ -3,62 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/04 11:26:42 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 10:00:18 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+static void	go_home(t_var_lst *env_lst, t_cmd_info *data, int *updater);
 static void	oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd,
 				int *updater);
-static void	relative_or_absolute(char *path, t_cmd_info *data);
-static void	update_oldpwd(char *current_dir, t_var_lst *env);
-static void	go_home(t_var_lst *env_lst, t_cmd_info *data);
+static void	relative_or_absolute(char *path, t_cmd_info *data, int *updater);
+static void	exec_cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 
 int	cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
+{
+	if (!check_heredoc(cmd))
+		return (0);
+	if (data->qty == 1)
+		exec_cd(cmd, data, env_lst);
+	else if (data->qty > 1)
+	{
+		cmd->pid = fork();
+		if (!cmd->pid)
+			exec_cd(cmd, data, env_lst);
+		finish_fork_builtin(cmd);
+	}
+	return (1);
+}
+
+static void	exec_cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {
 	char	*current_dir;
 	char	*path;
 	int		updater;
 
-	if (!check_heredoc(cmd))
-		return (0);
-	updater = 1;
 	current_dir = getcwd(NULL, 0);
 	path = cmd->args[1];
+	updater = 1;
+	if (!path)
+		go_home(env_lst, data, &updater);
+	else if (*path == '-' && ft_strlen(path) == 1)
+		oldpwd(env_lst, data, cmd, &updater);
+	else
+		relative_or_absolute(path, data, &updater);
 	if (data->qty == 1)
 	{
-		if (!path)
-			go_home(env_lst, data);
-		else if (*path == '-' && ft_strlen(path) == 1)
-			oldpwd(env_lst, data, cmd, &updater);
-		else
-			relative_or_absolute(path, data);
 		if (updater)
 			update_oldpwd(current_dir, env_lst);
 	}
-	else if (data->qty != 1)
-	{
-		cmd->pid = fork();
-		if (!cmd->pid)
-		{
-			if (!path)
-				go_home(env_lst, data);
-			else if (*path == '-' && ft_strlen(path) == 1)
-				oldpwd(env_lst, data, cmd, &updater);
-			else
-				relative_or_absolute(path, data);
-		}
-	}
-	if (data->qty != 1)
-		finish_fork_builtin(cmd);
-	return (1);
 }
 
-static void	go_home(t_var_lst *env_lst, t_cmd_info *data)
+static void	go_home(t_var_lst *env_lst, t_cmd_info *data, int *updater)
 {
 	int	ret_chdir;
 
@@ -69,6 +67,7 @@ static void	go_home(t_var_lst *env_lst, t_cmd_info *data)
 		if (data->qty != 1)
 			exit(1);
 		g_exit_status = 1;
+		*updater = 0;
 	}
 	else
 	{
@@ -100,7 +99,7 @@ static void	oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd,
 	}
 }
 
-static void	relative_or_absolute(char *path, t_cmd_info *data)
+static void	relative_or_absolute(char *path, t_cmd_info *data, int *updater)
 {
 	int	ret_chdir;
 
@@ -114,6 +113,7 @@ static void	relative_or_absolute(char *path, t_cmd_info *data)
 		if (data->qty != 1)
 			exit(1);
 		g_exit_status = 1;
+		*updater = 0;
 	}
 	else
 	{
@@ -121,12 +121,4 @@ static void	relative_or_absolute(char *path, t_cmd_info *data)
 			exit(0);
 		g_exit_status = 0;
 	}
-}
-
-static void	update_oldpwd(char *current_dir, t_var_lst *env)
-{
-	if (get_env("OLDPWD", env))
-		change_content("OLDPWD", current_dir, env);
-	else
-		ft_varadd_back(&env, ft_var_new("OLDPWD", current_dir));
 }

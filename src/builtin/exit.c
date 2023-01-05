@@ -3,68 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 23:11:22 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/02 21:27:02 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/05 10:20:38 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 static int	numeric_argument(char *status);
+static void	exec_exit(t_cmd_lst *cmd, t_cmd_info *data);
 
 int	ft_exit(t_cmd_lst *cmd, t_cmd_info *data)
 {
-	int	status;
-
 	if (!check_heredoc(cmd))
 		return (0);
-	if (data->qty != 1)
+	if (data->qty > 1)
 	{
 		cmd->pid = fork();
 		if (!cmd->pid)
-		{
-			if (!cmd->args[1])
-				exit(EXIT_SUCCESS);
-			else if (cmd->args[1] && numeric_argument(cmd->args[1]))
-			{
-				status = ft_atoi(cmd->args[1]);
-				exit(status);
-			}
-			else
-			{
-				ft_putstr_fd("bash: exit: ", 2);
-				ft_putstr_fd(cmd->args[1], 2);
-				ft_putstr_fd(": numeric argument required\n", 2);
-				exit(255);
-			}
-		}
+			exec_exit(cmd, data);
+		finish_fork_builtin(cmd);
+	}
+	else
+		exec_exit(cmd, data);
+	return (1);
+}
+
+static void	exec_exit(t_cmd_lst *cmd, t_cmd_info *data)
+{
+	int	new_status;
+
+	if (!cmd->args[1])
+	{
+		if (data->qty == 1)
+			printf("exit\n");
+		exit(EXIT_SUCCESS);
+	}
+	else if (cmd->args[1] && numeric_argument(cmd->args[1]))
+	{
+		new_status = ft_atoi(cmd->args[1]);
+		if (data->qty == 1)
+			printf("exit\n");
+		exit(new_status);
 	}
 	else
 	{
-		if (!cmd->args[1])
-		{
-			printf("exit\n");
-			exit(EXIT_SUCCESS);
-		}
-		else if (cmd->args[1] && numeric_argument(cmd->args[1]))
-		{
-			status = ft_atoi(cmd->args[1]);
-			printf("exit\n");
-			exit(status);
-		}
-		else
-		{
-			ft_putstr_fd("bash: exit: ", 2);
-			ft_putstr_fd(cmd->args[1], 2);
-			ft_putstr_fd(": numeric argument required\n", 2);
-			exit(255);
-		}
+		ft_putstr_fd("exit\n", 2);
+		ft_putstr_fd("bash: exit: ", 2);
+		ft_putstr_fd(cmd->args[1], 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
+		exit(255);
 	}
-	waitpid(cmd->pid, &status, 0);
-	g_exit_status = WEXITSTATUS(status);
-	return (1);
 }
 
 static int	numeric_argument(char *status)
