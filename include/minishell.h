@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/05 18:19:54 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/05 18:57:07 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define INPUT 3
 # define HEREDOC 4
 
-typedef struct	s_prompt
+typedef struct s_prompt
 {
 	char	*logname;
 	char	*hostname;
@@ -41,14 +41,14 @@ typedef struct	s_prompt
 	char	*display;
 }				t_prompt;
 
-typedef struct	s_var_list
+typedef struct s_var_list
 {
 	char				*name;
 	void				*content;
 	struct s_var_list	*next;
 }				t_var_lst;
 
-typedef struct	s_cmd_lst
+typedef struct s_cmd_lst
 {
 	char				*filename;
 	int					input;
@@ -61,7 +61,7 @@ typedef struct	s_cmd_lst
 	struct s_cmd_lst	*next;
 }				t_cmd_lst;
 
-typedef struct	s_cmd_info
+typedef struct s_cmd_info
 {
 	int			qty;
 	int			**pipes;
