@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/06 17:31:10 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/06 18:08:49 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ char		*sub_arg(char **arg, char *index, char *name, char *content);
 void		print_invalid_identifier(char *value, char *cmd);
 void		print_syntax_error(t_cmd_lst *cmd, char *str);
 void		remove_chunk(char *str, int len);
+int			count_args(char **args);
 
 //CLEANUP
 void		remove_quotes(char *cmd);

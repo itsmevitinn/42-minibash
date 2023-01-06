@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 09:23:45 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/05 11:03:30 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/06 18:11:49 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,19 @@ void	close_all_pipes(t_cmd_info *data)
 
 int	is_builtin(char *cmd_name)
 {
-	if (!ft_strncmp(cmd_name, "echo", 4))
+	if (!ft_strncmp(cmd_name, "echo", 4 + 1))
 		return (1);
-	else if (!ft_strncmp(cmd_name, "cd", 2))
+	else if (!ft_strncmp(cmd_name, "cd", 2 + 1))
 		return (1);
-	else if (!ft_strncmp(cmd_name, "pwd", 3))
+	else if (!ft_strncmp(cmd_name, "pwd", 3 + 1))
 		return (1);
-	else if (!ft_strncmp(cmd_name, "export", 6))
+	else if (!ft_strncmp(cmd_name, "export", 6 + 1))
 		return (1);
-	else if (!ft_strncmp(cmd_name, "unset", 5))
+	else if (!ft_strncmp(cmd_name, "unset", 5 + 1))
 		return (1);
-	else if (!ft_strncmp(cmd_name, "env", 3))
+	else if (!ft_strncmp(cmd_name, "env", 3 + 1))
 		return (1);
-	else if (!ft_strncmp(cmd_name, "exit", 4))
+	else if (!ft_strncmp(cmd_name, "exit", 4 + 1))
 		return (1);
 	else
 		return (0);
@@ -61,4 +61,17 @@ void	print_invalid_identifier(char *value, char *cmd)
 	ft_putstr_fd(": `", 2);
 	ft_putstr_fd(value, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
+}
+
+int	count_args(char **args)
+{
+	int	counter;
+
+	counter = 0;
+	while (*args)
+	{
+		counter++;
+		args++;
+	}
+	return (counter);
 }

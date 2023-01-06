@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 23:11:22 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/06 17:30:02 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/06 18:08:40 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static int	numeric_argument(char *status);
 static void	exec_exit(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 static int	too_many_arguments(char **args, t_cmd_info *data);
-static int	count_args(char **args);
 
 void	ft_exit(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {
@@ -75,19 +74,6 @@ static void	exec_exit(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 		}
 		exit(255);
 	}
-}
-
-static int	count_args(char **args)
-{
-	int	counter;
-
-	counter = 0;
-	while (*args)
-	{
-		counter++;
-		args++;
-	}
-	return (counter);
 }
 
 static int	too_many_arguments(char **args, t_cmd_info *data)
