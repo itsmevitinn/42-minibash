@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/06 17:06:14 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/06 17:12:19 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_cmd_info
 {
 	int			qty;
 	int			**pipes;
+	char		*user_input;
 	t_cmd_lst	*lst_cmd;
 }				t_cmd_info;
 
