@@ -5,9 +5,8 @@
    fun:malloc
    fun:strdup
    fun:_nc_trim_sgr0
-   fun:tgetent_sp
+   fun:tgetent
    fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
    fun:rl_initialize
    fun:readline
    fun:display_prompt
@@ -31,10 +30,25 @@
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
+   fun:__setenv_locked
+   fun:setenv
+   fun:sh_set_lines_and_columns
+   fun:_rl_get_screen_size
+   fun:expand_prompt
+   fun:rl_expand_prompt
+   fun:rl_set_prompt
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
    fun:xmalloc
    fun:_rl_reset_region_color
    fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
    fun:rl_initialize
    fun:readline
    fun:display_prompt
@@ -48,8 +62,22 @@
    fun:xmalloc
    fun:_rl_reset_region_color
    fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
    fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__setenv_locked
+   fun:setenv
+   fun:_rl_get_screen_size
+   fun:expand_prompt
+   fun:rl_expand_prompt
+   fun:rl_set_prompt
    fun:readline
    fun:display_prompt
    fun:main
@@ -61,9 +89,8 @@
    fun:malloc
    fun:strdup
    fun:_nc_setupterm
-   fun:tgetent_sp
+   fun:tgetent
    fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
    fun:rl_initialize
    fun:readline
    fun:display_prompt
@@ -86,28 +113,13 @@
    <insert_a_suppression_name_here>
    Memcheck:Leak
    match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:_rl_read_init_file
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
    fun:realloc
    fun:_nc_doalloc
-   fun:UnknownInlinedFun
-   fun:_nc_tiparm
-   fun:set_attribute_9.isra.0
+   fun:tparm
+   fun:_nc_remove_string
    fun:_nc_trim_sgr0
-   fun:tgetent_sp
+   fun:tgetent
    fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
    fun:rl_initialize
    fun:readline
    fun:display_prompt
@@ -118,153 +130,6 @@
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
-   fun:strdup
-   fun:update_getenv.part.0
-   fun:UnknownInlinedFun
-   fun:UnknownInlinedFun
-   fun:UnknownInlinedFun
-   fun:_nc_first_db
-   fun:_nc_read_entry2
-   fun:_nc_setup_tinfo
-   fun:_nc_setupterm
-   fun:tgetent_sp
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:parser_if
-   fun:UnknownInlinedFun
-   fun:rl_parse_and_bind
-   fun:_rl_read_init_file
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:strdup
-   fun:update_getenv.part.0
-   fun:UnknownInlinedFun
-   fun:UnknownInlinedFun
-   fun:UnknownInlinedFun
-   fun:_nc_first_db
-   fun:_nc_read_entry2
-   fun:_nc_setup_tinfo
-   fun:_nc_setupterm
-   fun:tgetent_sp
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:tsearch
-   fun:tparm_setup.lto_priv.0
-   fun:_nc_tiparm
-   fun:set_attribute_9.isra.0
-   fun:_nc_trim_sgr0
-   fun:tgetent_sp
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:_nc_home_terminfo
-   fun:UnknownInlinedFun
-   fun:_nc_first_db
-   fun:_nc_read_entry2
-   fun:_nc_setup_tinfo
-   fun:_nc_setupterm
-   fun:tgetent_sp
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:calloc
-   fun:UnknownInlinedFun
-   fun:_nc_first_db
-   fun:_nc_read_entry2
-   fun:_nc_setup_tinfo
-   fun:_nc_setupterm
-   fun:tgetent_sp
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:realloc
-   fun:_nc_doalloc
-   fun:_nc_read_termtype
-   fun:_nc_read_file_entry.part.0
-   fun:_nc_read_tic_entry.constprop.0
-   fun:_nc_read_entry2
-   fun:_nc_setup_tinfo
-   fun:_nc_setupterm
-   fun:tgetent_sp
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:copy_termtype
-   fun:_nc_setupterm
-   fun:tgetent_sp
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
    fun:rl_initialize
    fun:readline
    fun:display_prompt
@@ -277,6 +142,23 @@
    fun:malloc
    fun:xmalloc
    fun:rl_set_prompt
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:_nc_doalloc
+   fun:_nc_read_termtype
+   fun:_nc_read_file_entry
+   fun:_nc_read_entry
+   fun:_nc_setupterm
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
    fun:readline
    fun:display_prompt
    fun:main
@@ -298,43 +180,14 @@
    <insert_a_suppression_name_here>
    Memcheck:Leak
    match-leak-kinds: reachable
-   fun:malloc
-   fun:ft_strjoin
-   fun:find_line_in
-   fun:get_next_line
-   fun:get_hostname
-   fun:get_prompt_msg
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:copy_termtype
+   fun:realloc
+   fun:_nc_doalloc
+   fun:_nc_read_termtype
+   fun:_nc_read_file_entry
+   fun:_nc_read_entry
    fun:_nc_setupterm
-   fun:tgetent_sp
+   fun:tgetent
    fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:strdup
-   fun:tparm_setup.lto_priv.0
-   fun:_nc_tiparm
-   fun:set_attribute_9.isra.0
-   fun:_nc_trim_sgr0
-   fun:tgetent_sp
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
    fun:rl_initialize
    fun:readline
    fun:display_prompt
@@ -346,31 +199,11 @@
    match-leak-kinds: reachable
    fun:malloc
    fun:_nc_tparm_analyze
-   fun:tparm_setup.lto_priv.0
-   fun:_nc_tiparm
-   fun:set_attribute_9.isra.0
+   fun:tparm
+   fun:_nc_remove_string
    fun:_nc_trim_sgr0
-   fun:tgetent_sp
+   fun:tgetent
    fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:UnknownInlinedFun
-   fun:_nc_first_db
-   fun:_nc_read_entry2
-   fun:_nc_setup_tinfo
-   fun:_nc_setupterm
-   fun:tgetent_sp
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
    fun:rl_initialize
    fun:readline
    fun:display_prompt
@@ -381,31 +214,24 @@
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:realloc
-   fun:_nc_doalloc
-   fun:_nc_read_termtype
-   fun:_nc_read_file_entry.part.0
-   fun:_nc_read_tic_entry.constprop.0
-   fun:_nc_read_entry2
-   fun:_nc_setup_tinfo
-   fun:_nc_setupterm
-   fun:tgetent_sp
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
+   fun:__setenv_locked
+   fun:setenv
+   fun:_rl_get_screen_size
+   fun:expand_prompt
+   fun:rl_expand_prompt
+   fun:rl_set_prompt
    fun:readline
+   fun:display_prompt
+   fun:main
 }
 {
    <insert_a_suppression_name_here>
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:calloc
-   fun:tparm_setup.lto_priv.0
-   fun:_nc_tiparm
-   fun:set_attribute_9.isra.0
-   fun:_nc_trim_sgr0
-   fun:tgetent_sp
+   fun:_nc_setupterm
+   fun:tgetent
    fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
    fun:rl_initialize
    fun:readline
    fun:display_prompt
@@ -417,7 +243,6 @@
    match-leak-kinds: reachable
    fun:malloc
    fun:xmalloc
-   fun:UnknownInlinedFun
    fun:rl_initialize
    fun:readline
    fun:display_prompt
@@ -429,42 +254,11 @@
    match-leak-kinds: reachable
    fun:calloc
    fun:_nc_read_termtype
-   fun:_nc_read_file_entry.part.0
-   fun:_nc_read_tic_entry.constprop.0
-   fun:_nc_read_entry2
-   fun:_nc_setup_tinfo
+   fun:_nc_read_file_entry
+   fun:_nc_read_entry
    fun:_nc_setupterm
-   fun:tgetent_sp
+   fun:tgetent
    fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:copy_termtype
-   fun:_nc_setupterm
-   fun:tgetent_sp
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:calloc
-   fun:_nc_setupterm
-   fun:tgetent_sp
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
    fun:rl_initialize
    fun:readline
    fun:display_prompt
@@ -476,31 +270,14 @@
    match-leak-kinds: reachable
    fun:malloc
    fun:_nc_read_termtype
-   fun:_nc_read_file_entry.part.0
-   fun:_nc_read_tic_entry.constprop.0
-   fun:_nc_read_entry2
-   fun:_nc_setup_tinfo
+   fun:_nc_read_file_entry
+   fun:_nc_read_entry
    fun:_nc_setupterm
-   fun:tgetent_sp
+   fun:tgetent
    fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
    fun:rl_initialize
    fun:readline
    fun:display_prompt
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xrealloc
-   fun:realloc_line
-   fun:init_line_structures
-   fun:rl_redisplay
-   fun:readline_internal_setup
-   fun:UnknownInlinedFun
-   fun:readline
-   fun:display_prompt
    fun:main
 }
 {
@@ -513,7 +290,6 @@
    fun:init_line_structures
    fun:rl_redisplay
    fun:readline_internal_setup
-   fun:UnknownInlinedFun
    fun:readline
    fun:display_prompt
    fun:main
@@ -528,7 +304,6 @@
    fun:init_line_structures
    fun:rl_redisplay
    fun:readline_internal_setup
-   fun:UnknownInlinedFun
    fun:readline
    fun:display_prompt
    fun:main
@@ -543,7 +318,20 @@
    fun:init_line_structures
    fun:rl_redisplay
    fun:readline_internal_setup
-   fun:UnknownInlinedFun
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xrealloc
+   fun:realloc_line
+   fun:init_line_structures
+   fun:rl_redisplay
+   fun:readline_internal_setup
    fun:readline
    fun:display_prompt
    fun:main
@@ -557,7 +345,6 @@
    fun:init_line_structures
    fun:rl_redisplay
    fun:readline_internal_setup
-   fun:UnknownInlinedFun
    fun:readline
    fun:display_prompt
    fun:main
@@ -571,7 +358,6 @@
    fun:init_line_structures
    fun:rl_redisplay
    fun:readline_internal_setup
-   fun:UnknownInlinedFun
    fun:readline
    fun:display_prompt
    fun:main
@@ -585,7 +371,6 @@
    fun:init_line_structures
    fun:rl_redisplay
    fun:readline_internal_setup
-   fun:UnknownInlinedFun
    fun:readline
    fun:display_prompt
    fun:main
@@ -599,7 +384,6 @@
    fun:init_line_structures
    fun:rl_redisplay
    fun:readline_internal_setup
-   fun:UnknownInlinedFun
    fun:readline
    fun:display_prompt
    fun:main
@@ -610,17 +394,15 @@
    match-leak-kinds: reachable
    fun:malloc
    fun:_nc_read_termtype
-   fun:_nc_read_file_entry.part.0
-   fun:_nc_read_tic_entry.constprop.0
-   fun:_nc_read_entry2
-   fun:_nc_setup_tinfo
+   fun:_nc_read_file_entry
+   fun:_nc_read_entry
    fun:_nc_setupterm
-   fun:tgetent_sp
+   fun:tgetent
    fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
    fun:rl_initialize
    fun:readline
    fun:display_prompt
+   fun:main
 }
 {
    <insert_a_suppression_name_here>
@@ -629,9 +411,7 @@
    fun:realloc
    fun:xrealloc
    fun:rl_add_funmap_entry
-   fun:UnknownInlinedFun
    fun:rl_initialize_funmap
-   fun:UnknownInlinedFun
    fun:rl_initialize
    fun:readline
    fun:display_prompt
@@ -644,7 +424,6 @@
    fun:malloc
    fun:xmalloc
    fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
    fun:rl_initialize
    fun:readline
    fun:display_prompt
@@ -657,9 +436,7 @@
    fun:malloc
    fun:xmalloc
    fun:rl_add_funmap_entry
-   fun:UnknownInlinedFun
    fun:rl_initialize_funmap
-   fun:UnknownInlinedFun
    fun:rl_initialize
    fun:readline
    fun:display_prompt
@@ -672,27 +449,457 @@
    fun:realloc
    fun:_nc_doalloc
    fun:_nc_read_termtype
-   fun:_nc_read_file_entry.part.0
-   fun:_nc_read_tic_entry.constprop.0
-   fun:_nc_read_entry2
-   fun:_nc_setup_tinfo
+   fun:_nc_read_file_entry
+   fun:_nc_read_entry
    fun:_nc_setupterm
-   fun:tgetent_sp
+   fun:tgetent
    fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
    fun:rl_initialize
    fun:readline
+   fun:display_prompt
+   fun:main
 }
 {
    <insert_a_suppression_name_here>
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
-   fun:copy_termtype
-   fun:_nc_setupterm
-   fun:tgetent_sp
+   fun:xmalloc
    fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__smakebuf
+   fun:__swsetup
+   fun:__sfvwrite
+   fun:fwrite
+   fun:rl_prep_terminal
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:rl_initialize
+   fun:readline
+   fun:display_prompt
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:reallocf
+   fun:_Read_RuneMagi
+   fun:__setrunelocale
+   fun:__wrap_setrunelocale
+   fun:loadlocale
+   fun:_rl_init_locale
+   fun:_rl_init_eightbit
    fun:rl_initialize
    fun:readline
    fun:display_prompt
@@ -705,6 +912,7 @@
    fun:malloc
    fun:xmalloc
    fun:add_history
+   fun:run_input
    fun:main
 }
 {
@@ -712,10 +920,10 @@
    Memcheck:Leak
    match-leak-kinds: reachable
    fun:malloc
-   fun:xmalloc
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
+   fun:xrealloc
+   fun:expand_prompt
+   fun:rl_expand_prompt
+   fun:rl_set_prompt
    fun:readline
    fun:display_prompt
    fun:main
@@ -726,476 +934,8 @@
    match-leak-kinds: reachable
    fun:malloc
    fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_termcap_arrow_keys
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_termcap_arrow_keys
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_termcap_arrow_keys
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_termcap_arrow_keys
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_termcap_arrow_keys
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_termcap_arrow_keys
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_termcap_arrow_keys
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_termcap_arrow_keys
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_termcap_arrow_keys
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_termcap_arrow_keys
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_arrow_keys_internal
-   fun:UnknownInlinedFun
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_arrow_keys_internal
-   fun:UnknownInlinedFun
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_arrow_keys_internal
-   fun:UnknownInlinedFun
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:calloc
-   fun:_nc_build_names.lto_priv.0
-   fun:_nc_find_type_entry
-   fun:UnknownInlinedFun
-   fun:tgetstr_sp
-   fun:UnknownInlinedFun
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_termcap_arrow_keys
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_termcap_arrow_keys
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_termcap_arrow_keys
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_termcap_arrow_keys
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_termcap_arrow_keys
-   fun:_rl_init_terminal_io
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_arrow_keys_internal
-   fun:UnknownInlinedFun
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_arrow_keys_internal
-   fun:UnknownInlinedFun
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_arrow_keys_internal
-   fun:UnknownInlinedFun
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:UnknownInlinedFun
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:UnknownInlinedFun
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_arrow_keys_internal
-   fun:UnknownInlinedFun
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:UnknownInlinedFun
-   fun:rl_bind_keyseq_if_unbound_in_map
-   fun:bind_arrow_keys_internal
-   fun:UnknownInlinedFun
-   fun:UnknownInlinedFun
-   fun:rl_initialize
-   fun:readline
-   fun:display_prompt
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   fun:malloc
-   fun:xmalloc
-   fun:rl_make_bare_keymap
-   fun:rl_generic_bind
-   fun:rl_parse_and_bind
-   fun:_rl_read_init_file
-   fun:UnknownInlinedFun
+   fun:_rl_init_locale
+   fun:_rl_init_eightbit
    fun:rl_initialize
    fun:readline
    fun:display_prompt
