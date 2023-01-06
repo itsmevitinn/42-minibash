@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/06 16:41:20 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/06 18:19:50 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	exec_cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 	current_dir = getcwd(NULL, 0);
 	path = cmd->args[1];
 	updater = 1;
-	if (!path)
+	if (!path || (*path == '~' && ft_strlen(path) == 1))
 		go_home(env_lst, data, &updater);
 	else if (*path == '-' && ft_strlen(path) == 1)
 		oldpwd(env_lst, data, cmd, &updater);
