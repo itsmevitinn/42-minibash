@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 14:02:11 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/05 18:03:33 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:51:08 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ t_cmd_lst	*ft_cmd_new(char *line)
 	lst = malloc(sizeof(t_cmd_lst));
 	if (!lst)
 		return (NULL);
-	lst->filename = NULL;
+	lst->in_file = NULL;
+	lst->out_file = NULL;
 	lst->input = 0;
 	lst->output = 1;
 	lst->line = line;
@@ -51,7 +52,8 @@ void	ft_cmdclear(t_cmd_lst **head)
 	ptr = *head;
 	while (ptr)
 	{
-		free(ptr->filename);
+		free(ptr->in_file);
+		free(ptr->out_file);
 		if (ptr->input > 2)
 			close(ptr->input);
 		if (ptr->output > 2)

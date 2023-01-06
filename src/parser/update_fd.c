@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:50:29 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/05 18:19:03 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:46:14 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,18 @@ static void	close_old_fd(t_cmd_lst *cmd, int type)
 static int	get_new_fd(t_cmd_lst *cmd, int type)
 {
 	if (type == INPUT)
-		cmd->input = open(cmd->filename, O_RDONLY, 0666);
+		cmd->input = open(cmd->in_file, O_RDONLY, 0666);
 	else if (type == HEREDOC)
 	{
 		if (cmd->delimiter)
 			free(cmd->delimiter);
-		cmd->delimiter = ft_strdup(cmd->filename);
+		cmd->delimiter = ft_strdup(cmd->in_file);
 		if (!check_heredoc(cmd))
 			return (0);
 	}
 	else if (type == TRUNCATE)
-		cmd->output = open(cmd->filename, O_CREAT | O_RDWR | O_TRUNC, 0666);
+		cmd->output = open(cmd->out_file, O_CREAT | O_RDWR | O_TRUNC, 0666);
 	else if (type == APPEND)
-		cmd->output = open(cmd->filename, O_CREAT | O_RDWR | O_APPEND, 0666);
+		cmd->output = open(cmd->out_file, O_CREAT | O_RDWR | O_APPEND, 0666);
 	return (1);
 }

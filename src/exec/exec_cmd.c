@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 11:59:16 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/05 16:48:11 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:44:26 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	error_found(t_cmd_lst *cmd)
 	if (cmd->input == -1)
 	{
 		ft_putstr_fd("bash: ", 2);
-		ft_putstr_fd(cmd->filename, 2);
+		ft_putstr_fd(cmd->in_file, 2);
 		ft_putstr_fd(": ", 2);
 		perror(NULL);
 		g_exit_status = 1;

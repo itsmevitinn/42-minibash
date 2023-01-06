@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/05 18:57:07 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 12:20:28 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ typedef struct s_var_list
 
 typedef struct s_cmd_lst
 {
-	char				*filename;
+	char				*in_file;
+	char				*out_file;
 	int					input;
 	int					output;
 	char				*delimiter;
@@ -123,14 +124,15 @@ void		interpret_vars(char **cmd, t_var_lst *env_lst);
 void		cleanup(char **args);
 
 //UTILS
-void		remove_chunk(char *str, int len);
 int			update_fd(t_cmd_lst *cmd, int type);
+int			whitespace_checker(char *input);
+int			is_builtin(char *cmd_name);
+int			has_syntax_error(int type, char *line, t_cmd_lst *cmd);
 char		*skip_quote(char *cmd);
 char		*sub_arg(char **arg, char *index, char *name, char *content);
-int			is_builtin(char *cmd_name);
 void		print_invalid_identifier(char *value, char *cmd);
-int			whitespace_checker(char *input);
 void		print_syntax_error(t_cmd_lst *cmd, char *str);
+void		remove_chunk(char *str, int len);
 
 //CLEANUP
 void		remove_quotes(char *cmd);
