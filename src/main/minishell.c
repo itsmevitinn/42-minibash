@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/06 17:08:10 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/06 17:14:27 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,24 @@ int	main(void)
 {
 	t_cmd_info	data;
 	t_var_lst	*env_lst;
-	char		*user_input;
 
 	initialize_env(&env_lst);
 	setup_signals();
 	while (42)
 	{
 		printf("last exit status: %i\n", g_exit_status);
-		user_input = display_prompt();
-		if (!user_input)
+		data.user_input = display_prompt();
+		if (!data.user_input)
 		{
 			ft_putstr_fd("exit\n", 2);
 			rl_clear_history();
 			ft_varclear(&env_lst);
 			return (0);
 		}
-		else if (!whitespace_checker(user_input))
+		else if (!whitespace_checker(data.user_input))
 		{
-			add_history(user_input);
-			data.lst_cmd = parse_input(user_input, env_lst);
+			add_history(data.user_input);
+			data.lst_cmd = parse_input(data.user_input, env_lst);
 			if (data.lst_cmd)
 			{
 				run_commands(&data, env_lst);
@@ -49,8 +48,8 @@ int	main(void)
 				free_pipes(&data);
 			}
 		}
-		if (user_input)
-			free(user_input);
+		if (data.user_input)
+			free(data.user_input);
 	}
 }
 
@@ -74,12 +73,12 @@ static void	wait_commands(t_cmd_lst *lst_cmd, int cmd_qty)
 static int	single_builtin(char *cmd_name, int cmd_qty)
 {
 	if (!ft_strncmp(cmd_name, "cd", 2) && cmd_qty == 1)
-		return (0);
+		return (1);
 	else if (!ft_strncmp(cmd_name, "export", 6) && cmd_qty == 1)
-		return (0);
+		return (1);
 	else if (!ft_strncmp(cmd_name, "unset", 5) && cmd_qty == 1)
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 static void	run_commands(t_cmd_info *data, t_var_lst *env_lst)
