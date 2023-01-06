@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/06 17:12:19 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/06 17:41:10 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int			execute_heredoc(t_cmd_lst *cmd);
 void		finish_fork_builtin(t_cmd_lst *cmd);
 
 //PARSER FUNCTIONS
-t_cmd_lst	*parse_input(char *user_input, t_var_lst *env_lst);
+int			parse_input(t_cmd_info *data, t_var_lst *env_lst);
 int			check_syntax(char *cmd_line);
 int			interpret_redirects(t_cmd_lst *lst_cmd, char *line);
 void		interpret_vars(char **cmd, t_var_lst *env_lst);
