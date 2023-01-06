@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:10:07 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/05 16:36:37 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 16:43:03 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,16 @@ static t_var_lst	*get_previous(char *name, t_var_lst *lst);
 static void			exec_unset(t_cmd_lst *cmd, t_cmd_info *data,
 						t_var_lst **env_lst);
 
-int	unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)
+void	unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)
 {
 	if (data->qty != 1)
 	{
 		cmd->pid = fork();
 		if (!cmd->pid)
 			exec_unset(cmd, data, env_lst);
-		finish_fork_builtin(cmd);
 	}
 	else
 		exec_unset(cmd, data, env_lst);
-	return (1);
 }
 
 static void	exec_unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst)

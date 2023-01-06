@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 22:49:00 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/05 16:36:31 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 16:42:52 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	pwd(t_cmd_lst *cmd)
+void	pwd(t_cmd_lst *cmd)
 {
 	char	*pwd;
-	int		status;
 
 	cmd->pid = fork();
 	if (!cmd->pid)
@@ -26,7 +25,4 @@ int	pwd(t_cmd_lst *cmd)
 		free(pwd);
 		exit(0);
 	}
-	waitpid(cmd->pid, &status, 0);
-	g_exit_status = WEXITSTATUS(status);
-	return (1);
 }

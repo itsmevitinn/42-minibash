@@ -6,13 +6,15 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/06 11:16:10 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/06 17:08:10 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	run_input(char *user_input, t_cmd_info *data, t_var_lst *env_lst);
+static void	run_commands(t_cmd_info *data, t_var_lst *env_lst);
+static void	wait_commands(t_cmd_lst *lst_cmd, int cmd_qty);
+static int	single_builtin(char *cmd_name, int cmd_qty);
 
 int			g_exit_status;
 
@@ -26,6 +28,7 @@ int	main(void)
 	setup_signals();
 	while (42)
 	{
+		printf("last exit status: %i\n", g_exit_status);
 		user_input = display_prompt();
 		if (!user_input)
 		{
@@ -35,18 +38,53 @@ int	main(void)
 			return (0);
 		}
 		else if (!whitespace_checker(user_input))
-			run_input(user_input, &data, env_lst);
+		{
+			add_history(user_input);
+			data.lst_cmd = parse_input(user_input, env_lst);
+			if (data.lst_cmd)
+			{
+				run_commands(&data, env_lst);
+				wait_commands(data.lst_cmd, data.qty);
+				ft_cmdclear(&data.lst_cmd);
+				free_pipes(&data);
+			}
+		}
 		if (user_input)
 			free(user_input);
 	}
 }
 
-static void	run_input(char *user_input, t_cmd_info *data, t_var_lst *env_lst)
+static void	wait_commands(t_cmd_lst *lst_cmd, int cmd_qty)
 {
-	add_history(user_input);
-	data->lst_cmd = parse_input(user_input, env_lst);
+	int	status;
+
+	while (lst_cmd)
+	{
+		if (single_builtin(lst_cmd->args[0], cmd_qty))
+			return ;
+		waitpid(lst_cmd->pid, &status, 0);
+		lst_cmd = lst_cmd->next;
+	}
+	if (!WIFEXITED(status))
+		g_exit_status = 1;
+	else
+		g_exit_status = WEXITSTATUS(status);
+}
+
+static int	single_builtin(char *cmd_name, int cmd_qty)
+{
+	if (!ft_strncmp(cmd_name, "cd", 2) && cmd_qty == 1)
+		return (0);
+	else if (!ft_strncmp(cmd_name, "export", 6) && cmd_qty == 1)
+		return (0);
+	else if (!ft_strncmp(cmd_name, "unset", 5) && cmd_qty == 1)
+		return (0);
+	return (1);
+}
+
+static void	run_commands(t_cmd_info *data, t_var_lst *env_lst)
+{
 	fill_data(data);
 	exec_cmds(data, &env_lst);
-	ft_cmdclear(&data->lst_cmd);
-	free_pipes(data);
+	close_all_pipes(data);
 }

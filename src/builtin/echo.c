@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 22:49:26 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/05 16:36:04 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 16:42:16 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 static int	has_option(char *arg);
 static void	exec_echo(t_cmd_lst *cmd);
 
-int	echo(t_cmd_lst *cmd)
+void	echo(t_cmd_lst *cmd)
 {
 	cmd->pid = fork();
 	if (!cmd->pid)
 		exec_echo(cmd);
-	finish_fork_builtin(cmd);
-	return (1);
 }
 
 static void	exec_echo(t_cmd_lst *cmd)

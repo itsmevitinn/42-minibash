@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 23:11:22 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/06 11:28:44 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/06 16:42:33 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,16 @@ static void	exec_exit(t_cmd_lst *cmd, t_cmd_info *data);
 static int	too_many_arguments(char **args, t_cmd_info *data);
 static int	count_args(char **args);
 
-int	ft_exit(t_cmd_lst *cmd, t_cmd_info *data)
+void	ft_exit(t_cmd_lst *cmd, t_cmd_info *data)
 {
 	if (data->qty > 1)
 	{
 		cmd->pid = fork();
 		if (!cmd->pid)
 			exec_exit(cmd, data);
-		finish_fork_builtin(cmd);
 	}
 	else
 		exec_exit(cmd, data);
-	return (1);
 }
 
 static void	exec_exit(t_cmd_lst *cmd, t_cmd_info *data)

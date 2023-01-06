@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 14:08:25 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/05 16:36:26 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 16:42:45 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,16 @@ static void	export_var(t_var_lst *env_lst, char *cmd);
 static int	name_is_invalid(char *cmd);
 static void	exec_export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 
-int	export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
+void	export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {
 	if (data->qty != 1)
 	{
 		cmd->pid = fork();
 		if (!cmd->pid)
 			exec_export(cmd, data, env_lst);
-		finish_fork_builtin(cmd);
 	}
 	else
 		exec_export(cmd, data, env_lst);
-	return (1);
 }
 
 static void	exec_export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)

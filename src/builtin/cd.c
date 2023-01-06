@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/05 16:35:49 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 16:41:20 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd,
 static void	relative_or_absolute(char *path, t_cmd_info *data, int *updater);
 static void	exec_cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 
-int	cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
+void	cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {
 	if (data->qty == 1)
 		exec_cd(cmd, data, env_lst);
@@ -27,9 +27,7 @@ int	cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 		cmd->pid = fork();
 		if (!cmd->pid)
 			exec_cd(cmd, data, env_lst);
-		finish_fork_builtin(cmd);
 	}
-	return (1);
 }
 
 static void	exec_cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)

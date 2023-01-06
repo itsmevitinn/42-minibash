@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_bin.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/05 16:47:52 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 17:05:57 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	setup_fds(t_cmd_lst *cmd, t_cmd_info *data);
 static void	try_absolute_path(t_cmd_lst *cmd, t_var_lst *env_lst);
 static void	find_bin_path(t_cmd_lst *cmd, t_var_lst *env_lst);
 
-int	exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
+void	exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {
 	cmd->pid = fork();
 	if (!cmd->pid)
@@ -27,9 +27,6 @@ int	exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 		find_bin_path(cmd, env_lst);
 		command_not_found(cmd);
 	}
-	if (!finish_bin_cmd(cmd))
-		return (0);
-	return (1);
 }
 
 static void	setup_fds(t_cmd_lst *cmd, t_cmd_info *data)
