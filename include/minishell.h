@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/06 12:20:28 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 17:06:14 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,19 +141,19 @@ char		*clean_quote(char *cmd);
 
 //EXEC FUNCTIONS
 void		exec_cmds(t_cmd_info *data, t_var_lst **env_lst);
-int			exec_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data,
+void		exec_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data,
 				t_var_lst **env_lst);
-int			exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
+void		exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 void		get_heredoc_input(t_cmd_lst *cmd, int *here_pipe);
 
 //BULT-IN FUNCTIONS
-int			cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
-int			echo(t_cmd_lst *cmd);
-int			pwd(t_cmd_lst *cmd);
-int			env(t_cmd_lst *cmd, t_var_lst *env_lst);
-int			export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
-int			unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst);
-int			ft_exit(t_cmd_lst *cmd, t_cmd_info *data);
+void		cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
+void		echo(t_cmd_lst *cmd);
+void		pwd(t_cmd_lst *cmd);
+void		env(t_cmd_lst *cmd, t_var_lst *env_lst);
+void		export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
+void		unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst);
+void		ft_exit(t_cmd_lst *cmd, t_cmd_info *data);
 
 //SIGNAL_FUNCTIONS
 void		setup_signals(void);

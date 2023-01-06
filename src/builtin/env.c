@@ -3,19 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:00:18 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/05 16:36:10 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 16:42:25 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	env(t_cmd_lst *cmd, t_var_lst *env_lst)
+void	env(t_cmd_lst *cmd, t_var_lst *env_lst)
 {
-	int	status;
-
 	cmd->pid = fork();
 	if (!cmd->pid)
 	{
@@ -32,7 +30,4 @@ int	env(t_cmd_lst *cmd, t_var_lst *env_lst)
 		}
 		exit(0);
 	}
-	waitpid(cmd->pid, &status, 0);
-	g_exit_status = WEXITSTATUS(status);
-	return (1);
 }
