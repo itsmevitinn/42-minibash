@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:09:07 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/25 13:57:26 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 17:59:26 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,21 @@ static int	name_len(char *str);
 static void	fill_array(char **array, char *str);
 extern char	**environ;
 
-void	initialize_env(t_var_lst **env_lst)
+void	initialize_env(t_cmd_info *data)
 {
 	int		i;
 	char	**temp;
 
 	i = 0;
-	*env_lst = NULL;
+	data->env_lst = NULL;
 	while (environ[i])
 	{
-		temp = split_env(environ[i]);
-		ft_varadd_back(env_lst, ft_var_new(*temp, *(temp + 1)));
-		free(temp);
+		if (strncmp(environ[i], "OLDPWD", 6))
+		{
+			temp = split_env(environ[i]);
+			ft_varadd_back(&data->env_lst, ft_var_new(*temp, *(temp + 1)));
+			free(temp);
+		}
 		i++;
 	}
 }

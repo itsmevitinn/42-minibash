@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/06 17:44:20 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 18:01:44 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_cmd_info
 	int			**pipes;
 	char		*user_input;
 	t_cmd_lst	*lst_cmd;
+	t_var_lst	*env_lst;
 }				t_cmd_info;
 
 //MEM_UTILS FUNCTIONS
@@ -106,7 +107,7 @@ int			execute_heredoc(t_cmd_lst *cmd);
 void		finish_fork_builtin(t_cmd_lst *cmd);
 
 //PARSER FUNCTIONS
-int			parse_input(t_cmd_info *data, t_var_lst *env_lst);
+int			parse_input(t_cmd_info *data);
 int			check_syntax(char *cmd_line);
 int			interpret_redirects(t_cmd_lst *lst_cmd, char *line);
 void		interpret_vars(char **cmd, t_var_lst *env_lst);
@@ -149,7 +150,7 @@ void		setup_signals(void);
 void		restore_sigint(void);
 
 //VARIABlES FUNCTIONS
-void		initialize_env(t_var_lst **lst);
+void		initialize_env(t_cmd_info *data);
 char		**split_env(char *str);
 
 //ENVIRONMENT FUNCTIONS

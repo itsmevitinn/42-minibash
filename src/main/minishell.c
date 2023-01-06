@@ -6,13 +6,13 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/06 17:42:34 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 18:03:20 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	run_commands(t_cmd_info *data, t_var_lst *env_lst);
+static void	run_commands(t_cmd_info *data);
 static void	get_exit_status(t_cmd_lst *lst_cmd, int cmd_qty);
 static void	free_resources(t_cmd_info *data);
 static int	single_builtin(char *cmd_name, int cmd_qty);
@@ -22,9 +22,8 @@ int			g_exit_status;
 int	main(void)
 {
 	t_cmd_info	data;
-	t_var_lst	*env_lst;
 
-	initialize_env(&env_lst);
+	initialize_env(&data);
 	setup_signals();
 	while (42)
 	{
@@ -33,15 +32,15 @@ int	main(void)
 		{
 			ft_putstr_fd("exit\n", 2);
 			rl_clear_history();
-			ft_varclear(&env_lst);
+			ft_varclear(&data.env_lst);
 			return (0);
 		}
 		else if (!whitespace_checker(data.user_input))
 		{
 			add_history(data.user_input);
-			if (parse_input(&data, env_lst))
+			if (parse_input(&data))
 			{
-				run_commands(&data, env_lst);
+				run_commands(&data);
 				get_exit_status(data.lst_cmd, data.qty);
 				free_resources(&data);
 			}
@@ -78,10 +77,10 @@ static int	single_builtin(char *cmd_name, int cmd_qty)
 	return (0);
 }
 
-static void	run_commands(t_cmd_info *data, t_var_lst *env_lst)
+static void	run_commands(t_cmd_info *data)
 {
 	fill_data(data);
-	exec_cmds(data, &env_lst);
+	exec_cmds(data, &data->env_lst);
 	close_all_pipes(data);
 }
 
