@@ -6,14 +6,15 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:21 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/06 17:14:27 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/06 17:42:34 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 static void	run_commands(t_cmd_info *data, t_var_lst *env_lst);
-static void	wait_commands(t_cmd_lst *lst_cmd, int cmd_qty);
+static void	get_exit_status(t_cmd_lst *lst_cmd, int cmd_qty);
+static void	free_resources(t_cmd_info *data);
 static int	single_builtin(char *cmd_name, int cmd_qty);
 
 int			g_exit_status;
@@ -27,7 +28,6 @@ int	main(void)
 	setup_signals();
 	while (42)
 	{
-		printf("last exit status: %i\n", g_exit_status);
 		data.user_input = display_prompt();
 		if (!data.user_input)
 		{
@@ -39,21 +39,18 @@ int	main(void)
 		else if (!whitespace_checker(data.user_input))
 		{
 			add_history(data.user_input);
-			data.lst_cmd = parse_input(data.user_input, env_lst);
-			if (data.lst_cmd)
+			if (parse_input(&data, env_lst))
 			{
 				run_commands(&data, env_lst);
-				wait_commands(data.lst_cmd, data.qty);
-				ft_cmdclear(&data.lst_cmd);
-				free_pipes(&data);
+				get_exit_status(data.lst_cmd, data.qty);
+				free_resources(&data);
 			}
 		}
-		if (data.user_input)
 			free(data.user_input);
 	}
 }
 
-static void	wait_commands(t_cmd_lst *lst_cmd, int cmd_qty)
+static void	get_exit_status(t_cmd_lst *lst_cmd, int cmd_qty)
 {
 	int	status;
 
@@ -86,4 +83,10 @@ static void	run_commands(t_cmd_info *data, t_var_lst *env_lst)
 	fill_data(data);
 	exec_cmds(data, &env_lst);
 	close_all_pipes(data);
+}
+
+static void	free_resources(t_cmd_info *data)
+{
+	ft_cmdclear(&data->lst_cmd);
+	free_pipes(data);
 }
