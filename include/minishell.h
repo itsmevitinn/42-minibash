@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/06 17:21:06 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/06 17:31:10 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void		pwd(t_cmd_lst *cmd);
 void		env(t_cmd_lst *cmd, t_var_lst *env_lst);
 void		export(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 void		unset(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst **env_lst);
-void		ft_exit(t_cmd_lst *cmd, t_cmd_info *data);
+void		ft_exit(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 
 //SIGNAL_FUNCTIONS
 void		setup_signals(void);
