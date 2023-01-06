@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 23:11:22 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/06 11:25:10 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/06 11:28:44 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ static int	too_many_arguments(char **args, t_cmd_info *data)
 	args_size = count_args(args);
 	if (args_size >= 3)
 	{
-		ft_putstr_fd("exit\n", 2);
+		if (data->qty == 1)
+			ft_putstr_fd("exit\n", 2);
 		ft_putstr_fd("bash: exit: too many arguments\n", 2);
 		if (data->qty > 1)
 			exit(1);
