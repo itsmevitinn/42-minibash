@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:10:05 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/06 17:38:26 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 18:04:22 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ static void	build_lst_cmd(t_cmd_lst **lst_cmd, char *line);
 static void	initialize_ids(t_cmd_lst *lst_cmd);
 static int	parse_cmds(t_cmd_lst *lst_cmd, t_var_lst *env_lst);
 
-int	parse_input(t_cmd_info *data, t_var_lst *env_lst)
+int	parse_input(t_cmd_info *data)
 {
 	data->lst_cmd = NULL;
 	build_lst_cmd(&data->lst_cmd, data->user_input);
-	if (!parse_cmds(data->lst_cmd, env_lst))
+	if (!parse_cmds(data->lst_cmd, data->env_lst))
 	{
 		ft_cmdclear(&data->lst_cmd);
 		data->lst_cmd = NULL;

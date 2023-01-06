@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/06 18:14:22 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/06 18:23:25 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_cmd_info
 	int			**pipes;
 	char		*user_input;
 	t_cmd_lst	*lst_cmd;
+	t_var_lst	*env_lst;
 }				t_cmd_info;
 
 //MEM_UTILS FUNCTIONS
@@ -77,6 +78,10 @@ void		free_pipes(t_cmd_info *data);
 //UTILS FUNCTIONS
 void		print_matrix(char **cmd_args);
 void		close_all_pipes(t_cmd_info *data);
+void		run_commands(t_cmd_info *data);
+void		get_exit_status(t_cmd_lst *lst_cmd, int cmd_qty);
+void		free_resources(t_cmd_info *data);
+void		handle_eof(t_var_lst **var_lst);
 
 //PROMPT FUNCTIONS
 char		*display_prompt(void);
@@ -106,7 +111,7 @@ int			execute_heredoc(t_cmd_lst *cmd);
 void		finish_fork_builtin(t_cmd_lst *cmd);
 
 //PARSER FUNCTIONS
-int			parse_input(t_cmd_info *data, t_var_lst *env_lst);
+int			parse_input(t_cmd_info *data);
 int			check_syntax(char *cmd_line);
 int			interpret_redirects(t_cmd_lst *lst_cmd, char *line);
 void		interpret_vars(char **cmd, t_var_lst *env_lst);
@@ -150,7 +155,7 @@ void		setup_signals(void);
 void		restore_sigint(void);
 
 //VARIABlES FUNCTIONS
-void		initialize_env(t_var_lst **lst);
+void		initialize_env(t_cmd_info *data);
 char		**split_env(char *str);
 
 //ENVIRONMENT FUNCTIONS
