@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/06 17:12:19 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/06 17:21:06 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,18 +92,6 @@ void		precedence_analyzer(t_cmd_info *data);
 void		handle_cmd_pipes(t_cmd_lst *cmd, t_cmd_info *data);
 void		handle_builtin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty);
 void		handle_bin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty);
-
-//EXEC_BUILTIN UTILS
-int			try_echo_execution(t_cmd_lst *cmd);
-int			try_cd_execution(t_cmd_lst *cmd, t_cmd_info *data,
-				t_var_lst **env_lst);
-int			try_pwd_execution(t_cmd_lst *cmd);
-int			try_export_execution(t_cmd_lst *cmd, t_cmd_info *data,
-				t_var_lst **env_lst);
-int			try_unset_execution(t_cmd_lst *cmd, t_cmd_info *data,
-				t_var_lst **env_lst);
-int			try_env_execution(t_cmd_lst *cmd, t_var_lst **env_lst);
-int			try_exit_execution(t_cmd_lst *cmd, t_cmd_info *data);
 
 //CD_UTILS FUNCTIONS
 void		update_oldpwd(char *current_dir, t_var_lst *env);
