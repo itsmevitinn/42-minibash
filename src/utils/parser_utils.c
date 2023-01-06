@@ -6,7 +6,7 @@
 /*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 13:50:01 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/05 18:08:41 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 12:22:33 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ void	remove_chunk(char *str, int len)
 
 int	whitespace_checker(char *input)
 {
+	if (!input)
+	{
+		printf("received null pointer\n");
+		return (1);
+	}
 	while (*input)
 		if (!ft_isspace(*input++))
 			return (0);
@@ -62,4 +67,20 @@ void	print_syntax_error(t_cmd_lst *cmd, char *str)
 	else
 		ft_putstr_fd("newline", 2);
 	ft_putstr_fd("\'\n", 2);
+}
+
+int	has_syntax_error(int type, char *line, t_cmd_lst *cmd)
+{
+	if ((type == HEREDOC || type == INPUT) && whitespace_checker(cmd->in_file))
+	{
+		print_syntax_error(cmd, line);
+		return (1);
+	}
+	else if ((type == APPEND || type == TRUNCATE)
+		&& whitespace_checker(cmd->out_file))
+	{
+		print_syntax_error(cmd, line);
+		return (1);
+	}
+	return (0);
 }
