@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/06 18:01:44 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 18:19:36 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,10 @@ void		free_pipes(t_cmd_info *data);
 //UTILS FUNCTIONS
 void		print_matrix(char **cmd_args);
 void		close_all_pipes(t_cmd_info *data);
+void		run_commands(t_cmd_info *data);
+void		get_exit_status(t_cmd_lst *lst_cmd, int cmd_qty);
+void		free_resources(t_cmd_info *data);
+void		handle_eof(t_var_lst **var_lst);
 
 //PROMPT FUNCTIONS
 char		*display_prompt(void);
