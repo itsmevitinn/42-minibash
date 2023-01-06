@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cmd_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 19:46:28 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/05 16:43:21 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 09:40:07 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int	execute_heredoc(t_cmd_lst *cmd)
 	int	here_pipe[2];
 
 	pipe(here_pipe);
-	if (cmd->input > 2)
-		close(cmd->input);
 	cmd->input = here_pipe[0];
 	heredoc_pid = fork();
 	if (!heredoc_pid)
