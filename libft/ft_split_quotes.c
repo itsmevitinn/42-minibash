@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 11:35:39 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/05 18:49:14 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/06 10:15:52 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,13 @@ static int	sub_len(char *str, char c)
 		if (str[i] == 39)
 		{
 			i++;
-			while (str[i] != 39)
+			while (str[i] != 39 && str[i])
 				i++;
 		}
 		if (str[i] == '"')
 		{
 			i++;
-			while (str[i] != '"')
+			while (str[i] != '"' && str[i])
 				i++;
 		}
 		i++;
