@@ -6,11 +6,21 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 19:46:28 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/06 16:40:44 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/06 18:45:47 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	free_all(t_cmd_info *data, t_var_lst **env_lst, int should_print)
+{
+	if (should_print)
+		ft_putstr_fd("exit\n", 2);
+	free(data->user_input);
+	rl_clear_history();
+	ft_varclear(env_lst);
+	ft_cmdclear(&data->lst_cmd);
+}
 
 int	check_heredoc(t_cmd_lst *cmd)
 {

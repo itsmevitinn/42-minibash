@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/06 18:23:25 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/06 18:47:04 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void		run_commands(t_cmd_info *data);
 void		get_exit_status(t_cmd_lst *lst_cmd, int cmd_qty);
 void		free_resources(t_cmd_info *data);
 void		handle_eof(t_var_lst **var_lst);
+void		free_all(t_cmd_info *data, t_var_lst **env_lst, int should_print);
 
 //PROMPT FUNCTIONS
 char		*display_prompt(void);

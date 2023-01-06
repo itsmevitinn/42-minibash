@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 23:11:22 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/06 18:08:40 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/06 18:47:56 by gcorreia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	numeric_argument(char *status);
 static void	exec_exit(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 static int	too_many_arguments(char **args, t_cmd_info *data);
+static void	print_error(char *str);
 
 void	ft_exit(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 {
@@ -37,41 +38,21 @@ static void	exec_exit(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 	if (!cmd->args[1])
 	{
 		if (data->qty == 1)
-		{
-			ft_putstr_fd("exit\n", 2);
-			free(data->user_input);
-			rl_clear_history();
-			ft_varclear(&env_lst);
-			ft_cmdclear(&data->lst_cmd);
-		}
+			free_all(data, &env_lst, 1);
 		exit(EXIT_SUCCESS);
 	}
 	else if (cmd->args[1] && numeric_argument(cmd->args[1]))
 	{
 		new_status = ft_atoi(cmd->args[1]);
 		if (data->qty == 1)
-		{
-			ft_putstr_fd("exit\n", 2);
-			free(data->user_input);
-			rl_clear_history();
-			ft_varclear(&env_lst);
-			ft_cmdclear(&data->lst_cmd);
-		}
+			free_all(data, &data->env_lst, 1);
 		exit(new_status);
 	}
 	else
 	{
-		ft_putstr_fd("exit\n", 2);
-		ft_putstr_fd("bash: exit: ", 2);
-		ft_putstr_fd(cmd->args[1], 2);
-		ft_putstr_fd(": numeric argument required\n", 2);
+		print_error(cmd->args[1]);
 		if (data->qty == 1)
-		{
-			free(data->user_input);
-			rl_clear_history();
-			ft_varclear(&env_lst);
-			ft_cmdclear(&data->lst_cmd);
-		}
+			free_all(data, &data->env_lst, 0);
 		exit(255);
 	}
 }
@@ -104,4 +85,12 @@ static int	numeric_argument(char *status)
 			return (0);
 	}
 	return (1);
+}
+
+static void	print_error(char *str)
+{
+	ft_putstr_fd("exit\n", 2);
+	ft_putstr_fd("bash: exit: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": numeric argument required\n", 2);
 }
