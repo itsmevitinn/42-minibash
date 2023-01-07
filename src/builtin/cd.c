@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/07 20:17:01 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/07 20:21:49 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ static void	exec_cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 void	cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env)
 {
 	if (data->qty == 1)
+	{
 		exec_cd(cmd, data, env);
+		change_content("PWD", getcwd(NULL, 0), env);
+	}
 	else if (data->qty > 1)
 	{
 		cmd->pid = fork();
@@ -44,8 +47,6 @@ static void	exec_cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env)
 		oldpwd(env, data, cmd, old_dir);
 	else
 		relative_or_absolute(path, data, old_dir, env);
-	if (data->qty == 1)
-		change_content("PWD", getcwd(NULL, 0), env);
 }
 
 static void	go_home(t_var_lst *env, t_cmd_info *data, char *old_dir)
