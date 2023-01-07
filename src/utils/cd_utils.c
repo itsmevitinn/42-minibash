@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 09:51:57 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/07 19:56:15 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/07 20:11:54 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	update_oldpwd(char *old_dir, t_var_lst *env)
 		ft_varadd_back(&env, ft_var_new(oldpwd_name, old_dir));
 }
 
-int	exec_new_path(char *path, int cmd_qty, t_var_lst *env_lst, int *updater)
+int	exec_new_path(char *path, int cmd_qty, t_var_lst *env_lst)
 {
 	char	*new_path;
 
@@ -31,14 +31,14 @@ int	exec_new_path(char *path, int cmd_qty, t_var_lst *env_lst, int *updater)
 	new_path = ft_strjoin(new_path, path + 2, 'f');
 	if (chdir(new_path) == -1)
 	{
-		no_such_file_or_directory(new_path, cmd_qty, updater);
+		no_such_file_or_directory(new_path, cmd_qty);
 		return (0);
 	}
 	free(new_path);
 	return (1);
 }
 
-void	no_such_file_or_directory(char *path, int cmd_qty, int *updater)
+void	no_such_file_or_directory(char *path, int cmd_qty)
 {
 	ft_putstr_fd("bash: cd: ", 2);
 	ft_putstr_fd(path, 2);
@@ -46,5 +46,4 @@ void	no_such_file_or_directory(char *path, int cmd_qty, int *updater)
 	if (cmd_qty != 1)
 		exit(1);
 	g_exit_status = 1;
-	*updater = 0;
 }

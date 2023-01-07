@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/07 19:44:41 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/07 20:12:02 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,8 @@ void		handle_bin_cmd(t_cmd_lst *cmd, int **pipes, int cmd_qty);
 
 //CD_UTILS FUNCTIONS
 void		update_oldpwd(char *current_dir, t_var_lst *env);
-void		no_such_file_or_directory(char *path, int cmd_qty, int *updater);
-int			exec_new_path(char *path, int cmd_qty, t_var_lst *env_lst,
-				int *updater);
+void		no_such_file_or_directory(char *path, int cmd_qty);
+int			exec_new_path(char *path, int cmd_qty, t_var_lst *env_lst);
 
 //BIN_CMD_UTILS FUNCTIONS
 int			finish_bin_cmd(t_cmd_lst *cmd);

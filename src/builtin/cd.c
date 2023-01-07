@@ -6,17 +6,17 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/07 20:04:14 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/07 20:17:01 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	go_home(t_var_lst *env_lst, t_cmd_info *data, int *updater);
+static void	go_home(t_var_lst *env, t_cmd_info *data, char *old_dir);
 static void	oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd,
-				int *updater);
-static void	relative_or_absolute(char *path, t_cmd_info *data, int *updater,
-				t_var_lst *env_lst);
+				char *old_dir);
+static void	relative_or_absolute(char *path, t_cmd_info *data, char *old_dir,
+				t_var_lst *env);
 static void	exec_cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 
 void	cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env)
@@ -35,26 +35,20 @@ static void	exec_cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env)
 {
 	char	*old_dir;
 	char	*path;
-	int		updater;
 
 	old_dir = getcwd(NULL, 0);
 	path = cmd->args[1];
-	updater = 1;
 	if (!path || (!ft_strncmp(path, "~", 2)))
-		go_home(env, data, &updater);
+		go_home(env, data, old_dir);
 	else if (*path == '-' && ft_strlen(path) == 1)
-		oldpwd(env, data, cmd, &updater);
+		oldpwd(env, data, cmd, old_dir);
 	else
-		relative_or_absolute(path, data, &updater, env);
+		relative_or_absolute(path, data, old_dir, env);
 	if (data->qty == 1)
-	{
-		if (updater)
-			update_oldpwd(old_dir, env);
 		change_content("PWD", getcwd(NULL, 0), env);
-	}
 }
 
-static void	go_home(t_var_lst *env, t_cmd_info *data, int *updater)
+static void	go_home(t_var_lst *env, t_cmd_info *data, char *old_dir)
 {
 	if (chdir(get_content("HOME", env)) == -1)
 	{
@@ -62,18 +56,18 @@ static void	go_home(t_var_lst *env, t_cmd_info *data, int *updater)
 		if (data->qty != 1)
 			exit(1);
 		g_exit_status = 1;
-		*updater = 0;
 	}
 	else
 	{
 		if (data->qty != 1)
 			exit(0);
 		g_exit_status = 0;
+		update_oldpwd(old_dir, env);
 	}
 }
 
 static void	oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd,
-		int *updater)
+			char *old_dir)
 {
 	if (get_env("OLDPWD", env))
 	{
@@ -83,6 +77,7 @@ static void	oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd,
 		if (data->qty != 1)
 			exit(0);
 		g_exit_status = 0;
+		update_oldpwd(old_dir, env);
 	}
 	else
 	{
@@ -90,24 +85,24 @@ static void	oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd,
 		if (data->qty != 1)
 			exit(1);
 		g_exit_status = 1;
-		*updater = 0;
 	}
 }
 
-static void	relative_or_absolute(char *path, t_cmd_info *data, int *updater,
-		t_var_lst *env_lst)
+static void	relative_or_absolute(char *path, t_cmd_info *data, char *old_dir,
+			t_var_lst *env)
 {
 	if (!ft_strncmp(path, "~/", 2))
 	{
-		if (!exec_new_path(path, data->qty, env_lst, updater))
+		if (!exec_new_path(path, data->qty, env))
 			return ;
 	}
 	else if (chdir(path) == -1)
 	{
-		no_such_file_or_directory(path, data->qty, updater);
+		no_such_file_or_directory(path, data->qty);
 		return ;
 	}
 	if (data->qty != 1)
 		exit(0);
 	g_exit_status = 0;
+	update_oldpwd(old_dir, env);
 }
