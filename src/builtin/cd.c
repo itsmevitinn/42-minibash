@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/07 20:21:49 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/07 20:43:39 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	go_home(t_var_lst *env, t_cmd_info *data, char *old_dir)
 		if (data->qty != 1)
 			exit(1);
 		g_exit_status = 1;
+		free(old_dir);
 	}
 	else
 	{
@@ -86,6 +87,7 @@ static void	oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd,
 		if (data->qty != 1)
 			exit(1);
 		g_exit_status = 1;
+		free(old_dir);
 	}
 }
 
@@ -95,11 +97,15 @@ static void	relative_or_absolute(char *path, t_cmd_info *data, char *old_dir,
 	if (!ft_strncmp(path, "~/", 2))
 	{
 		if (!exec_new_path(path, data->qty, env))
+		{
+			free(old_dir);
 			return ;
+		}
 	}
 	else if (chdir(path) == -1)
 	{
 		no_such_file_or_directory(path, data->qty);
+		free(old_dir);
 		return ;
 	}
 	if (data->qty != 1)
