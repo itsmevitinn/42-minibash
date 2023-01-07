@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 09:51:57 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/07 20:11:54 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/07 20:33:38 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,10 @@
 
 void	update_oldpwd(char *old_dir, t_var_lst *env)
 {
-	char	*oldpwd_name;
-
-	oldpwd_name = ft_strdup("OLDPWD");
 	if (get_env("OLDPWD", env))
 		change_content("OLDPWD", old_dir, env);
 	else
-		ft_varadd_back(&env, ft_var_new(oldpwd_name, old_dir));
+		ft_varadd_back(&env, ft_var_new(ft_strdup("OLDPWD"), old_dir));
 }
 
 int	exec_new_path(char *path, int cmd_qty, t_var_lst *env_lst)
