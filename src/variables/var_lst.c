@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_lst.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 14:44:40 by vsergio           #+#    #+#             */
-/*   Updated: 2022/12/25 14:08:43 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/07 19:09:15 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,28 @@ void	ft_varclear(t_var_lst **head)
 
 void	change_content(char *name, char *content, t_var_lst *variables)
 {
-	int	name_len;
+	t_var_lst	*temp;
+	int			name_len;
 
+	temp = variables;
 	name_len = ft_strlen(name);
-	while (variables && ft_strncmp(name, variables->name, name_len + 1))
-		variables = variables->next;
-	if (variables)
+	while (temp && ft_strncmp(name, temp->name, name_len + 1))
+		temp = temp->next;
+	if (temp)
 	{
-		free(variables->content);
-		variables->content = content;
+		free(temp->content);
+		temp->content = content;
 	}
 }
 
 t_var_lst	*get_env(char *name, t_var_lst *variables)
 {
-	int	name_len;
+	t_var_lst	*temp;
+	int			name_len;
 
+	temp = variables;
 	name_len = ft_strlen(name);
-	while (variables && ft_strncmp(name, variables->name, name_len + 1))
-		variables = variables->next;
-	return (variables);
+	while (temp && ft_strncmp(name, temp->name, name_len + 1))
+		temp = temp->next;
+	return (temp);
 }

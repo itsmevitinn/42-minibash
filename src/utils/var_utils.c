@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 14:08:30 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/03 17:17:53 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/07 02:59:14 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 char	*get_content(char *name, t_var_lst *env)
 {
-	int	name_len;
+	t_var_lst	*temp;
+	int			name_len;
 
+	temp = env;
 	name_len = ft_strlen(name);
-	while (env && ft_strncmp(name, env->name, name_len + 1))
-		env = env->next;
-	if (env)
-		return (env->content);
+	while (temp && ft_strncmp(name, temp->name, name_len + 1))
+		temp = temp->next;
+	if (temp)
+		return (temp->content);
 	return (NULL);
 }
 

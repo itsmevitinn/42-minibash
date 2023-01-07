@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cmd_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 19:46:28 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/06 18:45:47 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/07 19:09:58 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,4 @@ int	execute_heredoc(t_cmd_lst *cmd)
 	}
 	else
 		return (1);
-}
-
-void	finish_fork_builtin(t_cmd_lst *cmd)
-{
-	int	status;
-
-	waitpid(cmd->pid, &status, 0);
-	g_exit_status = WEXITSTATUS(status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/06 18:35:47 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/07 19:42:26 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 static void	go_home(t_var_lst *env_lst, t_cmd_info *data, int *updater);
 static void	oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd,
 				int *updater);
-static void	relative_or_absolute(char *path, t_cmd_info *data, int *updater, t_var_lst *env_lst);
+static void	relative_or_absolute(char *path, t_cmd_info *data, int *updater,
+				t_var_lst *env_lst);
 static void	exec_cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 
 void	cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
@@ -39,7 +40,7 @@ static void	exec_cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 	current_dir = getcwd(NULL, 0);
 	path = cmd->args[1];
 	updater = 1;
-	if (!path || (*path == '~' && ft_strlen(path) == 1))
+	if (!path || (!ft_strncmp(path, "~", 2)))
 		go_home(env_lst, data, &updater);
 	else if (*path == '-' && ft_strlen(path) == 1)
 		oldpwd(env_lst, data, cmd, &updater);
@@ -95,32 +96,20 @@ static void	oldpwd(t_var_lst *env, t_cmd_info *data, t_cmd_lst *cmd,
 	}
 }
 
-static void	relative_or_absolute(char *path, t_cmd_info *data, int *updater, t_var_lst *env_lst)
+static void	relative_or_absolute(char *path, t_cmd_info *data, int *updater,
+		t_var_lst *env_lst)
 {
-	int		ret_chdir;
-	char	*home;
-
 	if (!ft_strncmp(path, "~/", 2))
 	{
-		home = ft_strjoin(get_content("HOME", env_lst), "/", 0);
-		path = ft_strjoin(home, path + 2, 'f');
+		if (!exec_new_path(path, data->qty, env_lst, updater))
+			return ;
 	}
-	ret_chdir = chdir(path);
-	if (ret_chdir == -1)
+	else if (chdir(path) == -1)
 	{
-		ft_putstr_fd("bash: cd: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putstr_fd(": ", 2);
-		perror(NULL);
-		if (data->qty != 1)
-			exit(1);
-		g_exit_status = 1;
-		*updater = 0;
+		no_such_file_or_directory(path, data->qty, updater);
+		return ;
 	}
-	else
-	{
-		if (data->qty != 1)
-			exit(0);
-		g_exit_status = 0;
-	}
+	if (data->qty != 1)
+		exit(0);
+	g_exit_status = 0;
 }
