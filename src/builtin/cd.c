@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:54:31 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/07 19:42:26 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/07 20:04:14 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,46 +19,44 @@ static void	relative_or_absolute(char *path, t_cmd_info *data, int *updater,
 				t_var_lst *env_lst);
 static void	exec_cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
 
-void	cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
+void	cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env)
 {
 	if (data->qty == 1)
-		exec_cd(cmd, data, env_lst);
+		exec_cd(cmd, data, env);
 	else if (data->qty > 1)
 	{
 		cmd->pid = fork();
 		if (!cmd->pid)
-			exec_cd(cmd, data, env_lst);
+			exec_cd(cmd, data, env);
 	}
 }
 
-static void	exec_cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
+static void	exec_cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env)
 {
-	char	*current_dir;
+	char	*old_dir;
 	char	*path;
 	int		updater;
 
-	current_dir = getcwd(NULL, 0);
+	old_dir = getcwd(NULL, 0);
 	path = cmd->args[1];
 	updater = 1;
 	if (!path || (!ft_strncmp(path, "~", 2)))
-		go_home(env_lst, data, &updater);
+		go_home(env, data, &updater);
 	else if (*path == '-' && ft_strlen(path) == 1)
-		oldpwd(env_lst, data, cmd, &updater);
+		oldpwd(env, data, cmd, &updater);
 	else
-		relative_or_absolute(path, data, &updater, env_lst);
+		relative_or_absolute(path, data, &updater, env);
 	if (data->qty == 1)
 	{
 		if (updater)
-			update_oldpwd(current_dir, env_lst);
+			update_oldpwd(old_dir, env);
+		change_content("PWD", getcwd(NULL, 0), env);
 	}
 }
 
-static void	go_home(t_var_lst *env_lst, t_cmd_info *data, int *updater)
+static void	go_home(t_var_lst *env, t_cmd_info *data, int *updater)
 {
-	int	ret_chdir;
-
-	ret_chdir = chdir(get_content("HOME", env_lst));
-	if (ret_chdir == -1)
+	if (chdir(get_content("HOME", env)) == -1)
 	{
 		ft_putstr_fd("bash: cd: HOME not set\n", 2);
 		if (data->qty != 1)
