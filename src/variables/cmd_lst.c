@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 14:02:11 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/06 11:51:08 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/08 21:13:28 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_cmd_lst	*ft_cmd_new(char *line)
 	lst->args = NULL;
 	lst->next = NULL;
 	lst->delimiter = NULL;
+	lst->not_found = 0;
 	return (lst);
 }
 

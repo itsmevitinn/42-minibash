@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 18:11:41 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/06 18:21:04 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/08 22:16:33 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,24 @@ void	handle_eof(t_var_lst **var_lst)
 
 void	get_exit_status(t_cmd_lst *lst_cmd, int cmd_qty)
 {
-	int	status;
+	t_cmd_lst	*last_cmd;
+	int			status;
 
+	if (single_builtin(lst_cmd->args[0], cmd_qty))
+		return ;
 	while (lst_cmd)
 	{
-		if (single_builtin(lst_cmd->args[0], cmd_qty))
-			return ;
 		waitpid(lst_cmd->pid, &status, 0);
+		last_cmd = lst_cmd;
 		lst_cmd = lst_cmd->next;
 	}
-	if (!WIFEXITED(status))
-		g_exit_status = 1;
-	else
-		g_exit_status = WEXITSTATUS(status);
+	if (!last_cmd->not_found)
+	{
+		if (!WIFEXITED(status))
+			g_exit_status = 1;
+		else
+			g_exit_status = WEXITSTATUS(status);
+	}
 }
 
 static int	single_builtin(char *cmd_name, int cmd_qty)
