@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 11:06:22 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/09 10:36:25 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/09 15:48:11 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	get_heredoc_input(t_cmd_lst *cmd, int *here_pipe)
 {
 	char	*line;
 
+	g_exit_status = 0;
 	while (42)
 	{
 		line = readline(">");
