@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 11:59:16 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/06 16:39:59 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/09 16:47:10 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,13 @@ static int	error_found(t_cmd_lst *cmd)
 		ft_putstr_fd(cmd->in_file, 2);
 		ft_putstr_fd(": ", 2);
 		perror(NULL);
+		g_exit_status = 1;
 		return (1);
 	}
 	else if (!*cmd->args)
+	{
+		g_exit_status = 0;
 		return (1);
+	}
 	return (0);
 }
