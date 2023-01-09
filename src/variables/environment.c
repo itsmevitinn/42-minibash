@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcorreia <gcorreia@student.42.rio>         +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:09:07 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/06 17:59:26 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/09 11:07:09 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	content_len(char *str);
 static int	name_len(char *str);
 static void	fill_array(char **array, char *str);
+
 extern char	**environ;
 
 void	initialize_env(t_cmd_info *data)
@@ -34,6 +35,7 @@ void	initialize_env(t_cmd_info *data)
 		}
 		i++;
 	}
+	increment_shlvl(data->env_lst);
 }
 
 char	**split_env(char *str)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/08 23:07:54 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/09 11:06:58 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,9 @@ int			cmds_quantity(t_cmd_info *data);
 
 //FILL_DATA FUNCTIONS
 void		fill_data(t_cmd_info *data);
+
+//ENV_UTILS FUNCTIONS
+void		increment_shlvl(t_var_lst *env);
 
 //PRECEDENCE_ANALYZER FUNCTIONS
 void		precedence_analyzer(t_cmd_info *data);
