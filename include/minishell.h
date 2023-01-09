@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/07 20:12:02 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/08 23:07:54 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+# include <sys/ioctl.h>
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -53,6 +54,7 @@ typedef struct s_cmd_lst
 	char				*in_file;
 	char				*out_file;
 	int					input;
+	int					not_found;
 	int					output;
 	char				*delimiter;
 	char				*line;
@@ -142,7 +144,7 @@ void		exec_cmds(t_cmd_info *data, t_var_lst **env_lst);
 void		exec_builtin_cmd(t_cmd_lst *cmd, t_cmd_info *data,
 				t_var_lst **env_lst);
 void		exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
-void		get_heredoc_input(t_cmd_lst *cmd, int *here_pipe);
+int			get_heredoc_input(t_cmd_lst *cmd, int *here_pipe);
 
 //BULT-IN FUNCTIONS
 void		cd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst);
