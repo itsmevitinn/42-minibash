@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_heredoc_input.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 11:06:22 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/08 23:25:50 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/09 10:36:25 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ int	get_heredoc_input(t_cmd_lst *cmd, int *here_pipe)
 	{
 		line = readline(">");
 		if (g_exit_status == 130)
+		{
+			free(line);
 			return (0);
+		}
 		if (!line)
 		{
 			print_warning(cmd->delimiter);

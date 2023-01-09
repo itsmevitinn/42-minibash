@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_bin.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/08 22:40:33 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/09 10:35:02 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ static char	*find_bin_path(t_cmd_lst *cmd, t_var_lst *env_lst)
 		cmd_path = ft_strjoin(env_paths[i], "/", 0);
 		cmd_path = ft_strjoin(cmd_path, cmd->args[0], 'f');
 		if (!access(cmd_path, F_OK | X_OK))
+		{
+			free_matrix(env_paths);
 			return (cmd_path);
+		}
 		free(cmd_path);
 		i++;
 	}
