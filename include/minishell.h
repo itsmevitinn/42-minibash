@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 21:30:44 by vsergio           #+#    #+#             */
-/*   Updated: 2023/01/09 11:06:58 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/09 16:33:56 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int			exec_new_path(char *path, int cmd_qty, t_var_lst *env_lst);
 
 //BIN_CMD_UTILS FUNCTIONS
 int			finish_bin_cmd(t_cmd_lst *cmd);
-void		command_not_found(t_cmd_lst *cmd);
+void		command_not_found(t_cmd_lst *cmd, t_cmd_info *data);
 
 //BUILTIN_CMD_UTILS FUNCTIONS
 int			check_heredoc(t_cmd_lst *cmd);

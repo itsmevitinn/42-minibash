@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/09 16:05:04 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/09 16:50:53 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ void	exec_bin_cmd(t_cmd_lst *cmd, t_cmd_info *data, t_var_lst *env_lst)
 	{
 		cmd_path = find_bin_path(cmd, env_lst);
 		if (!cmd_path)
-		{
-			command_not_found(cmd);
-			cmd->not_found = 1;
-		}
+			command_not_found(cmd, data);
 		else
 			run_bin_path(cmd, data, env_lst, cmd_path);
 	}
