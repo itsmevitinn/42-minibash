@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 18:11:41 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/08 22:16:33 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/09 16:28:06 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,15 @@ void	get_exit_status(t_cmd_lst *lst_cmd, int cmd_qty)
 
 static int	single_builtin(char *cmd_name, int cmd_qty)
 {
-	if (!ft_strncmp(cmd_name, "cd", 2) && cmd_qty == 1)
-		return (1);
-	else if (!ft_strncmp(cmd_name, "export", 6) && cmd_qty == 1)
-		return (1);
-	else if (!ft_strncmp(cmd_name, "unset", 5) && cmd_qty == 1)
-		return (1);
+	if (cmd_name)
+	{
+		if (!ft_strncmp(cmd_name, "cd", 2) && cmd_qty == 1)
+			return (1);
+		else if (!ft_strncmp(cmd_name, "export", 6) && cmd_qty == 1)
+			return (1);
+		else if (!ft_strncmp(cmd_name, "unset", 5) && cmd_qty == 1)
+			return (1);
+	}
 	return (0);
 }
 

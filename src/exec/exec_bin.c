@@ -6,14 +6,13 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/09 15:05:02 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/09 16:05:04 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 static void	setup_fds(t_cmd_lst *cmd, t_cmd_info *data);
-// static int	valid_absolute_path(t_cmd_lst *cmd);
 static char	*find_bin_path(t_cmd_lst *cmd, t_var_lst *env_lst);
 static void	run_absolute_path(t_cmd_lst *cmd, t_cmd_info *data,
 				t_var_lst *env_lst);
