@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 18:50:59 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/09 10:35:02 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/09 15:05:02 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static char	*find_bin_path(t_cmd_lst *cmd, t_var_lst *env_lst)
 	char	*cmd_path;
 	int		i;
 
-	if (!*cmd->args[0])
+	if (!*cmd->args[0] || !get_content("PATH", env_lst))
 		return (NULL);
 	i = 0;
 	env_paths = ft_split(get_content("PATH", env_lst), ':');
