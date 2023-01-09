@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:57:27 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/27 01:48:38 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/08 23:25:53 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,12 @@ void	setup_signals(void)
 
 static void	handle_signal(int sig)
 {
-	write(1, "\n", 1);
-	if (RL_ISSTATE(RL_STATE_READCMD))
+	if (sig == SIGINT)
 	{
-		g_exit_status = 1;
-		rl_on_new_line();
+		g_exit_status = 130;
+		ioctl(STDIN_FILENO, TIOCSTI, "\n");
 		rl_replace_line("", 0);
-		rl_redisplay();
+		rl_on_new_line();
 	}
 	(void)sig;
 }
