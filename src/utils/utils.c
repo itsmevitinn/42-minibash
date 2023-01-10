@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 09:23:45 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/09 17:30:40 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/09 22:23:16 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,21 @@ void	close_all_pipes(t_cmd_info *data)
 
 int	is_builtin(char *cmd_name)
 {
-	if ((!ft_strncmp(cmd_name, "echo", 5)) || (!ft_strncmp(cmd_name, "/bin/echo", 10)))
+	if ((!ft_strncmp(cmd_name, "echo", 5)) || (!ft_strncmp(cmd_name,
+				"/bin/echo", 10)))
 		return (1);
-	else if ((!ft_strncmp(cmd_name, "cd", 3)) || (!ft_strncmp(cmd_name, "/usr/bin/cd", 12)))
+	else if ((!ft_strncmp(cmd_name, "cd", 3)) || (!ft_strncmp(cmd_name,
+				"/usr/bin/cd", 12)))
 		return (1);
-	else if ((!ft_strncmp(cmd_name, "pwd", 4)) || (!ft_strncmp(cmd_name, "/bin/pwd", 9)))
+	else if ((!ft_strncmp(cmd_name, "pwd", 4)) || (!ft_strncmp(cmd_name,
+				"/bin/pwd", 9)))
 		return (1);
 	else if (!ft_strncmp(cmd_name, "export", 7))
 		return (1);
 	else if (!ft_strncmp(cmd_name, "unset", 6))
 		return (1);
-	else if ((!ft_strncmp(cmd_name, "env", 4)) || (!ft_strncmp(cmd_name, "/usr/bin/env", 13)))
+	else if ((!ft_strncmp(cmd_name, "env", 4)) || (!ft_strncmp(cmd_name,
+				"/usr/bin/env", 13)))
 		return (1);
 	else if (!ft_strncmp(cmd_name, "exit", 5))
 		return (1);
