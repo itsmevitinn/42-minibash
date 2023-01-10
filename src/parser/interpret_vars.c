@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpret_vars.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Vitor <Vitor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 20:37:37 by gcorreia          #+#    #+#             */
-/*   Updated: 2022/12/23 14:59:17 by gcorreia         ###   ########.fr       */
+/*   Updated: 2023/01/09 22:38:47 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	interpret_vars(char **args, t_var_lst *env_lst)
 				alter_state(&inside_double_quotes);
 			if (*line == '\'' && !inside_double_quotes)
 				line = skip_quote(line);
-			else if (*line == '$')
+			else if (*line == '$' && !ft_isspace(line[1]) && line[1])
 				line = handle_dollar_sign(args, line, env_lst);
 			else
 				line++;
