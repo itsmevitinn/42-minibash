@@ -55,6 +55,7 @@ $(LIBFT):
 			$(MAKELIBFT)
 
 clean:
+			@${MAKE_IN_DIRECTORY} ${LIBFT_PATH} clean
 			@${RM} ${NAME}.dSYM
 			@echo "\033[33m 🧹 | minishell cleaned. \033[0m"
 
