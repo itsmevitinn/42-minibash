@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 18:11:41 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/09 16:38:00 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/09 22:10:04 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	get_exit_status(t_cmd_lst *lst_cmd, int cmd_qty)
 	if (!last_cmd->not_found && last_cmd->args[0])
 	{
 		if (!WIFEXITED(status))
-			g_exit_status = 1;
+			g_exit_status = 130;
 		else
 			g_exit_status = WEXITSTATUS(status);
 	}
