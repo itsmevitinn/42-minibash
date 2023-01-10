@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsergio <vsergio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 22:49:26 by Vitor             #+#    #+#             */
-/*   Updated: 2023/01/06 16:42:16 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/09 23:27:57 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	exec_echo(t_cmd_lst *cmd)
 
 static int	has_option(char *arg)
 {
-	if (!ft_strncmp(arg, "-n", 2) && ft_strlen(arg) == 2)
+	if (!ft_strncmp(arg, "-n", 3) && ft_strlen(arg) == 2)
 		return (1);
 	return (0);
 }
