@@ -6,7 +6,7 @@
 /*   By: vsergio <vsergio@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 18:11:41 by gcorreia          #+#    #+#             */
-/*   Updated: 2023/01/09 22:32:25 by vsergio          ###   ########.fr       */
+/*   Updated: 2023/01/09 22:59:04 by vsergio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ static int	single_builtin(char *cmd_name, int cmd_qty)
 {
 	if (cmd_name)
 	{
-		if ((is_builtin("cd") || is_builtin("/usr/bin/cd")) && cmd_qty == 1)
+		if (!ft_strncmp(cmd_name, "cd", 2) && cmd_qty == 1)
 			return (1);
-		else if (is_builtin("export") && cmd_qty == 1)
+		else if (!ft_strncmp(cmd_name, "/usr/bin/cd", 12) && cmd_qty == 1)
 			return (1);
-		else if (is_builtin("unset") && cmd_qty == 1)
+		else if (!ft_strncmp(cmd_name, "export", 6) && cmd_qty == 1)
+			return (1);
+		else if (!ft_strncmp(cmd_name, "unset", 5) && cmd_qty == 1)
 			return (1);
 	}
 	return (0);
