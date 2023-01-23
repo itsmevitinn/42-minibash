@@ -20,9 +20,9 @@ git clone https://github.com/itsmevitinn/minishell.git
 
 2. `./minishell`
 
-## Author
+## Authors
 
-👤 **Vitor Marcondes**
+👤 **Vitor Marcondes & Gabriel Cardoso**
 
 - LinkedIn: [@itsmevitinn](https://www.linkedin.com/in/itsmevitinn/)
 - LinkedIn: [@gabrielclc](https://www.linkedin.com/in/gabrielclc/)
