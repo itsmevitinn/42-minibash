@@ -2,7 +2,7 @@
 ### Project overview:
 This project consists of creating a shell that implements some of the functionalities present in bash.
 
-The project was developed by [me](https://www.linkedin.com/in/gabrielclcardoso/) and [Vitor Marcondes](https://www.linkedin.com/in/itsmevitinn/).
+The project was developed by [me](https://www.linkedin.com/in/itsmevitinn/) and [Gabriel Cardoso](https://www.linkedin.com/in/gabrielclcardoso/).
 
 #### Features that will be implemented:
 * Working prompt, with history;
@@ -69,11 +69,11 @@ brew install readline
 1 Clone this repository wherever you like:
 
 ```
-git clone https://github.com/gabrielclcardoso/minibash
+git clone https://github.com/itsmevitinn/42-minibash.git
 ```
 2 Enter the cloned repository and run make inside it:
 ```
-cd minibash && make
+cd 42-minibash && make
 ```
 3 Run the minibash executable and prompt away :)
 ```
