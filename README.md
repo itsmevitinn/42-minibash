@@ -49,7 +49,7 @@ The singal handling part was pretty straight forward. We used the [sigaction](ht
 For handling Environment variables we exported the [environ](https://linux.die.net/man/7/environ) variable and created a copy of it, this way we could manipulate the environment variables of our shell freely without messing with those of the shell that ran ours. We decided to copy it into a linked list so that it'd be easier to add, remove and change the contents of the environment variables.
 
 #### Built-in commands:
-The built-in commands were pretty straight foreward aswell, we read their documentation and implemented their behavior and error handling. For the built-ins that dealt with environment variables, we used the copy of the environment vairables that we created.
+The built-in commands were pretty straight foreward aswell, we read their documentation and implemented their behavior and error handling. For the built-ins that dealt with environment variables, we used the copy of [environ](https://linux.die.net/man/7/environ) that we created.
 
 #### Command execution:
 For the command execution we used function calls for the built-in commands and the [fork](https://linux.die.net/man/2/fork) function combined with the [execve](https://linux.die.net/man/2/execve) function for the executables. To implement the pipeline of commands we used the [pipe](https://linux.die.net/man/2/pipe) function and to extract the exit status of the child processes we used the status parameter of the [waitpid](https://linux.die.net/man/2/waitpid) function.
@@ -69,7 +69,13 @@ brew install readline
 1 Clone this repository wherever you like:
 
 ```
-git clone https://github.com/gabrielclcardoso/dining_philosophers.git
+git clone https://github.com/gabrielclcardoso/minibash
 ```
-
-2 Enter the philo directory inside the repository and type in make to compile it:
+2 Enter the cloned repository and run make inside it:
+```
+cd minibash && make
+```
+3 Run the minibash executable and prompt away :)
+```
+./minibash
+```
